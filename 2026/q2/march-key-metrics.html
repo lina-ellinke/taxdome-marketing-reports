@@ -38,6 +38,7 @@
 <body>
 <h1>Department Key Metrics — March 2026</h1>
 <p class="report-meta">Q2 2026 baseline report &nbsp;|&nbsp; Data source: HubSpot Breeze &nbsp;|&nbsp; Excludes offline leads unless noted</p>
+
 <div class="section-label">Top of funnel — lead volume and ICP quality</div>
 <div class="card-grid">
   <div class="metric-card">
@@ -58,7 +59,7 @@
     <div class="metric-label">Unclassified leads — March</div>
     <div class="metric-value">30.8%</div>
     <div class="metric-sub">778 of 2,525 total leads</div>
-    <div class="guardrail-note">Guardrail: should decrease month over month as RevOps cleans HubSpot ICP field</div>
+    <div class="guardrail-note">Guardrail: should decrease month over month as Marketing works with RevOps to decrease unclassified lead instances</div>
   </div>
 </div>
 <div class="chart-block">
@@ -67,11 +68,14 @@
     <div class="legend-item"><div class="legend-dot" style="background:#378ADD;"></div>ICP</div>
     <div class="legend-item"><div class="legend-dot" style="background:#B5D4F4;"></div>Non-ICP</div>
     <div class="legend-item"><div class="legend-dot" style="background:#D3D1C7;"></div>Unclassified</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#1D9E75;border-radius:50%;"></div>Total classified</div>
   </div>
-  <div style="position:relative;width:100%;height:200px;"><canvas id="leadChart"></canvas></div>
+  <div style="position:relative;width:100%;height:220px;"><canvas id="leadChart"></canvas></div>
   <p class="context-note">Tax season suppresses volume in Apr and Jan-Apr. Q2 target of 2,800 classified/month measured from May onward.</p>
 </div>
+
 <div class="divider"></div>
+
 <div class="section-label">Paid channel performance</div>
 <div class="card-grid">
   <div class="metric-card">
@@ -98,7 +102,9 @@
   <div style="position:relative;width:100%;height:180px;"><canvas id="salChart"></canvas></div>
   <p class="context-note">Apr 2025-Mar 2026 reflects Meta only, low investment, not ICP-targeted. LinkedIn brand awareness launched April 1 — true Q2 baseline readable from May onward.</p>
 </div>
+
 <div class="divider"></div>
+
 <div class="section-label">Revenue quality — ACV from new logos</div>
 <div class="card-grid">
   <div class="metric-card">
@@ -124,7 +130,9 @@
   <div style="position:relative;width:100%;height:180px;"><canvas id="acvChart"></canvas></div>
   <p class="context-note">Tax season months consistently suppress ACV. Post-tax season recovery in May-June is the first real Q2 signal.</p>
 </div>
+
 <div class="divider"></div>
+
 <div class="section-label">TD Payments activation</div>
 <div class="card-grid">
   <div class="metric-card">
@@ -141,36 +149,85 @@
     <div class="target-row" style="margin-top:10px;"><span class="pill-label">Baseline locked April 5, 2026</span></div>
   </div>
 </div>
+
 <script>
 const months = ['Apr 25','May 25','Jun 25','Jul 25','Aug 25','Sep 25','Oct 25','Nov 25','Dec 25','Jan 26','Feb 26','Mar 26'];
+const icpData =     [293, 369, 398, 394, 361, 448, 449, 410, 498, 477, 490, 539];
+const nonIcpData =  [511, 575, 522, 663, 789, 704, 821,1045,1153,1034, 857,1208];
+const unclassData = [421, 320, 212, 278, 637, 206, 229, 228, 283, 751, 681, 778];
+const classifiedTotal = icpData.map((v,i) => v + nonIcpData[i]);
+
 new Chart(document.getElementById('leadChart'), {
   type: 'bar',
-  data: { labels: months, datasets: [
-    { label: 'ICP', data: [293,369,398,394,361,448,449,410,498,477,490,539], backgroundColor: '#378ADD', stack: 'a' },
-    { label: 'Non-ICP', data: [511,575,522,663,789,704,821,1045,1153,1034,857,1208], backgroundColor: '#B5D4F4', stack: 'a' },
-    { label: 'Unclassified', data: [421,320,212,278,637,206,229,228,283,751,681,778], backgroundColor: '#D3D1C7', stack: 'a' }
-  ]},
-  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
-    scales: { x: { stacked: true, ticks: { font: { size: 10 }, autoSkip: false, maxRotation: 45 }, grid: { display: false } },
-              y: { stacked: true, ticks: { font: { size: 10 } }, grid: { color: 'rgba(0,0,0,0.04)' } } } }
+  data: {
+    labels: months,
+    datasets: [
+      { label: 'ICP', data: icpData, backgroundColor: '#378ADD', stack: 'a', order: 2 },
+      { label: 'Non-ICP', data: nonIcpData, backgroundColor: '#B5D4F4', stack: 'a', order: 2 },
+      { label: 'Unclassified', data: unclassData, backgroundColor: '#D3D1C7', stack: 'a', order: 2 },
+      {
+        label: 'Total classified',
+        data: classifiedTotal,
+        type: 'line',
+        borderColor: '#1D9E75',
+        backgroundColor: 'transparent',
+        borderWidth: 2,
+        pointRadius: 4,
+        pointBackgroundColor: '#1D9E75',
+        pointBorderColor: '#fff',
+        pointBorderWidth: 1.5,
+        tension: 0.3,
+        order: 1,
+        yAxisID: 'y'
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          afterBody: function(items) {
+            const idx = items[0].dataIndex;
+            return ['', 'Total classified: ' + classifiedTotal[idx].toLocaleString()];
+          },
+          label: function(item) {
+            if (item.dataset.label === 'Total classified') return null;
+            return item.dataset.label + ': ' + item.raw.toLocaleString();
+          }
+        }
+      }
+    },
+    scales: {
+      x: { stacked: true, ticks: { font: { size: 10 }, autoSkip: false, maxRotation: 45 }, grid: { display: false } },
+      y: { stacked: true, ticks: { font: { size: 10 } }, grid: { color: 'rgba(0,0,0,0.04)' } }
+    }
+  }
 });
+
 new Chart(document.getElementById('salChart'), {
   type: 'line',
   data: { labels: months, datasets: [
     { label: 'ICP SAL %', data: [0,9.1,45.5,42.9,40.8,11.8,36.0,26.7,26.7,28.6,24.7,30.0], borderColor: '#1D9E75', backgroundColor: 'rgba(29,158,117,0.07)', borderWidth: 2, pointRadius: 3, fill: true, tension: 0.3 },
     { label: 'Target 40%', data: Array(12).fill(40), borderColor: '#E24B4A', borderWidth: 1.5, borderDash: [5,4], pointRadius: 0 }
   ]},
-  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
+  options: { responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
     scales: { x: { ticks: { font: { size: 10 }, autoSkip: false, maxRotation: 45 }, grid: { display: false } },
               y: { min: 0, max: 60, ticks: { font: { size: 10 }, callback: v => v + '%' }, grid: { color: 'rgba(0,0,0,0.04)' } } } }
 });
+
 new Chart(document.getElementById('acvChart'), {
   type: 'line',
   data: { labels: months, datasets: [
     { label: 'Avg ACV', data: [1959.81,2735.29,3559.86,3461.35,3493.54,3105.16,2622.11,3076.64,2613.45,1566.03,1736.53,1805.92], borderColor: '#EF9F27', backgroundColor: 'rgba(239,159,39,0.07)', borderWidth: 2, pointRadius: 3, fill: true, tension: 0.3 },
     { label: 'Target', data: Array(12).fill(3000), borderColor: '#E24B4A', borderWidth: 1.5, borderDash: [5,4], pointRadius: 0 }
   ]},
-  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
+  options: { responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
     scales: { x: { ticks: { font: { size: 10 }, autoSkip: false, maxRotation: 45 }, grid: { display: false } },
               y: { min: 0, max: 4000, ticks: { font: { size: 10 }, callback: v => '$' + v.toLocaleString() }, grid: { color: 'rgba(0,0,0,0.04)' } } } }
 });
