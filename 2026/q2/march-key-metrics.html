@@ -163,9 +163,9 @@ new Chart(document.getElementById('leadChart'), {
   data: {
     labels: months,
     datasets: [
-      { label: 'ICP', data: icpData, backgroundColor: '#378ADD', stack: 'a', order: 2, yAxisID: 'y' },
-      { label: 'Non-ICP', data: nonIcpData, backgroundColor: '#B5D4F4', stack: 'a', order: 2, yAxisID: 'y' },
-      { label: 'Unclassified', data: unclassData, backgroundColor: '#D3D1C7', stack: 'a', order: 2, yAxisID: 'y' },
+      { label: 'ICP', data: icpData, backgroundColor: '#378ADD', stack: 'stack0', order: 2 },
+      { label: 'Non-ICP', data: nonIcpData, backgroundColor: '#B5D4F4', stack: 'stack0', order: 2 },
+      { label: 'Unclassified', data: unclassData, backgroundColor: '#D3D1C7', stack: 'stack0', order: 2 },
       {
         label: 'Total classified',
         data: classifiedTotal,
@@ -178,8 +178,7 @@ new Chart(document.getElementById('leadChart'), {
         pointBorderColor: '#fff',
         pointBorderWidth: 1.5,
         tension: 0.3,
-        order: 1,
-        yAxisID: 'y1'
+        order: 1
       },
       {
         label: 'Target 2,800',
@@ -191,9 +190,7 @@ new Chart(document.getElementById('leadChart'), {
         borderDash: [6,4],
         pointRadius: 0,
         tension: 0,
-        order: 0,
-        yAxisID: 'y1',
-        segment: { borderDash: ctx => [6,4] }
+        order: 0
       }
     ]
   },
@@ -211,15 +208,18 @@ new Chart(document.getElementById('leadChart'), {
           },
           label: function(item) {
             if (item.dataset.label === 'Total classified') return null;
-            return item.dataset.label + ': ' + item.raw.toLocaleString();
+            if (item.dataset.label === 'Target 2,800') return null;
+            const idx = item.dataIndex;
+            const total = icpData[idx] + nonIcpData[idx] + unclassData[idx];
+            const pct = total > 0 ? Math.round(item.raw / total * 100) : 0;
+            return item.dataset.label + ': ' + item.raw.toLocaleString() + ' (' + pct + '%)';
           }
         }
       }
     },
     scales: {
       x: { stacked: true, ticks: { font: { size: 10 }, autoSkip: false, maxRotation: 45 }, grid: { display: false } },
-      y: { stacked: true, ticks: { font: { size: 10 } }, grid: { color: 'rgba(0,0,0,0.04)' }, min: 0 },
-      y1: { stacked: false, display: false, min: 0, max: 5000, grid: { display: false } }
+      y: { stacked: true, ticks: { font: { size: 10 } }, grid: { color: 'rgba(0,0,0,0.04)' } }
     }
   }
 });
