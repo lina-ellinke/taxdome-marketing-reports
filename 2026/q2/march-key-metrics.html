@@ -69,6 +69,7 @@
     <div class="legend-item"><div class="legend-dot" style="background:#B5D4F4;"></div>Non-ICP</div>
     <div class="legend-item"><div class="legend-dot" style="background:#D3D1C7;"></div>Unclassified</div>
     <div class="legend-item"><div class="legend-dot" style="background:#1D9E75;border-radius:50%;"></div>Total classified</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#3b6d11;border-radius:0;"></div>Target 2,800</div>
   </div>
   <div style="position:relative;width:100%;height:220px;"><canvas id="leadChart"></canvas></div>
   <p class="context-note">Tax season suppresses volume in Apr and Jan-Apr. Q2 target of 2,800 classified/month measured from May onward.</p>
@@ -177,6 +178,18 @@ new Chart(document.getElementById('leadChart'), {
         pointBorderColor: '#fff',
         pointBorderWidth: 1.5,
         tension: 0.3,
+        order: 1,
+        yAxisID: 'y'
+      },
+      {
+        label: 'Target 2,800',
+        data: Array(12).fill(2800),
+        type: 'line',
+        borderColor: '#3b6d11',
+        backgroundColor: 'transparent',
+        borderWidth: 1.5,
+        borderDash: [5,4],
+        pointRadius: 0,
         order: 1,
         yAxisID: 'y'
       }
