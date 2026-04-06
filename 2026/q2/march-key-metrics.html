@@ -163,9 +163,9 @@ new Chart(document.getElementById('leadChart'), {
   data: {
     labels: months,
     datasets: [
-      { label: 'ICP', data: icpData, backgroundColor: '#378ADD', stack: 'a', order: 2 },
-      { label: 'Non-ICP', data: nonIcpData, backgroundColor: '#B5D4F4', stack: 'a', order: 2 },
-      { label: 'Unclassified', data: unclassData, backgroundColor: '#D3D1C7', stack: 'a', order: 2 },
+      { label: 'ICP', data: icpData, backgroundColor: '#378ADD', stack: 'a', order: 2, yAxisID: 'y' },
+      { label: 'Non-ICP', data: nonIcpData, backgroundColor: '#B5D4F4', stack: 'a', order: 2, yAxisID: 'y' },
+      { label: 'Unclassified', data: unclassData, backgroundColor: '#D3D1C7', stack: 'a', order: 2, yAxisID: 'y' },
       {
         label: 'Total classified',
         data: classifiedTotal,
@@ -179,7 +179,7 @@ new Chart(document.getElementById('leadChart'), {
         pointBorderWidth: 1.5,
         tension: 0.3,
         order: 1,
-        yAxisID: 'y'
+        yAxisID: 'y1'
       },
       {
         label: 'Target 2,800',
@@ -192,7 +192,7 @@ new Chart(document.getElementById('leadChart'), {
         pointRadius: 0,
         tension: 0,
         order: 0,
-        yAxisID: 'y',
+        yAxisID: 'y1',
         segment: { borderDash: ctx => [6,4] }
       }
     ]
@@ -218,7 +218,8 @@ new Chart(document.getElementById('leadChart'), {
     },
     scales: {
       x: { stacked: true, ticks: { font: { size: 10 }, autoSkip: false, maxRotation: 45 }, grid: { display: false } },
-      y: { stacked: true, ticks: { font: { size: 10 } }, grid: { color: 'rgba(0,0,0,0.04)' } }
+      y: { stacked: true, ticks: { font: { size: 10 } }, grid: { color: 'rgba(0,0,0,0.04)' }, min: 0 },
+      y1: { stacked: false, display: false, min: 0, max: 5000, grid: { display: false } }
     }
   }
 });
