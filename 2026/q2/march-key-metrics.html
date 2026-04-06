@@ -178,7 +178,8 @@ new Chart(document.getElementById('leadChart'), {
         pointBorderColor: '#fff',
         pointBorderWidth: 1.5,
         tension: 0.3,
-        order: 1
+        order: 1,
+        stack: 'line0'
       },
       {
         label: 'Target 2,800',
@@ -190,7 +191,9 @@ new Chart(document.getElementById('leadChart'), {
         borderDash: [6,4],
         pointRadius: 0,
         tension: 0,
-        order: 0
+        order: 0,
+        stack: 'line0',
+        segment: { borderDash: ctx => [6,4] }
       }
     ]
   },
@@ -219,7 +222,7 @@ new Chart(document.getElementById('leadChart'), {
     },
     scales: {
       x: { stacked: true, ticks: { font: { size: 10 }, autoSkip: false, maxRotation: 45 }, grid: { display: false } },
-      y: { stacked: true, ticks: { font: { size: 10 } }, grid: { color: 'rgba(0,0,0,0.04)' } }
+      y: { stacked: false, beginAtZero: true, ticks: { font: { size: 10 } }, grid: { color: 'rgba(0,0,0,0.04)' } }
     }
   }
 });
