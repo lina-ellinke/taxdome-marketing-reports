@@ -187,12 +187,13 @@ new Chart(document.getElementById('leadChart'), {
         type: 'line',
         borderColor: '#3b6d11',
         backgroundColor: 'transparent',
-        borderWidth: 1.5,
-        borderDash: [5,4],
+        borderWidth: 2,
+        borderDash: [6,4],
         pointRadius: 0,
         tension: 0,
-        order: 1,
-        yAxisID: 'y'
+        order: 0,
+        yAxisID: 'y',
+        segment: { borderDash: ctx => [6,4] }
       }
     ]
   },
