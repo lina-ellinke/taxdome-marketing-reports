@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>March 2026 — Team Summaries</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: #f8f8f6; color: #1a1a1a; padding: 28px 24px; font-size: 14px; line-height: 1.5; }
+
+  .team-card { background: #fff; border: 0.5px solid #e5e5e0; border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+  .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 0.5px solid #f0f0ec; }
+  .team-name { font-size: 16px; font-weight: 500; color: #1a1a1a; }
+  .team-lead { font-size: 11px; color: #aaa; margin-top: 2px; }
+  .status-pill { font-size: 10px; font-weight: 600; padding: 4px 10px; border-radius: 20px; }
+  .status-strong { background: #eaf3de; color: #3b6d11; }
+  .status-mixed { background: #faeeda; color: #854f0b; }
+  .status-building { background: #e6f1fb; color: #185fa5; }
+
+  .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 20px; }
+  .metric-box { background: #f8f8f6; border-radius: 8px; padding: 12px 14px; }
+  .metric-label { font-size: 10px; color: #888; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .metric-value { font-size: 20px; font-weight: 500; color: #1a1a1a; line-height: 1; }
+  .metric-delta { font-size: 11px; margin-top: 4px; }
+  .delta-up { color: #3b6d11; }
+  .delta-down { color: #a32d2d; }
+  .delta-neutral { color: #888; }
+
+  .section-title { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #aaa; margin-bottom: 10px; }
+
+  .initiative-list { list-style: none; margin-bottom: 20px; }
+  .initiative-item { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 0.5px solid #f5f5f2; }
+  .initiative-item:last-child { border-bottom: none; }
+  .init-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+  .dot-done { background: #639922; }
+  .dot-progress { background: #378ADD; }
+  .dot-risk { background: #EF9F27; }
+  .init-name { font-size: 13px; color: #1a1a1a; font-weight: 500; }
+  .init-meta { font-size: 11px; color: #888; margin-top: 1px; }
+
+  .next-month { background: #f8f8f6; border-radius: 8px; padding: 14px; }
+  .next-items { list-style: none; }
+  .next-item { font-size: 12px; color: #555; padding: 4px 0; display: flex; align-items: flex-start; gap: 8px; }
+  .next-item::before { content: '→'; color: #bbb; flex-shrink: 0; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 600px) { .two-col { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<!-- PRODUCT MARKETING -->
+<div class="team-card">
+  <div class="card-header">
+    <div>
+      <div class="team-name">Product Marketing</div>
+      <div class="team-lead">Valeriya Masyachenko + Mariia Koriakina</div>
+    </div>
+    <span class="status-pill status-strong">Strong month</span>
+  </div>
+
+  <div class="metrics-grid">
+    <div class="metric-box">
+      <div class="metric-label">SQLs</div>
+      <div class="metric-value">317</div>
+      <div class="metric-delta delta-up">117% of target (270)</div>
+    </div>
+    <div class="metric-box">
+      <div class="metric-label">Leads</div>
+      <div class="metric-value">848</div>
+      <div class="metric-delta delta-down">66% of target (1,292)</div>
+    </div>
+    <div class="metric-box">
+      <div class="metric-label">Pipeline — Tax Return campaign</div>
+      <div class="metric-value">$682K</div>
+      <div class="metric-delta delta-up">223% of SQL target</div>
+    </div>
+    <div class="metric-box">
+      <div class="metric-label">Annual Letter revenue</div>
+      <div class="metric-value">$135K</div>
+      <div class="metric-delta delta-neutral">30 won deals since late 2025</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <div class="section-title">Initiatives and improvements</div>
+      <ul class="initiative-list">
+        <li class="initiative-item">
+          <div class="init-dot dot-done"></div>
+          <div>
+            <div class="init-name">Tax Return Delivery paid campaign</div>
+            <div class="init-meta">Complete — best-performing campaign this cycle. 240% of lead target, 36% ICP SQL share.</div>
+          </div>
+        </li>
+        <li class="initiative-item">
+          <div class="init-dot dot-done"></div>
+          <div>
+            <div class="init-name">Accounting Industry Index Report</div>
+            <div class="init-meta">Launched March 30 — first benchmarking report for the accounting industry. Promo continues through May.</div>
+          </div>
+        </li>
+        <li class="initiative-item">
+          <div class="init-dot dot-done"></div>
+          <div>
+            <div class="init-name">MQL Nurturing Chain + Lost Deals reactivation</div>
+            <div class="init-meta">Both launched. Lost deals: 23 reactivated to SAL. Nurturing chain results being tracked.</div>
+          </div>
+        </li>
+        <li class="initiative-item">
+          <div class="init-dot dot-progress"></div>
+          <div>
+            <div class="init-name">TD Payments GTM</div>
+            <div class="init-meta">~90% complete — plan submitted for approval. Launch May 11.</div>
+          </div>
+        </li>
+        <li class="initiative-item">
+          <div class="init-dot dot-progress"></div>
+          <div>
+            <div class="init-name">Interactive Product Tour</div>
+            <div class="init-meta">Concept approved, in website implementation. ETA May 15.</div>
+          </div>
+        </li>
+        <li class="initiative-item">
+          <div class="init-dot dot-risk"></div>
+          <div>
+            <div class="init-name">Intercom flow conversion drop</div>
+            <div class="init-meta">Conversion fell from 70% to 40% after mandatory email step added. Monitoring — Sales evaluating lead quality.</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <div class="section-title">April focus</div>
+      <div class="next-month">
+        <ul class="next-items">
+          <li class="next-item">Brand awareness launch — video descriptions and LinkedIn campaign activation</li>
+          <li class="next-item">Spring Update release — concept approval and brief creation</li>
+          <li class="next-item">TD Payments GTM — submit for final approval and begin execution</li>
+          <li class="next-item">Key Drivers evergreen ICP paid campaign — launch beginning of May</li>
+          <li class="next-item">Competitor ads (Onvio, CCH Axcess) — finalize and launch post-tax season</li>
+          <li class="next-item">White-Label App — embed offer into CS onboarding agenda</li>
+          <li class="next-item">Monthly-to-Annual Seats campaign — finalize Year-Round Firm narrative</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WEB -->
+<div class="team-card">
+  <div class="card-header">
+    <div>
+      <div class="team-name">Web</div>
+      <div class="team-lead">Polina Pyatkova + Olga Garina</div>
+    </div>
+    <span class="status-pill status-strong">Strong YoY growth</span>
+  </div>
+
+  <div class="metrics-grid">
+    <div class="metric-box">
+      <div class="metric-label">Total users</div>
+      <div class="metric-value">139K</div>
+      <div class="metric-delta delta-up">+70.3% YoY</div>
+    </div>
+    <div class="metric-box">
+      <div class="metric-label">Leads</div>
+      <div class="metric-value">1,435</div>
+      <div class="metric-delta delta-up">+6.9% YoY</div>
+    </div>
+    <div class="metric-box">
+      <div class="metric-label">Bounce rate</div>
+      <div class="metric-value">58.2%</div>
+      <div class="metric-delta delta-up">-5.35pp YoY improvement</div>
+    </div>
+    <div class="metric-box">
+      <div class="metric-label">Contact Sales leads</div>
+      <div class="metric-value">52</div>
+      <div class="metric-delta delta-up">+477.8% YoY</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <div class="section-title">Initiatives and improvements</div>
+      <ul class="initiative-list">
+        <li class="initiative-item">
+          <div class="init-dot dot-done"></div>
+          <div>
+            <div class="init-name">Blog redesign</div>
+            <div class="init-meta">Completed — largest Q1 project. Full structural redesign with automated legacy content migration.</div>
+          </div>
+        </li>
+        <li class="initiative-item">
+          <div class="init-dot dot-done"></div>
+          <div>
+            <div class="init-name">Careers page + PeopleForce integration</div>
+            <div class="init-meta">Completed March 25. Improved candidate experience and HR operations.</div>
+          </div>
+        </li>
+        <li class="initiative-item">
+          <div class="init-dot dot-done"></div>
+          <div>
+            <div class="init-name">Migration, Referral, and Paid Onboarding pages</div>
+            <div class="init-meta">All three redesigned and released in March.</div>
+          </div>
+        </li>
+        <li class="initiative-item">
+          <div class="init-dot dot-progress"></div>
+          <div>
+            <div class="init-name">Pricing table optimization</div>
+            <div class="init-meta">90% — in development. Goal: improve CR to demo.</div>
+          </div>
+        </li>
+        <li class="initiative-item">
+          <div class="init-dot dot-progress"></div>
+          <div>
+            <div class="init-name">Kiosk mode landing page</div>
+            <div class="init-meta">60% — design finalized, content in review. ETA April.</div>
+          </div>
+        </li>
+        <li class="initiative-item">
+          <div class="init-dot dot-risk"></div>
+          <div>
+            <div class="init-name">GDPR / Usercentrics (Cookie Bot)</div>
+            <div class="init-meta">Stuck at 50% — pending Security team approval. ETA TBD.</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <div class="section-title">April focus</div>
+      <div class="next-month">
+        <ul class="next-items">
+          <li class="next-item">Interactive Product Tour — integrate to homepage</li>
+          <li class="next-item">Client Directory — build concept and design</li>
+          <li class="next-item">Client Experience page — optimize around new Confident Choice messaging</li>
+          <li class="next-item">Spring Updates campaign — web support</li>
+          <li class="next-item">Sticky banners on Pricing and VS pages — advance to dev</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PARTNERSHIPS -->
+<div class="team-card">
+  <div class="card-header">
+    <div>
+      <div class="team-name">Partnerships</div>
+      <div class="team-lead">Natalia Garzon</div>
+    </div>
+    <span class="status-pill status-mixed">Foundation quarter</span>
+  </div>
+
+  <div class="metrics-grid">
+    <div class="metric-box">
+      <div class="metric-label">Q1 leads</div>
+      <div class="metric-value">770</div>
+      <div class="metric-delta delta-up">128% of 600 target</div>
+    </div>
+    <div class="metric-box">
+      <div class="metric-label">Q1 revenue</div>
+      <div class="metric-value">$49.6K</div>
+      <div class="metric-delta delta-down">55% of $90K target</div>
+    </div>
+    <div class="metric-box">
+      <div class="metric-label">Q1 avg ACV</div>
+      <div class="metric-value">$1,215</div>
+      <div class="metric-delta delta-down">vs $2,000 model assumption</div>
+    </div>
+    <div class="metric-box">
+      <div class="metric-label">Q2 webinars confirmed</div>
+      <div class="metric-value">6</div>
+      <div class="metric-delta delta-neutral">FICPA, COCPA, NAEA, INCPAS, CALCPA, Negozee</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <div class="section-title">Initiatives and improvements</div>
+      <ul class="initiative-list">
+        <li class="initiative-item">
+          <div class="init-dot dot-done"></div>
+          <div>
+            <div class="init-name">Partnerships Confluence reporting hub</div>
+            <div class="init-meta">Completed April 1. Annual targets, Q2 activation plan, lead cycle audit, and weekly report template all live.</div>
+          </div>
+        </li>
+        <li class="initiative-item">
+          <div class="init-dot dot-progress"></div>
+          <div>
+            <div class="init-name">Q2 Partner Activation Calendar</div>
+            <div class="init-meta">60% — 6 webinars confirmed. KPIs and UTM links pending. ETA April 14.</div>
+          </div>
+        </li>
+        <li class="initiative-item">
+          <div class="init-dot dot-progress"></div>
+          <div>
+            <div class="init-name">Lead Cycle Data Quality Audit</div>
+            <div class="init-meta">10% — PartnerStack to HubSpot attribution issue identified, root cause investigation underway. ETA April 14.</div>
+          </div>
+        </li>
+        <li class="initiative-item">
+          <div class="init-dot dot-risk"></div>
+          <div>
+            <div class="init-name">Funnel rework — revised 2026 targets</div>
+            <div class="init-meta">Annual $1M target built on $2,000 ACV assumption. Q1 actuals show $1,215 ACV. Revised scenarios ($500K baseline / $720K stretch) being presented to leadership week of April 7.</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <div class="section-title">April focus</div>
+      <div class="next-month">
+        <ul class="next-items">
+          <li class="next-item">Fix PartnerStack to HubSpot attribution — top priority before any Q2 campaigns go live</li>
+          <li class="next-item">Present funnel rework to Petar — align on revised targets week of April 7</li>
+          <li class="next-item">Lock Q2 webinar KPIs before April 23 (first event: FICPA)</li>
+          <li class="next-item">Confirm remaining webinar topics with NAEA, INCPAS, CALCPA by April 14</li>
+          <li class="next-item">Re-engage 2-4 employee firm segment post-tax season (mid-April onward)</li>
+          <li class="next-item">Brief Marketing and Design on partner landing pages — target launch April 30</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
