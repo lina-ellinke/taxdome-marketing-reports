@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>March 2026 â Performance</title>
+<title>March 2026 &#8212; Performance</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -59,9 +59,9 @@
   .focus-item:last-child { border-bottom: none; }
   .focus-item::before { content: "\2192"; color: #bbb; flex-shrink: 0; }
 
-  .two-col { display: block; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
   .note { font-size: 11px; color: #aaa; font-style: italic; margin-top: 6px; }
-
+  @media (max-width: 640px) { .two-col { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
@@ -72,13 +72,13 @@
       <div class="team-name">Performance</div>
       <div class="team-lead">Danila Brovko</div>
     </div>
-    <span class="status-pill">Strong leads â demo conversion gap</span>
+    <span class="status-pill">Strong leads &#8212; demo conversion gap</span>
   </div>
 
   <div class="alert-banner">Key risk: 2x lead growth is not converting into demos. Upcoming demos -2% MoM while leads grew +104% YoY. Requires immediate attention.</div>
 
   <!-- FUNNEL OVERVIEW -->
-  <div class="section-title">Funnel overview â MoM and YoY</div>
+  <div class="section-title">Funnel overview &#8212; MoM and YoY</div>
   <table class="data-table">
     <thead>
       <tr>
@@ -95,72 +95,72 @@
       <tr class="highlight">
         <td>Leads (all sources)</td>
         <td class="right">1,032</td>
-        <td class="right">â</td>
+        <td class="right">&#8212;</td>
         <td class="right">2,106</td>
-        <td class="right tag-neutral">â</td>
+        <td class="right tag-neutral">&#8212;</td>
         <td class="right tag-up">+104%</td>
-        <td class="right tag-up">106% â</td>
+        <td class="right tag-up">106% &#10003;</td>
       </tr>
       <tr>
         <td>Leads (ICP report)</td>
         <td class="right">938</td>
-        <td class="right">â</td>
+        <td class="right">&#8212;</td>
         <td class="right">1,364</td>
-        <td class="right tag-neutral">â</td>
+        <td class="right tag-neutral">&#8212;</td>
         <td class="right tag-up">+45.4%</td>
-        <td class="right tag-neutral">â</td>
+        <td class="right tag-neutral">&#8212;</td>
       </tr>
       <tr>
         <td>MQLs</td>
         <td class="right">709</td>
-        <td class="right">â</td>
+        <td class="right">&#8212;</td>
         <td class="right">1,005</td>
-        <td class="right tag-neutral">â</td>
+        <td class="right tag-neutral">&#8212;</td>
         <td class="right tag-up">+41.8%</td>
-        <td class="right tag-up">100% â</td>
+        <td class="right tag-up">100% &#10003;</td>
       </tr>
       <tr>
         <td>SQLs</td>
         <td class="right">162</td>
-        <td class="right">â</td>
+        <td class="right">&#8212;</td>
         <td class="right">498</td>
-        <td class="right tag-neutral">â</td>
+        <td class="right tag-neutral">&#8212;</td>
         <td class="right tag-up">+207%</td>
-        <td class="right tag-neutral">â</td>
+        <td class="right tag-neutral">&#8212;</td>
       </tr>
       <tr>
         <td>ICP Leads (5+ emp)</td>
         <td class="right">175</td>
-        <td class="right">â</td>
+        <td class="right">&#8212;</td>
         <td class="right">424</td>
-        <td class="right tag-neutral">â</td>
+        <td class="right tag-neutral">&#8212;</td>
         <td class="right tag-up">+142%</td>
-        <td class="right tag-neutral">â</td>
+        <td class="right tag-neutral">&#8212;</td>
       </tr>
       <tr>
         <td>ICP Lead Share</td>
         <td class="right">19%</td>
-        <td class="right">â</td>
+        <td class="right">&#8212;</td>
         <td class="right">31%</td>
-        <td class="right tag-neutral">â</td>
+        <td class="right tag-neutral">&#8212;</td>
         <td class="right tag-up">+12pp</td>
-        <td class="right tag-neutral">â</td>
+        <td class="right tag-neutral">&#8212;</td>
       </tr>
       <tr class="highlight">
         <td>Demos Booked</td>
-        <td class="right">â</td>
+        <td class="right">&#8212;</td>
         <td class="right">614</td>
         <td class="right">599</td>
         <td class="right tag-down">-2%</td>
-        <td class="right tag-neutral">â</td>
-        <td class="right tag-up">+8% MoM â</td>
+        <td class="right tag-neutral">&#8212;</td>
+        <td class="right tag-up">+8% MoM &#10003;</td>
       </tr>
     </tbody>
   </table>
   <p class="note">MoM for Demos: Feb 2026 vs Mar 2026. YoY: Mar 2025 vs Mar 2026.</p>
 
   <!-- WEBSITE -->
-  <div class="section-title">Website â pricing and demo pages</div>
+  <div class="section-title">Website &#8212; pricing and demo pages</div>
   <table class="data-table">
     <thead>
       <tr>
@@ -172,13 +172,13 @@
     </thead>
     <tbody>
       <tr>
-        <td>Pricing page â users</td>
+        <td>Pricing page &#8212; users</td>
         <td class="right">15,763</td>
         <td class="right">4,574</td>
         <td class="right tag-up">+18% YoY</td>
       </tr>
       <tr>
-        <td>Demo page â users</td>
+        <td>Demo page &#8212; users</td>
         <td class="right">8,302</td>
         <td class="right">3,045</td>
         <td class="right tag-up">+66% YoY</td>
@@ -189,7 +189,7 @@
   <div class="two-col" style="margin-top:20px;">
 
     <!-- SEO -->
-    <div style="margin-bottom:20px;">
+    <div>
       <div class="section-title">SEO and organic</div>
       <table class="data-table">
         <thead>
@@ -198,34 +198,34 @@
         <tbody>
           <tr><td>Organic traffic YTD</td><td class="right">437,000</td><td class="right tag-up">+18.4% YoY</td></tr>
           <tr><td>Brand search volume</td><td class="right">49,984</td><td class="right tag-up">+26% vs Feb 2025</td></tr>
-          <tr><td>US visibility</td><td class="right">64.5%</td><td class="right tag-neutral">â</td></tr>
-          <tr><td>CA visibility</td><td class="right">76.4%</td><td class="right tag-neutral">â</td></tr>
-          <tr><td>AU visibility</td><td class="right">82.1%</td><td class="right tag-neutral">â</td></tr>
-          <tr><td>UK visibility</td><td class="right">11.3%</td><td class="right tag-neutral">â</td></tr>
-          <tr><td>DE visibility</td><td class="right">59.3%</td><td class="right tag-up">+31pp WoW ð</td></tr>
-          <tr><td>NZ visibility</td><td class="right">3.83%</td><td class="right tag-down">â from 11%</td></tr>
+          <tr><td>US visibility</td><td class="right">64.5%</td><td class="right tag-neutral">&#8212;</td></tr>
+          <tr><td>CA visibility</td><td class="right">76.4%</td><td class="right tag-neutral">&#8212;</td></tr>
+          <tr><td>AU visibility</td><td class="right">82.1%</td><td class="right tag-neutral">&#8212;</td></tr>
+          <tr><td>UK visibility</td><td class="right">11.3%</td><td class="right tag-neutral">&#8212;</td></tr>
+          <tr><td>DE visibility</td><td class="right">59.3%</td><td class="right tag-up">+31pp WoW &#128640;</td></tr>
+          <tr><td>NZ visibility</td><td class="right">3.83%</td><td class="right tag-down">&#8595; from 11%</td></tr>
         </tbody>
       </table>
 
       <!-- LLM Presence -->
-      <div class="section-title" style="margin-top:16px;">LLM presence â week of Mar 23-27</div>
+      <div class="section-title" style="margin-top:16px;">LLM Presence &mdash; Week of Mar 23&ndash;27</div>
       <table class="data-table">
         <thead>
-          <tr><th>Platform</th><th class="right">Position</th><th class="right">SoV</th><th class="right">Citations</th></tr>
+          <tr><th>Platform</th><th class="right">Position</th><th class="right">SoV</th><th class="right">Citations (prev &rarr; current)</th><th class="right">Change</th></tr>
         </thead>
         <tbody>
-          <tr><td>ChatGPT</td><td class="right tag-up">#1</td><td class="right">27%</td><td class="right tag-up">514â603 ð¢</td></tr>
-          <tr><td>Perplexity</td><td class="right tag-up">#1</td><td class="right">24%</td><td class="right tag-up">220â553 ð¢ +151%</td></tr>
-          <tr><td>Google AI Overview</td><td class="right tag-warn">3 (â from 2)</td><td class="right tag-down">23%</td><td class="right tag-down">284â100 ð´ -65%</td></tr>
-          <tr><td>Copilot</td><td class="right">#1</td><td class="right">27%</td><td class="right tag-down">253â226 ð´</td></tr>
+          <tr><td>ChatGPT</td><td class="right tag-up">#1</td><td class="right">27%</td><td class="right">514 &rarr; 603</td><td class="right tag-up">+18%</td></tr>
+          <tr><td>Perplexity</td><td class="right tag-up">#1</td><td class="right">24%</td><td class="right">220 &rarr; 553</td><td class="right tag-up">+151%</td></tr>
+          <tr><td>Google AI Overview</td><td class="right tag-warn">3 (down from 2)</td><td class="right tag-down">23%</td><td class="right">284 &rarr; 100</td><td class="right tag-down">-65%</td></tr>
+          <tr><td>Copilot</td><td class="right">#1</td><td class="right">27%</td><td class="right">253 &rarr; 226</td><td class="right tag-down">-11%</td></tr>
         </tbody>
       </table>
       <p class="note">Karbon now holds #1 in Google AI Overview. Recovery plan: weekly content updates on 5 key articles in April.</p>
     </div>
 
     <!-- EMAIL -->
-    <div style="margin-bottom:20px;">
-      <div class="section-title">Email / CRM â YoY (Q1)</div>
+    <div>
+      <div class="section-title">Email / CRM &#8212; YoY (Q1)</div>
       <table class="data-table">
         <thead>
           <tr><th>Metric</th><th class="right">Q1 2025</th><th class="right">Q1 2026</th><th class="right">YoY</th></tr>
@@ -238,7 +238,7 @@
         </tbody>
       </table>
 
-      <div class="section-title" style="margin-top:16px;">Email â March 2026 monthly</div>
+      <div class="section-title" style="margin-top:16px;">Email &#8212; March 2026 monthly</div>
       <table class="data-table">
         <thead>
           <tr><th>Metric</th><th class="right">Mar 16-22</th><th class="right">Mar 23-29</th><th class="right">WoW</th></tr>
@@ -249,10 +249,10 @@
           <tr><td>Click rate</td><td class="right">4.04%</td><td class="right">1.36%</td><td class="right tag-down">-66.3%</td></tr>
         </tbody>
       </table>
-      <p class="note">WoW drop driven by large-scale DACH Security Report campaign â high share of European sends. Not a trend. Database cleanup planned for April.</p>
+      <p class="note">WoW drop driven by large-scale DACH Security Report campaign &#8212; high share of European sends. Not a trend. Database cleanup planned for April.</p>
 
       <!-- Paid Ads -->
-      <div class="section-title" style="margin-top:16px;">Paid ads â Google â Q1</div>
+      <div class="section-title" style="margin-top:16px;">Paid ads &#8212; Google &#8212; Q1</div>
       <table class="data-table">
         <thead>
           <tr><th>Metric</th><th class="right">Q1 2025</th><th class="right">Q1 2026</th><th class="right">YoY</th></tr>
@@ -267,7 +267,7 @@
   </div>
 
   <!-- SMM -->
-  <div class="section-title">Social media â follower growth YoY</div>
+  <div class="section-title">Social media &#8212; follower growth YoY</div>
   <table class="data-table">
     <thead>
       <tr><th>Channel</th><th class="right">Mar 2025</th><th class="right">Mar 2026</th><th class="right">YoY</th><th class="right">MoM</th><th class="right">ER</th><th class="right">Visit-to-Reach</th></tr>
@@ -281,9 +281,9 @@
   <p class="note">LinkedIn MoM growth slowing despite strong YoY base. Social-influenced leads: 11 in March. Website clicks across 3 channels: 751.</p>
 
   <!-- CAMPAIGN HIGHLIGHT -->
-  <div class="section-title">Campaign highlight â Tax Return Delivery</div>
+  <div class="section-title">Campaign highlight &#8212; Tax Return Delivery</div>
   <div style="background:#f0f7ff;border-radius:8px;padding:14px 16px;margin-bottom:4px;">
-    <div style="font-size:12px;font-weight:600;color:#185fa5;margin-bottom:10px;">Best campaign of Q1 â 3.4x pipeline overperformance</div>
+    <div style="font-size:12px;font-weight:600;color:#185fa5;margin-bottom:10px;">Best campaign of Q1 &#8212; 3.4x pipeline overperformance</div>
     <table class="data-table" style="background:transparent;">
       <thead>
         <tr><th>Metric</th><th class="right">Plan</th><th class="right">Actual</th><th class="right">vs Plan</th></tr>
@@ -292,27 +292,27 @@
         <tr><td>Leads</td><td class="right">~80</td><td class="right">194</td><td class="right tag-up">240%</td></tr>
         <tr><td>SQLs</td><td class="right">52</td><td class="right">61</td><td class="right tag-up">+17%</td></tr>
         <tr><td>Pipeline generated</td><td class="right">$200K</td><td class="right">$682K</td><td class="right tag-up">3.4x</td></tr>
-        <tr><td>Customers</td><td class="right">â</td><td class="right">7</td><td class="right tag-neutral">â</td></tr>
-        <tr><td>ARR</td><td class="right">â</td><td class="right">$9,200</td><td class="right tag-neutral">â</td></tr>
-        <tr><td>CPL</td><td class="right">â</td><td class="right">$55</td><td class="right tag-neutral">â</td></tr>
+        <tr><td>Customers</td><td class="right">&#8212;</td><td class="right">7</td><td class="right tag-neutral">&#8212;</td></tr>
+        <tr><td>ARR</td><td class="right">&#8212;</td><td class="right">$9,200</td><td class="right tag-neutral">&#8212;</td></tr>
+        <tr><td>CPL</td><td class="right">&#8212;</td><td class="right">$55</td><td class="right tag-neutral">&#8212;</td></tr>
       </tbody>
     </table>
-    <p class="note" style="margin-top:8px;">No new customers in March â tax seasonality. Pipeline strong, expected to convert April-May. CTR held at 1.36% throughout.</p>
+    <p class="note" style="margin-top:8px;">No new customers in March &#8212; tax seasonality. Pipeline strong, expected to convert April-May. CTR held at 1.36% throughout.</p>
   </div>
 
   <!-- INITIATIVES -->
   <div class="section-title">Initiatives</div>
   <ul class="init-list">
     <li class="init-item"><div class="dot dot-done"></div><div>
-      <div class="init-name">DACH ABM campaign â launched</div>
+      <div class="init-name">DACH ABM campaign &#8212; launched</div>
       <div class="init-meta">DE visibility +31pp in one week. Likely campaign-driven.</div>
     </div></li>
     <li class="init-item"><div class="dot dot-done"></div><div>
-      <div class="init-name">Lost leads campaign â launched</div>
+      <div class="init-name">Lost leads campaign &#8212; launched</div>
       <div class="init-meta">Email quality-over-quantity working. OR +31% YoY, CTR +42% YoY on 64% less volume.</div>
     </div></li>
     <li class="init-item"><div class="dot dot-risk"></div><div>
-      <div class="init-name">Google AI Overview â citation drop</div>
+      <div class="init-name">Google AI Overview &#8212; citation drop</div>
       <div class="init-meta">Citations -65% (284 to 100). Position slipped from ~2 to 3. Karbon holds #1. Weekly content updates planned for April.</div>
     </div></li>
     <li class="init-item"><div class="dot dot-alert"></div><div>
@@ -324,14 +324,14 @@
   <!-- APRIL FOCUS -->
   <div class="section-title">April focus</div>
   <ul class="focus-list">
-    <li class="focus-item">LinkedIn brand awareness â US/CA test launch (launched April 3)</li>
-    <li class="focus-item">Attribution audit â improve SQL tracking and pipeline accuracy</li>
-    <li class="focus-item">Google AI Overview recovery â weekly content updates on 5 key articles</li>
-    <li class="focus-item">Database cleanup â improve DACH deliverability and list quality</li>
-    <li class="focus-item">Accounting Business Show Australia â nurturing campaign</li>
+    <li class="focus-item">LinkedIn brand awareness &#8212; US/CA test launch (launched April 3)</li>
+    <li class="focus-item">Attribution audit &#8212; improve SQL tracking and pipeline accuracy</li>
+    <li class="focus-item">Google AI Overview recovery &#8212; weekly content updates on 5 key articles</li>
+    <li class="focus-item">Database cleanup &#8212; improve DACH deliverability and list quality</li>
+    <li class="focus-item">Accounting Business Show Australia &#8212; nurturing campaign</li>
     <li class="focus-item">Post-bootcamp and churned leads campaigns</li>
-    <li class="focus-item">AccountingWeb UK â launch first posts</li>
-    <li class="focus-item">Q2 SM strategy â address LinkedIn MoM growth slowdown</li>
+    <li class="focus-item">AccountingWeb UK &#8212; launch first posts</li>
+    <li class="focus-item">Q2 SM strategy &#8212; address LinkedIn MoM growth slowdown</li>
   </ul>
 </div>
 
