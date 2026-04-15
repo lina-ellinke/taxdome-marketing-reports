@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weekly Marketing Report — Apr 14, 2026</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --purple: #534AB7; --purple-light: #EEEDFE; --teal: #1D9E75; --teal-light: #E1F5EE;
+    --blue: #378ADD; --blue-light: #E6F1FB; --gray: #888780; --gray-light: #F1EFE8;
+    --amber: #EF9F27; --amber-light: #FAEEDA; --amber-dark: #854F0B;
+    --red: #E24B4A; --text-primary: #2C2C2A; --text-secondary: #5F5E5A;
+    --text-muted: #888780; --border: rgba(0,0,0,0.1); --surface: #F8F7F4; --white: #ffffff;
+  }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--surface); color: var(--text-primary); font-size: 14px; line-height: 1.5; }
+  .page { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; }
+  .report-header { display: flex; justify-content: space-between; align-items: flex-start; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); margin-bottom: 2rem; }
+  .report-header h1 { font-size: 20px; font-weight: 600; }
+  .meta { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 20px; background: var(--purple-light); color: var(--purple); }
+  .section { margin-bottom: 2.5rem; }
+  .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+  .section-title { font-size: 13px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.06em; }
+  .section-note { font-size: 12px; color: var(--text-muted); }
+  .metrics-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+  .metrics-grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  .metric-card { background: var(--white); border-radius: 10px; border: 0.5px solid var(--border); padding: 1rem 1.1rem; }
+  .metric-label { font-size: 11px; color: var(--text-muted); margin-bottom: 6px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; }
+  .metric-value { font-size: 26px; font-weight: 600; color: var(--text-primary); line-height: 1; }
+  .metric-sub { font-size: 12px; color: var(--text-muted); margin-top: 5px; }
+  .metric-up { font-size: 12px; color: var(--teal); margin-top: 5px; }
+  .metric-down { font-size: 12px; color: var(--red); margin-top: 5px; }
+  .metric-neutral { font-size: 12px; color: var(--text-muted); margin-top: 5px; }
+  .metric-target { font-size: 11px; color: var(--text-muted); margin-top: 4px; border-top: 0.5px solid var(--border); padding-top: 6px; }
+  .flag { background: var(--amber-light); border-left: 3px solid var(--amber); padding: 0.75rem 1rem; border-radius: 0 6px 6px 0; font-size: 13px; color: var(--text-primary); margin-bottom: 1.25rem; }
+  .flag-label { font-size: 10px; font-weight: 600; color: var(--amber-dark); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 3px; }
+  .info-note { background: var(--blue-light); border-left: 3px solid var(--blue); padding: 0.75rem 1rem; border-radius: 0 6px 6px 0; font-size: 13px; color: var(--text-primary); margin-bottom: 1.25rem; }
+  .info-label { font-size: 10px; font-weight: 600; color: #185FA5; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 3px; }
+  .chart-card { background: var(--white); border-radius: 10px; border: 0.5px solid var(--border); padding: 1.25rem; margin-bottom: 12px; }
+  .chart-title { font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
+  .chart-sub { font-size: 12px; color: var(--text-muted); margin-bottom: 1rem; }
+  .legend { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 12px; }
+  .legend-item { display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--text-secondary); }
+  .legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th { font-size: 11px; font-weight: 600; color: var(--text-muted); text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--border); text-transform: uppercase; letter-spacing: 0.04em; }
+  td { padding: 8px 10px; border-bottom: 0.5px solid var(--border); color: var(--text-primary); }
+  tr:last-child td { border-bottom: none; }
+  .td-right { text-align: right; }
+  .icp-high { color: #1D9E75; font-weight: 600; }
+  .icp-mid { color: #854F0B; font-weight: 600; }
+  .icp-low { color: #E24B4A; font-weight: 600; }
+  .tag { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 10px; }
+  .tag-spam { background: var(--amber-light); color: var(--amber-dark); }
+  .tag-wtd { background: var(--blue-light); color: #185FA5; }
+  .placeholder-card { background: var(--gray-light); border: 0.5px dashed var(--gray); border-radius: 10px; padding: 1.25rem; text-align: center; color: var(--text-muted); font-size: 13px; }
+  .placeholder-title { font-size: 14px; font-weight: 600; color: var(--text-secondary); margin-bottom: 4px; }
+  hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+  .context-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
+  .context-card { background: var(--white); border-radius: 10px; border: 0.5px solid var(--border); padding: 1rem; }
+  .context-card-title { font-size: 12px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px; }
+  .context-card-body { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
+  .status-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 5px; }
+  .dot-pause { background: var(--amber); }
+  .dot-active { background: var(--teal); }
+  .dot-progress { background: var(--blue); }
+  .report-footer { font-size: 11px; color: var(--text-muted); padding-top: 1.5rem; border-top: 1px solid var(--border); margin-top: 2rem; display: flex; justify-content: space-between; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="report-header">
+    <div>
+      <h1>Weekly Marketing Report</h1>
+      <div class="meta">Week of April 14, 2026 &middot; Q2 Week 2 &middot; TaxDome Marketing</div>
+    </div>
+    <span class="badge">Q2 2026</span>
+  </div>
+
+  <!-- LEAD VOLUME -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Lead volume &amp; ICP mix</div>
+      <div class="section-note">Source: HubSpot &middot; Excl. offline</div>
+    </div>
+    <div class="flag">
+      <div class="flag-label">Data flag &mdash; Apr 6 week</div>
+      ~400 spam leads from Asian IP sources inflated that week's total to 866. Chart shows adjusted estimate (~466 real). Working with RevOps on a filter solution.
+    </div>
+    <div class="metrics-grid" style="margin-bottom:12px;">
+      <div class="metric-card">
+        <div class="metric-label">Classified leads (WTD)</div>
+        <div class="metric-value">35</div>
+        <div class="metric-sub">Apr 13 &mdash; partial week</div>
+        <div class="metric-neutral">ICP: 7 &nbsp;|&nbsp; Non-ICP: 28</div>
+        <div class="metric-target">Q2 target: ~700 classified / wk</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">ICP % of classified (WTD)</div>
+        <div class="metric-value">20%</div>
+        <div class="metric-sub">Excl. No Value from denominator</div>
+        <div class="metric-down">15 pts below Q2 target</div>
+        <div class="metric-target">Target: 35%</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">No Value / unclassified (WTD)</div>
+        <div class="metric-value">105</div>
+        <div class="metric-sub">75% of WTD total</div>
+        <div class="metric-neutral">RevOps cleanup in progress</div>
+        <div class="metric-target">Goal: reduce to &lt;20% of total</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Prior week adj. (Apr 6)</div>
+        <div class="metric-value">~466</div>
+        <div class="metric-sub">Spam-adjusted estimate</div>
+        <div class="metric-neutral">ICP: 109 &nbsp;|&nbsp; Non-ICP: 179</div>
+        <div class="metric-target">ICP % classified: 38% (adj.)</div>
+      </div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Lead mix by week &mdash; 13 weeks</div>
+      <div class="chart-sub">ICP + Non-ICP + No Value stacked. Apr 6 spam portion shown separately in amber.</div>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#1D9E75"></div>ICP</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#378ADD"></div>Non-ICP</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#B4B2A9"></div>No Value</div>
+        <div class="legend-item"><div class="legend-dot" style="background:rgba(239,159,39,0.5)"></div>Spam est.</div>
+      </div>
+      <div style="position:relative;height:240px;"><canvas id="leadMix" role="img" aria-label="Stacked bar chart of weekly leads by ICP, Non-ICP, No Value and spam over 13 weeks">Weekly lead mix.</canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">ICP % of classified leads &mdash; trend vs Q2 target (35%)</div>
+      <div class="chart-sub">Denominator = ICP + Non-ICP only. No Value excluded. Dashed line = Q2 target.</div>
+      <div style="position:relative;height:200px;"><canvas id="icpTrend" role="img" aria-label="Line chart of ICP percentage vs 35 percent target over 13 weeks">ICP trend.</canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Weekly detail</div>
+      <div class="table-wrap"><table><thead><tr>
+        <th>Week</th><th class="td-right">Total</th><th class="td-right">ICP</th><th class="td-right">Non-ICP</th><th class="td-right">No Value</th><th class="td-right">No Value %</th><th class="td-right">ICP % classified</th><th></th>
+      </tr></thead><tbody id="leadTable"></tbody></table></div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- SALs -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Sales accepted leads (SAL)</div>
+      <div class="section-note">Source: HubSpot &middot; SAL reporting started Apr 2026</div>
+    </div>
+    <div class="info-note">
+      <div class="info-label">Context &mdash; low SAL volume</div>
+      Lead ads paused pre-tax day for recalibration. Relaunch begins Apr 14. Brand awareness running in parallel. Feb 16 spike (39 SALs) is an outlier, not a baseline.
+    </div>
+    <div class="metrics-grid-3" style="margin-bottom:12px;">
+      <div class="metric-card">
+        <div class="metric-label">SALs (WTD)</div>
+        <div class="metric-value">0</div>
+        <div class="metric-sub">Apr 13 &mdash; partial, ads just restarting</div>
+        <div class="metric-target">Target: 150 SALs / mo (TD-320)</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">ICP SAL % (Apr 6 week)</div>
+        <div class="metric-value">33%</div>
+        <div class="metric-sub">1 of 3 SALs were ICP &mdash; small sample</div>
+        <div class="metric-target">Target: 40% ICP SALs paid (TD-319)</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Peak SAL week (Q1)</div>
+        <div class="metric-value">39</div>
+        <div class="metric-sub">Feb 16 &mdash; outlier, not baseline</div>
+        <div class="metric-target">Q2 baseline building from Apr 14</div>
+      </div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">SAL volume by week &mdash; ICP vs Non-ICP</div>
+      <div class="chart-sub">Low volume reflects paused lead ads. Trend builds from Apr 14 relaunch.</div>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#1D9E75"></div>ICP SALs</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#378ADD"></div>Non-ICP SALs</div>
+      </div>
+      <div style="position:relative;height:200px;"><canvas id="salChart" role="img" aria-label="Bar chart of weekly SAL volume by ICP and Non-ICP">SAL data.</canvas></div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- BRAND AWARENESS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">LinkedIn brand awareness campaign</div>
+      <div class="section-note">Apr 4&ndash;11, 2026 &middot; Video (1+ min) &middot; Accounting JS:Manager+</div>
+    </div>
+    <div class="flag">
+      <div class="flag-label">Audience adjustment in progress</div>
+      Targeting skewing 51-200 employee companies (outside ICP). Non-accounting firms appearing in top reach list. Danila restricting larger employee bands, opening 2-10 employees. Adjustment live this week.
+    </div>
+    <div class="metrics-grid" style="margin-bottom:12px;">
+      <div class="metric-card">
+        <div class="metric-label">Impressions</div>
+        <div class="metric-value">11,146</div>
+        <div class="metric-sub">99.99% Accounting industry</div>
+        <div class="metric-up">Industry targeting clean</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Video views</div>
+        <div class="metric-value">8,953</div>
+        <div class="metric-sub">View rate: 80.32%</div>
+        <div class="metric-up">Strong hook performance</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Completions</div>
+        <div class="metric-value">786</div>
+        <div class="metric-sub">Completion rate: 7.05%</div>
+        <div class="metric-neutral">Typical for 1+ min LinkedIn video</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Top job title by completion</div>
+        <div class="metric-value">12.1%</div>
+        <div class="metric-sub">Partner &mdash; highest completion rate</div>
+        <div class="metric-up">CFO 10.4% &nbsp;|&nbsp; Acct Mgr 9.0%</div>
+      </div>
+    </div>
+    <div class="two-col">
+      <div class="chart-card">
+        <div class="chart-title">Video funnel</div>
+        <div class="chart-sub">Drop-off at each quartile</div>
+        <div style="position:relative;height:220px;"><canvas id="videoFunnel" role="img" aria-label="Bar chart of video funnel from impressions to completions">Video funnel.</canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Completion rate by job title</div>
+        <div class="chart-sub">Decision-makers performing above average</div>
+        <div style="position:relative;height:220px;"><canvas id="jobChart" role="img" aria-label="Horizontal bar chart of completion rate by job title">Job title completion rates.</canvas></div>
+      </div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Company size &mdash; impressions distribution</div>
+      <div class="chart-sub">ICP = 5-25 employees. 11-50 straddles ICP; 51-200 is outside. Adjustment in progress to open 2-10 band.</div>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#1D9E75"></div>Near ICP (11-50)</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#E24B4A"></div>Outside ICP (51-200)</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#B4B2A9"></div>Opening up (2-10)</div>
+      </div>
+      <div style="position:relative;height:150px;"><canvas id="sizeChart" role="img" aria-label="Horizontal bar chart of impressions by company size">Company size data.</canvas></div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- CAMPAIGN STATUS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Campaign status</div>
+      <div class="section-note">As of Apr 14, 2026</div>
+    </div>
+    <div class="context-grid">
+      <div class="context-card">
+        <div class="context-card-title"><span class="status-dot dot-active"></span>Brand awareness</div>
+        <div class="context-card-body">LinkedIn video active. Audience refinement in progress &mdash; restricting 51-200 band, opening 2-10. Format testing ongoing.</div>
+      </div>
+      <div class="context-card">
+        <div class="context-card-title"><span class="status-dot dot-active"></span>Lead ads</div>
+        <div class="context-card-body">Paused for recalibration ahead of tax day. Relaunch begins Apr 14 post-tax day. ICP audience rebuilt before next push.</div>
+      </div>
+      <div class="context-card">
+        <div class="context-card-title"><span class="status-dot dot-progress"></span>HubSpot sync</div>
+        <div class="context-card-body">Running syncs on pre-SAL leads and dead leads for revival. RevOps spam filter also in progress.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- PLACEHOLDERS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Revenue quality</div>
+      <div class="section-note">Data pending</div>
+    </div>
+    <div class="two-col">
+      <div class="placeholder-card">
+        <div class="placeholder-title">Average ACV &mdash; new logos</div>
+        Marketing-attributed ACV pending &mdash; add when closed won data available
+        <div style="margin-top:8px;font-size:11px;">Baseline: $2,770 &nbsp;&middot;&nbsp; Target: $3,000 (TD-321)</div>
+      </div>
+      <div class="placeholder-card">
+        <div class="placeholder-title">TD Payments activation rate</div>
+        Monthly metric &mdash; updates end of April
+        <div style="margin-top:8px;font-size:11px;">Baseline: 10% &nbsp;&middot;&nbsp; Target: 30% (TD-323)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="report-footer">
+    <div>TaxDome Marketing &middot; VP Marketing: Lina Horner</div>
+    <div>Generated Apr 14, 2026 &middot; Q2 Week 2</div>
+  </div>
+</div>
+
+<script>
+const leadData=[
+  {w:"Jan 12",icp:29,nonicp:175,nv:95},{w:"Jan 19",icp:166,nonicp:230,nv:124},
+  {w:"Jan 26",icp:98,nonicp:263,nv:358},{w:"Feb 2",icp:143,nonicp:208,nv:187},
+  {w:"Feb 9",icp:82,nonicp:197,nv:172},{w:"Feb 16",icp:156,nonicp:207,nv:159},
+  {w:"Feb 23",icp:107,nonicp:250,nv:163},{w:"Mar 2",icp:112,nonicp:253,nv:156},
+  {w:"Mar 9",icp:141,nonicp:260,nv:138},{w:"Mar 16",icp:113,nonicp:206,nv:175},
+  {w:"Mar 23",icp:142,nonicp:404,nv:216},{w:"Mar 30",icp:57,nonicp:171,nv:342},
+  {w:"Apr 6",icp:109,nonicp:179,nv:178,spam:400},{w:"Apr 13",icp:7,nonicp:28,nv:105,partial:true}
+];
+const labels=leadData.map(d=>d.w);
+new Chart(document.getElementById('leadMix'),{type:'bar',data:{labels,datasets:[
+  {label:'ICP',data:leadData.map(d=>d.icp),backgroundColor:'#1D9E75',stack:'s'},
+  {label:'Non-ICP',data:leadData.map(d=>d.nonicp),backgroundColor:'#378ADD',stack:'s'},
+  {label:'No Value',data:leadData.map(d=>d.nv),backgroundColor:'#B4B2A9',stack:'s'},
+  {label:'Spam',data:leadData.map(d=>d.spam||0),backgroundColor:'rgba(239,159,39,0.45)',stack:'s'}
+]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+scales:{x:{stacked:true,grid:{display:false},ticks:{font:{size:10},maxRotation:45,autoSkip:false}},
+y:{stacked:true,grid:{color:'rgba(0,0,0,0.06)'},ticks:{font:{size:10}}}}}});
+
+const icpPct=leadData.map(d=>{const c=d.icp+d.nonicp;return c>0?Math.round(d.icp/c*100):0;});
+new Chart(document.getElementById('icpTrend'),{type:'line',data:{labels,datasets:[
+  {label:'ICP %',data:icpPct,borderColor:'#1D9E75',backgroundColor:'rgba(29,158,117,0.07)',fill:true,tension:0.3,pointRadius:4,
+   pointBackgroundColor:leadData.map(d=>d.spam?'#EF9F27':d.partial?'#378ADD':'#1D9E75')},
+  {label:'Target 35%',data:labels.map(()=>35),borderColor:'rgba(83,74,183,0.5)',borderDash:[5,4],pointRadius:0,fill:false}
+]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+scales:{x:{grid:{display:false},ticks:{font:{size:10},maxRotation:45,autoSkip:false}},
+y:{min:0,max:55,grid:{color:'rgba(0,0,0,0.06)'},ticks:{font:{size:10},callback:v=>v+'%'}}}}});
+
+const tbody=document.getElementById('leadTable');
+[...leadData].reverse().forEach(d=>{
+  const c=d.icp+d.nonicp,tot=d.icp+d.nonicp+d.nv+(d.spam||0);
+  const nvp=Math.round(d.nv/tot*100),pct=c>0?Math.round(d.icp/c*100):0;
+  const cls=pct>=35?'icp-high':pct>=25?'icp-mid':'icp-low';
+  const badge=d.spam?'<span class="tag tag-spam">Spam flag</span>':d.partial?'<span class="tag tag-wtd">WTD</span>':'';
+  const tr=document.createElement('tr');
+  tr.innerHTML=`<td style="font-weight:600">${d.w}</td><td class="td-right">${tot.toLocaleString()}</td>
+    <td class="td-right" style="color:#1D9E75">${d.icp}</td><td class="td-right" style="color:#378ADD">${d.nonicp}</td>
+    <td class="td-right" style="color:#888780">${d.nv}</td><td class="td-right">${nvp}%</td>
+    <td class="td-right ${cls}">${pct}%</td><td>${badge}</td>`;
+  tbody.appendChild(tr);
+});
+
+const salData=[
+  {w:"Jan 12",icp:1,nonicp:2},{w:"Jan 19",icp:1,nonicp:2},{w:"Jan 26",icp:0,nonicp:2},
+  {w:"Feb 2",icp:1,nonicp:1},{w:"Feb 9",icp:1,nonicp:5},{w:"Feb 16",icp:9,nonicp:30},
+  {w:"Feb 23",icp:4,nonicp:22},{w:"Mar 2",icp:10,nonicp:12},{w:"Mar 9",icp:5,nonicp:20},
+  {w:"Mar 16",icp:6,nonicp:14},{w:"Mar 23",icp:4,nonicp:17},{w:"Mar 30",icp:2,nonicp:5},
+  {w:"Apr 6",icp:1,nonicp:2},{w:"Apr 13",icp:0,nonicp:0}
+];
+new Chart(document.getElementById('salChart'),{type:'bar',data:{labels,datasets:[
+  {label:'ICP',data:salData.map(d=>d.icp),backgroundColor:'#1D9E75',stack:'s'},
+  {label:'Non-ICP',data:salData.map(d=>d.nonicp),backgroundColor:'#378ADD',stack:'s'}
+]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+scales:{x:{stacked:true,grid:{display:false},ticks:{font:{size:10},maxRotation:45,autoSkip:false}},
+y:{stacked:true,grid:{color:'rgba(0,0,0,0.06)'},ticks:{font:{size:10}}}}}});
+
+new Chart(document.getElementById('videoFunnel'),{type:'bar',data:{
+  labels:['Impressions','Views','@25%','@50%','@75%','Completions'],
+  datasets:[{data:[11146,8953,4989,3141,1121,786],
+    backgroundColor:['#534AB7','#7F77DD','#AFA9EC','#7F77DD','#534AB7','#1D9E75']}]
+},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+scales:{x:{grid:{display:false},ticks:{font:{size:10}}},
+y:{grid:{color:'rgba(0,0,0,0.06)'},ticks:{font:{size:10},callback:v=>v>=1000?Math.round(v/1000)+'k':v}}}}});
+
+new Chart(document.getElementById('jobChart'),{type:'bar',indexAxis:'y',data:{
+  labels:['Partner','CFO','Owner','Acct Mgr','Controller'],
+  datasets:[{data:[12.12,10.41,7.89,8.99,6.52],backgroundColor:'#1D9E75'}]
+},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+scales:{x:{grid:{color:'rgba(0,0,0,0.06)'},ticks:{font:{size:10},callback:v=>v+'%'}},
+y:{grid:{display:false},ticks:{font:{size:10}}}}}});
+
+new Chart(document.getElementById('sizeChart'),{type:'bar',indexAxis:'y',data:{
+  labels:['11-50 employees','51-200 employees','2-10 employees'],
+  datasets:[{data:[6159,5396,166],backgroundColor:['#1D9E75','#E24B4A','#B4B2A9']}]
+},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+scales:{x:{grid:{color:'rgba(0,0,0,0.06)'},ticks:{font:{size:10},callback:v=>v>=1000?Math.round(v/1000)+'k':v}},
+y:{grid:{display:false},ticks:{font:{size:10}}}}}});
+</script>
+</body>
+</html>
