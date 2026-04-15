@@ -372,11 +372,15 @@ jobTitles.forEach((t,i)=>{
 
 new Chart(document.getElementById('jobChart'),{type:'bar',indexAxis:'y',data:{
   labels:jobTitles,
-  datasets:[{data:jobRates,backgroundColor:jobColors}]
-},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},
-  tooltip:{callbacks:{label:ctx=>` ${ctx.parsed.x.toFixed(2)}%`}}},
-scales:{x:{grid:{color:'rgba(0,0,0,0.06)'},ticks:{font:{size:10},callback:v=>v+'%'},min:0,max:15},
-y:{grid:{display:false},ticks:{font:{size:10}}}}}});
+  datasets:[{data:jobRates,backgroundColor:jobColors,borderRadius:3}]
+},options:{responsive:true,maintainAspectRatio:false,
+plugins:{legend:{display:false},
+  tooltip:{callbacks:{label:ctx=>' '+ctx.parsed.x.toFixed(2)+'%'}}},
+scales:{
+  x:{min:0,max:15,grid:{color:'rgba(0,0,0,0.06)'},
+     ticks:{font:{size:10},callback:function(v){return v+'%';}}},
+  y:{grid:{display:false},ticks:{font:{size:10}}}
+}}});
 
 // Company size
 new Chart(document.getElementById('sizeChart'),{type:'bar',indexAxis:'y',data:{
