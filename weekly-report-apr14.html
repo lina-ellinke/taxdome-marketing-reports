@@ -11,8 +11,9 @@
     --purple: #534AB7; --purple-light: #EEEDFE; --teal: #1D9E75; --teal-light: #E1F5EE;
     --blue: #378ADD; --blue-light: #E6F1FB; --gray: #888780; --gray-light: #F1EFE8;
     --amber: #EF9F27; --amber-light: #FAEEDA; --amber-dark: #854F0B;
-    --red: #E24B4A; --text-primary: #2C2C2A; --text-secondary: #5F5E5A;
-    --text-muted: #888780; --border: rgba(0,0,0,0.1); --surface: #F8F7F4; --white: #ffffff;
+    --red: #E24B4A; --red-light: #FCEBEB;
+    --text-primary: #2C2C2A; --text-secondary: #5F5E5A; --text-muted: #888780;
+    --border: rgba(0,0,0,0.1); --surface: #F8F7F4; --white: #ffffff;
   }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--surface); color: var(--text-primary); font-size: 14px; line-height: 1.5; }
   .page { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; }
@@ -65,14 +66,13 @@
   .context-card-title { font-size: 12px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px; }
   .context-card-body { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
   .status-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 5px; }
-  .dot-pause { background: var(--amber); }
-  .dot-active { background: var(--teal); }
-  .dot-progress { background: var(--blue); }
+  .dot-active { background: #1D9E75; } .dot-progress { background: #378ADD; }
   .report-footer { font-size: 11px; color: var(--text-muted); padding-top: 1.5rem; border-top: 1px solid var(--border); margin-top: 2rem; display: flex; justify-content: space-between; }
 </style>
 </head>
 <body>
 <div class="page">
+
   <div class="report-header">
     <div>
       <h1>Weekly Marketing Report</h1>
@@ -121,6 +121,7 @@
         <div class="metric-target">ICP % classified: 38% (adj.)</div>
       </div>
     </div>
+
     <div class="chart-card">
       <div class="chart-title">Lead mix by week &mdash; 13 weeks</div>
       <div class="chart-sub">ICP + Non-ICP + No Value stacked. Apr 6 spam portion shown separately in amber.</div>
@@ -130,15 +131,17 @@
         <div class="legend-item"><div class="legend-dot" style="background:#B4B2A9"></div>No Value</div>
         <div class="legend-item"><div class="legend-dot" style="background:rgba(239,159,39,0.5)"></div>Spam est.</div>
       </div>
-      <div style="position:relative;height:240px;"><canvas id="leadMix" role="img" aria-label="Stacked bar chart of weekly leads by ICP, Non-ICP, No Value and spam over 13 weeks">Weekly lead mix.</canvas></div>
+      <div style="position:relative;height:240px;"><canvas id="leadMix" role="img" aria-label="Stacked bar chart of weekly leads by ICP Non-ICP No Value and spam over 13 weeks">Lead mix data.</canvas></div>
     </div>
+
     <div class="chart-card">
       <div class="chart-title">ICP % of classified leads &mdash; trend vs Q2 target (35%)</div>
       <div class="chart-sub">Denominator = ICP + Non-ICP only. No Value excluded. Dashed line = Q2 target.</div>
       <div style="position:relative;height:200px;"><canvas id="icpTrend" role="img" aria-label="Line chart of ICP percentage vs 35 percent target over 13 weeks">ICP trend.</canvas></div>
     </div>
+
     <div class="chart-card">
-      <div class="chart-title">Weekly detail</div>
+      <div class="chart-title">Weekly detail &mdash; last 4 weeks</div>
       <div class="table-wrap"><table><thead><tr>
         <th>Week</th><th class="td-right">Total</th><th class="td-right">ICP</th><th class="td-right">Non-ICP</th><th class="td-right">No Value</th><th class="td-right">No Value %</th><th class="td-right">ICP % classified</th><th></th>
       </tr></thead><tbody id="leadTable"></tbody></table></div>
@@ -155,13 +158,13 @@
     </div>
     <div class="info-note">
       <div class="info-label">Context &mdash; low SAL volume</div>
-      Lead ads paused pre-tax day for recalibration. Relaunch begins Apr 14. Brand awareness running in parallel. Feb 16 spike (39 SALs) is an outlier, not a baseline.
+      Lead ads paused pre-tax day for recalibration. Relaunch begins next week. Brand awareness running in parallel.
     </div>
     <div class="metrics-grid-3" style="margin-bottom:12px;">
       <div class="metric-card">
         <div class="metric-label">SALs (WTD)</div>
         <div class="metric-value">0</div>
-        <div class="metric-sub">Apr 13 &mdash; partial, ads just restarting</div>
+        <div class="metric-sub">Apr 13 &mdash; partial, ads restarting next week</div>
         <div class="metric-target">Target: 150 SALs / mo (TD-320)</div>
       </div>
       <div class="metric-card">
@@ -171,20 +174,20 @@
         <div class="metric-target">Target: 40% ICP SALs paid (TD-319)</div>
       </div>
       <div class="metric-card">
-        <div class="metric-label">Peak SAL week (Q1)</div>
-        <div class="metric-value">39</div>
-        <div class="metric-sub">Feb 16 &mdash; outlier, not baseline</div>
-        <div class="metric-target">Q2 baseline building from Apr 14</div>
+        <div class="metric-label">Q2 baseline</div>
+        <div class="metric-value">Building</div>
+        <div class="metric-sub">SAL reporting started Apr 2026</div>
+        <div class="metric-target">Will solidify with lead ad relaunch</div>
       </div>
     </div>
     <div class="chart-card">
-      <div class="chart-title">SAL volume by week &mdash; ICP vs Non-ICP</div>
-      <div class="chart-sub">Low volume reflects paused lead ads. Trend builds from Apr 14 relaunch.</div>
+      <div class="chart-title">SAL volume &mdash; last 4 weeks</div>
+      <div class="chart-sub">Low volume reflects paused lead ads. Trend builds from next week relaunch.</div>
       <div class="legend">
         <div class="legend-item"><div class="legend-dot" style="background:#1D9E75"></div>ICP SALs</div>
         <div class="legend-item"><div class="legend-dot" style="background:#378ADD"></div>Non-ICP SALs</div>
       </div>
-      <div style="position:relative;height:200px;"><canvas id="salChart" role="img" aria-label="Bar chart of weekly SAL volume by ICP and Non-ICP">SAL data.</canvas></div>
+      <div style="position:relative;height:180px;"><canvas id="salChart" role="img" aria-label="Bar chart of SAL volume for last 4 weeks by ICP and Non-ICP">SAL data.</canvas></div>
     </div>
   </div>
 
@@ -235,18 +238,61 @@
       <div class="chart-card">
         <div class="chart-title">Completion rate by job title</div>
         <div class="chart-sub">Decision-makers performing above average</div>
-        <div style="position:relative;height:220px;"><canvas id="jobChart" role="img" aria-label="Horizontal bar chart of completion rate by job title">Job title completion rates.</canvas></div>
+        <div class="legend" id="jobLegend"></div>
+        <div style="position:relative;height:185px;"><canvas id="jobChart" role="img" aria-label="Horizontal bar chart of completion rate by job title with distinct colors">Job title completion rates.</canvas></div>
       </div>
     </div>
     <div class="chart-card">
       <div class="chart-title">Company size &mdash; impressions distribution</div>
-      <div class="chart-sub">ICP = 5-25 employees. 11-50 straddles ICP; 51-200 is outside. Adjustment in progress to open 2-10 band.</div>
+      <div class="chart-sub">ICP = 5-25 employees. 11-50 straddles ICP; 51-200 is outside. Adjustment opening 2-10 band.</div>
       <div class="legend">
         <div class="legend-item"><div class="legend-dot" style="background:#1D9E75"></div>Near ICP (11-50)</div>
         <div class="legend-item"><div class="legend-dot" style="background:#E24B4A"></div>Outside ICP (51-200)</div>
         <div class="legend-item"><div class="legend-dot" style="background:#B4B2A9"></div>Opening up (2-10)</div>
       </div>
       <div style="position:relative;height:150px;"><canvas id="sizeChart" role="img" aria-label="Horizontal bar chart of impressions by company size">Company size data.</canvas></div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ACV -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Average ACV &mdash; new logos</div>
+      <div class="section-note">Source: HubSpot closed won &middot; Marketing-attributed</div>
+    </div>
+    <div class="flag">
+      <div class="flag-label">Outlier flag &mdash; Apr 13 week</div>
+      Apr 13 average ACV of $8,622 is 3-4x the normal range ($1,200-$2,700). This reflects one or more large deals closing in a partial week and is not a reliable trend signal. Investigating the specific deal(s) driving the spike. Excluding this week from trend analysis.
+    </div>
+    <div class="metrics-grid-3" style="margin-bottom:12px;">
+      <div class="metric-card">
+        <div class="metric-label">ACV this week (WTD)</div>
+        <div class="metric-value">$8,622</div>
+        <div class="metric-sub">Apr 13 &mdash; outlier, partial week</div>
+        <div class="metric-down">Likely single large deal &mdash; investigate</div>
+        <div class="metric-target">Baseline: $2,770 (TD-321)</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Prior week ACV (Apr 6)</div>
+        <div class="metric-value">$1,855</div>
+        <div class="metric-sub">Within normal range</div>
+        <div class="metric-neutral">Typical week performance</div>
+        <div class="metric-target">Target: $3,000</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">13-week avg (excl. outlier)</div>
+        <div class="metric-value">$1,732</div>
+        <div class="metric-sub">Jan 12 &mdash; Apr 6 average</div>
+        <div class="metric-down">Below $2,770 baseline</div>
+        <div class="metric-target">ICP mix improvement needed upstream</div>
+      </div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Average ACV by week &mdash; 13 weeks</div>
+      <div class="chart-sub">Apr 13 outlier shown in amber. Dashed lines = baseline ($2,770) and target ($3,000). Trend is below baseline, reflecting pre-ICP-shift pipeline.</div>
+      <div style="position:relative;height:220px;"><canvas id="acvChart" role="img" aria-label="Line chart of average ACV per week with baseline and target reference lines">ACV trend data.</canvas></div>
     </div>
   </div>
 
@@ -265,34 +311,27 @@
       </div>
       <div class="context-card">
         <div class="context-card-title"><span class="status-dot dot-active"></span>Lead ads</div>
-        <div class="context-card-body">Paused for recalibration ahead of tax day. Relaunch begins Apr 14 post-tax day. ICP audience rebuilt before next push.</div>
+        <div class="context-card-body">Paused for tax day recalibration. Relaunch next week. ICP audience rebuilt before next push.</div>
       </div>
       <div class="context-card">
         <div class="context-card-title"><span class="status-dot dot-progress"></span>HubSpot sync</div>
-        <div class="context-card-body">Running syncs on pre-SAL leads and dead leads for revival. RevOps spam filter also in progress.</div>
+        <div class="context-card-body">Running syncs on pre-SAL leads and dead leads for revival. RevOps spam filter in progress.</div>
       </div>
     </div>
   </div>
 
   <hr>
 
-  <!-- PLACEHOLDERS -->
+  <!-- TD PAYMENTS PLACEHOLDER -->
   <div class="section">
     <div class="section-header">
-      <div class="section-title">Revenue quality</div>
-      <div class="section-note">Data pending</div>
+      <div class="section-title">TD Payments activation</div>
+      <div class="section-note">Monthly metric &mdash; updates end of April</div>
     </div>
-    <div class="two-col">
-      <div class="placeholder-card">
-        <div class="placeholder-title">Average ACV &mdash; new logos</div>
-        Marketing-attributed ACV pending &mdash; add when closed won data available
-        <div style="margin-top:8px;font-size:11px;">Baseline: $2,770 &nbsp;&middot;&nbsp; Target: $3,000 (TD-321)</div>
-      </div>
-      <div class="placeholder-card">
-        <div class="placeholder-title">TD Payments activation rate</div>
-        Monthly metric &mdash; updates end of April
-        <div style="margin-top:8px;font-size:11px;">Baseline: 10% &nbsp;&middot;&nbsp; Target: 30% (TD-323)</div>
-      </div>
+    <div class="placeholder-card">
+      <div class="placeholder-title">TD Payments activation rate</div>
+      Monthly metric &mdash; will update end of April
+      <div style="margin-top:8px;font-size:11px;">Baseline: 10% &nbsp;&middot;&nbsp; Target: 30% (TD-323)</div>
     </div>
   </div>
 
@@ -313,6 +352,7 @@ const leadData=[
   {w:"Apr 6",icp:109,nonicp:179,nv:178,spam:400},{w:"Apr 13",icp:7,nonicp:28,nv:105,partial:true}
 ];
 const labels=leadData.map(d=>d.w);
+
 new Chart(document.getElementById('leadMix'),{type:'bar',data:{labels,datasets:[
   {label:'ICP',data:leadData.map(d=>d.icp),backgroundColor:'#1D9E75',stack:'s'},
   {label:'Non-ICP',data:leadData.map(d=>d.nonicp),backgroundColor:'#378ADD',stack:'s'},
@@ -331,8 +371,10 @@ new Chart(document.getElementById('icpTrend'),{type:'line',data:{labels,datasets
 scales:{x:{grid:{display:false},ticks:{font:{size:10},maxRotation:45,autoSkip:false}},
 y:{min:0,max:55,grid:{color:'rgba(0,0,0,0.06)'},ticks:{font:{size:10},callback:v=>v+'%'}}}}});
 
+// Last 4 weeks table only
 const tbody=document.getElementById('leadTable');
-[...leadData].reverse().forEach(d=>{
+const last4=leadData.slice(-4);
+[...last4].reverse().forEach(d=>{
   const c=d.icp+d.nonicp,tot=d.icp+d.nonicp+d.nv+(d.spam||0);
   const nvp=Math.round(d.nv/tot*100),pct=c>0?Math.round(d.icp/c*100):0;
   const cls=pct>=35?'icp-high':pct>=25?'icp-mid':'icp-low';
@@ -345,6 +387,7 @@ const tbody=document.getElementById('leadTable');
   tbody.appendChild(tr);
 });
 
+// SAL last 4 weeks
 const salData=[
   {w:"Jan 12",icp:1,nonicp:2},{w:"Jan 19",icp:1,nonicp:2},{w:"Jan 26",icp:0,nonicp:2},
   {w:"Feb 2",icp:1,nonicp:1},{w:"Feb 9",icp:1,nonicp:5},{w:"Feb 16",icp:9,nonicp:30},
@@ -352,13 +395,17 @@ const salData=[
   {w:"Mar 16",icp:6,nonicp:14},{w:"Mar 23",icp:4,nonicp:17},{w:"Mar 30",icp:2,nonicp:5},
   {w:"Apr 6",icp:1,nonicp:2},{w:"Apr 13",icp:0,nonicp:0}
 ];
-new Chart(document.getElementById('salChart'),{type:'bar',data:{labels,datasets:[
-  {label:'ICP',data:salData.map(d=>d.icp),backgroundColor:'#1D9E75',stack:'s'},
-  {label:'Non-ICP',data:salData.map(d=>d.nonicp),backgroundColor:'#378ADD',stack:'s'}
-]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
-scales:{x:{stacked:true,grid:{display:false},ticks:{font:{size:10},maxRotation:45,autoSkip:false}},
-y:{stacked:true,grid:{color:'rgba(0,0,0,0.06)'},ticks:{font:{size:10}}}}}});
+const salLast4=salData.slice(-4);
+new Chart(document.getElementById('salChart'),{type:'bar',data:{
+  labels:salLast4.map(d=>d.w),
+  datasets:[
+    {label:'ICP SALs',data:salLast4.map(d=>d.icp),backgroundColor:'#1D9E75',stack:'s'},
+    {label:'Non-ICP SALs',data:salLast4.map(d=>d.nonicp),backgroundColor:'#378ADD',stack:'s'}
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+scales:{x:{stacked:true,grid:{display:false},ticks:{font:{size:11}}},
+y:{stacked:true,grid:{color:'rgba(0,0,0,0.06)'},ticks:{font:{size:10},stepSize:1}}}}});
 
+// Video funnel
 new Chart(document.getElementById('videoFunnel'),{type:'bar',data:{
   labels:['Impressions','Views','@25%','@50%','@75%','Completions'],
   datasets:[{data:[11146,8953,4989,3141,1121,786],
@@ -367,19 +414,69 @@ new Chart(document.getElementById('videoFunnel'),{type:'bar',data:{
 scales:{x:{grid:{display:false},ticks:{font:{size:10}}},
 y:{grid:{color:'rgba(0,0,0,0.06)'},ticks:{font:{size:10},callback:v=>v>=1000?Math.round(v/1000)+'k':v}}}}});
 
+// Job titles with distinct colors and legend
+const jobTitles=['Partner','CFO','Owner','Acct Manager','Controller'];
+const jobRates=[12.12,10.41,7.89,8.99,6.52];
+const jobColors=['#1D9E75','#534AB7','#378ADD','#EF9F27','#B4B2A9'];
+
+// Build legend
+const legendEl=document.getElementById('jobLegend');
+jobTitles.forEach((t,i)=>{
+  const item=document.createElement('div');
+  item.className='legend-item';
+  item.innerHTML=`<div class="legend-dot" style="background:${jobColors[i]}"></div>${t}`;
+  legendEl.appendChild(item);
+});
+
 new Chart(document.getElementById('jobChart'),{type:'bar',indexAxis:'y',data:{
-  labels:['Partner','CFO','Owner','Acct Mgr','Controller'],
-  datasets:[{data:[12.12,10.41,7.89,8.99,6.52],backgroundColor:'#1D9E75'}]
-},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
-scales:{x:{grid:{color:'rgba(0,0,0,0.06)'},ticks:{font:{size:10},callback:v=>v+'%'}},
+  labels:jobTitles,
+  datasets:[{data:jobRates,backgroundColor:jobColors}]
+},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},
+  tooltip:{callbacks:{label:ctx=>` ${ctx.parsed.x.toFixed(2)}%`}}},
+scales:{x:{grid:{color:'rgba(0,0,0,0.06)'},ticks:{font:{size:10},callback:v=>v+'%'},min:0,max:15},
 y:{grid:{display:false},ticks:{font:{size:10}}}}}});
 
+// Company size
 new Chart(document.getElementById('sizeChart'),{type:'bar',indexAxis:'y',data:{
   labels:['11-50 employees','51-200 employees','2-10 employees'],
   datasets:[{data:[6159,5396,166],backgroundColor:['#1D9E75','#E24B4A','#B4B2A9']}]
 },options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
 scales:{x:{grid:{color:'rgba(0,0,0,0.06)'},ticks:{font:{size:10},callback:v=>v>=1000?Math.round(v/1000)+'k':v}},
 y:{grid:{display:false},ticks:{font:{size:10}}}}}});
+
+// ACV chart
+const acvData=[
+  {w:"Jan 12",acv:1888.32},{w:"Jan 19",acv:1543.11},{w:"Jan 26",acv:1495.92},
+  {w:"Feb 2",acv:1439.54},{w:"Feb 9",acv:1227.36},{w:"Feb 16",acv:1656.39},
+  {w:"Feb 23",acv:2675.05},{w:"Mar 2",acv:1507.23},{w:"Mar 9",acv:1742.85},
+  {w:"Mar 16",acv:1823.39},{w:"Mar 23",acv:2197.30},{w:"Mar 30",acv:1920.32},
+  {w:"Apr 6",acv:1854.97},{w:"Apr 13",acv:8621.70,outlier:true}
+];
+const acvLabels=acvData.map(d=>d.w);
+const acvValues=acvData.map(d=>d.acv);
+const acvPointColors=acvData.map(d=>d.outlier?'#EF9F27':'#534AB7');
+const acvPointRadius=acvData.map(d=>d.outlier?7:4);
+
+new Chart(document.getElementById('acvChart'),{type:'line',data:{
+  labels:acvLabels,
+  datasets:[
+    {label:'Avg ACV',data:acvValues,borderColor:'#534AB7',backgroundColor:'rgba(83,74,183,0.06)',
+     fill:true,tension:0.3,pointRadius:acvPointRadius,pointBackgroundColor:acvPointColors,
+     pointBorderColor:acvPointColors},
+    {label:'Baseline $2,770',data:acvLabels.map(()=>2770),borderColor:'rgba(136,135,128,0.6)',borderDash:[4,4],pointRadius:0,fill:false},
+    {label:'Target $3,000',data:acvLabels.map(()=>3000),borderColor:'rgba(29,158,117,0.6)',borderDash:[4,4],pointRadius:0,fill:false}
+  ]
+},options:{responsive:true,maintainAspectRatio:false,
+  plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>{
+    const d=acvData[ctx.dataIndex];
+    if(ctx.datasetIndex===0) return ` $${ctx.parsed.y.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g,',')}${d&&d.outlier?' (outlier)':''}`;
+    return ` ${ctx.dataset.label}`;
+  }}}},
+  scales:{
+    x:{grid:{display:false},ticks:{font:{size:10},maxRotation:45,autoSkip:false}},
+    y:{min:0,max:10000,grid:{color:'rgba(0,0,0,0.06)'},ticks:{font:{size:10},callback:v=>'$'+Math.round(v/1000)+'k'}}
+  }
+}});
 </script>
 </body>
 </html>
