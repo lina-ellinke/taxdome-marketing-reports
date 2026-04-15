@@ -253,49 +253,6 @@
       <div style="position:relative;height:150px;"><canvas id="sizeChart" role="img" aria-label="Horizontal bar chart of impressions by company size">Company size data.</canvas></div>
     </div>
   </div>
-
-  <hr>
-
-  <!-- ACV -->
-  <div class="section">
-    <div class="section-header">
-      <div class="section-title">Average ACV &mdash; new logos</div>
-      <div class="section-note">Source: HubSpot closed won &middot; Marketing-attributed</div>
-    </div>
-    <div class="flag">
-      <div class="flag-label">Outlier flag &mdash; Apr 13 week</div>
-      Apr 13 average ACV of $8,622 is 3-4x the normal range ($1,200-$2,700). This reflects one or more large deals closing in a partial week and is not a reliable trend signal. Investigating the specific deal(s) driving the spike. Excluding this week from trend analysis.
-    </div>
-    <div class="metrics-grid-3" style="margin-bottom:12px;">
-      <div class="metric-card">
-        <div class="metric-label">ACV this week (WTD)</div>
-        <div class="metric-value">$8,622</div>
-        <div class="metric-sub">Apr 13 &mdash; outlier, partial week</div>
-        <div class="metric-down">Likely single large deal &mdash; investigate</div>
-        <div class="metric-target">Baseline: $2,770 (TD-321)</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-label">Prior week ACV (Apr 6)</div>
-        <div class="metric-value">$1,855</div>
-        <div class="metric-sub">Within normal range</div>
-        <div class="metric-neutral">Typical week performance</div>
-        <div class="metric-target">Target: $3,000</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-label">13-week avg (excl. outlier)</div>
-        <div class="metric-value">$1,732</div>
-        <div class="metric-sub">Jan 12 &mdash; Apr 6 average</div>
-        <div class="metric-down">Below $2,770 baseline</div>
-        <div class="metric-target">ICP mix improvement needed upstream</div>
-      </div>
-    </div>
-    <div class="chart-card">
-      <div class="chart-title">Average ACV by week &mdash; 13 weeks</div>
-      <div class="chart-sub">Apr 13 outlier shown in amber. Dashed lines = baseline ($2,770) and target ($3,000). Trend is below baseline, reflecting pre-ICP-shift pipeline.</div>
-      <div style="position:relative;height:220px;"><canvas id="acvChart" role="img" aria-label="Line chart of average ACV per week with baseline and target reference lines">ACV trend data.</canvas></div>
-    </div>
-  </div>
-
   <hr>
 
   <!-- CAMPAIGN STATUS -->
@@ -317,21 +274,6 @@
         <div class="context-card-title"><span class="status-dot dot-progress"></span>HubSpot sync</div>
         <div class="context-card-body">Running syncs on pre-SAL leads and dead leads for revival. RevOps spam filter in progress.</div>
       </div>
-    </div>
-  </div>
-
-  <hr>
-
-  <!-- TD PAYMENTS PLACEHOLDER -->
-  <div class="section">
-    <div class="section-header">
-      <div class="section-title">TD Payments activation</div>
-      <div class="section-note">Monthly metric &mdash; updates end of April</div>
-    </div>
-    <div class="placeholder-card">
-      <div class="placeholder-title">TD Payments activation rate</div>
-      Monthly metric &mdash; will update end of April
-      <div style="margin-top:8px;font-size:11px;">Baseline: 10% &nbsp;&middot;&nbsp; Target: 30% (TD-323)</div>
     </div>
   </div>
 
@@ -444,39 +386,6 @@ new Chart(document.getElementById('sizeChart'),{type:'bar',indexAxis:'y',data:{
 scales:{x:{grid:{color:'rgba(0,0,0,0.06)'},ticks:{font:{size:10},callback:v=>v>=1000?Math.round(v/1000)+'k':v}},
 y:{grid:{display:false},ticks:{font:{size:10}}}}}});
 
-// ACV chart
-const acvData=[
-  {w:"Jan 12",acv:1888.32},{w:"Jan 19",acv:1543.11},{w:"Jan 26",acv:1495.92},
-  {w:"Feb 2",acv:1439.54},{w:"Feb 9",acv:1227.36},{w:"Feb 16",acv:1656.39},
-  {w:"Feb 23",acv:2675.05},{w:"Mar 2",acv:1507.23},{w:"Mar 9",acv:1742.85},
-  {w:"Mar 16",acv:1823.39},{w:"Mar 23",acv:2197.30},{w:"Mar 30",acv:1920.32},
-  {w:"Apr 6",acv:1854.97},{w:"Apr 13",acv:8621.70,outlier:true}
-];
-const acvLabels=acvData.map(d=>d.w);
-const acvValues=acvData.map(d=>d.acv);
-const acvPointColors=acvData.map(d=>d.outlier?'#EF9F27':'#534AB7');
-const acvPointRadius=acvData.map(d=>d.outlier?7:4);
-
-new Chart(document.getElementById('acvChart'),{type:'line',data:{
-  labels:acvLabels,
-  datasets:[
-    {label:'Avg ACV',data:acvValues,borderColor:'#534AB7',backgroundColor:'rgba(83,74,183,0.06)',
-     fill:true,tension:0.3,pointRadius:acvPointRadius,pointBackgroundColor:acvPointColors,
-     pointBorderColor:acvPointColors},
-    {label:'Baseline $2,770',data:acvLabels.map(()=>2770),borderColor:'rgba(136,135,128,0.6)',borderDash:[4,4],pointRadius:0,fill:false},
-    {label:'Target $3,000',data:acvLabels.map(()=>3000),borderColor:'rgba(29,158,117,0.6)',borderDash:[4,4],pointRadius:0,fill:false}
-  ]
-},options:{responsive:true,maintainAspectRatio:false,
-  plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>{
-    const d=acvData[ctx.dataIndex];
-    if(ctx.datasetIndex===0) return ` $${ctx.parsed.y.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g,',')}${d&&d.outlier?' (outlier)':''}`;
-    return ` ${ctx.dataset.label}`;
-  }}}},
-  scales:{
-    x:{grid:{display:false},ticks:{font:{size:10},maxRotation:45,autoSkip:false}},
-    y:{min:0,max:10000,grid:{color:'rgba(0,0,0,0.06)'},ticks:{font:{size:10},callback:v=>'$'+Math.round(v/1000)+'k'}}
-  }
-}});
 </script>
 </body>
 </html>
