@@ -216,8 +216,8 @@
 <div class="section-title">Performance Detail</div>
 <div class="charts-grid">
   <div class="card">
-    <h2>ICP Lead Volume by Week</h2>
-    <div class="chart-sub">Weekly volume with 4-week moving average vs. 700/wk target</div>
+    <h2>Classified Lead Volume by Week</h2>
+    <div class="chart-sub">Weekly classified leads (ICP + Non-ICP) vs. 2,800/month target (~700/week)</div>
     <div id="chartLeads" class="plot"></div>
   </div>
   <div class="card">
@@ -268,7 +268,8 @@ function statusColor(cls) {
 
 /* ---------- KPI CARDS ---------- */
 const kpis = [
-  { name: 'ICP Lead Volume',       value: 548,    target: 700,   unit: '',  suffix: '/wk', trend: [480,510,530,495,520,548,560,548], format: n => n.toLocaleString() },
+  { name: 'Classified Leads',      value: 648,    target: 700,   unit: '',  suffix: '/wk', trend: [605,612,598,625,640,632,658,648], format: n => n.toLocaleString(),
+    compareOverride: 'Target: 700/wk &nbsp;·&nbsp; ICP share: <span class="pct">26%</span>' },
   { name: 'ICP Lead Share',        value: 26,     target: 35,    unit: '%', suffix: '',    trend: [20,22,21,24,23,25,27,26],          format: n => n + '%' },
   { name: 'Paid Channel SAL',      value: 32,     target: 37,    unit: '',  suffix: '/wk', trend: [28,30,25,33,29,35,31,32],          format: n => n.toLocaleString() },
   { name: 'Avg ACV',               value: 2850,   target: 3000,  unit: '$', suffix: '',    trend: [2700,2750,2720,2800,2780,2830,2870,2850], format: n => '$' + n.toLocaleString() },
@@ -283,12 +284,13 @@ function renderKPIs() {
     const pct = Math.round((k.value / k.target) * 100);
     const card = document.createElement('div');
     card.className = `kpi-card ${cls}`;
+    const compareHtml = k.compareOverride
+      ? k.compareOverride
+      : `Target: ${k.format(k.target)}${k.suffix} &nbsp;·&nbsp; <span class="pct">${pct}%</span> of goal`;
     card.innerHTML = `
       <div class="kpi-name">${k.name}</div>
       <div class="kpi-value">${k.format(k.value)}${k.suffix}</div>
-      <div class="kpi-compare ${cls}">
-        Target: ${k.format(k.target)}${k.suffix} &nbsp;·&nbsp; <span class="pct">${pct}%</span> of goal
-      </div>
+      <div class="kpi-compare ${cls}">${compareHtml}</div>
       <div class="kpi-spark" id="spark-${i}"></div>
     `;
     row.appendChild(card);
@@ -323,33 +325,42 @@ function hexToRgba(hex, alpha) {
   return `rgba(${r},${g},${b},${alpha})`;
 }
 
-/* ---------- CHART 1: ICP Lead Volume by Week ---------- */
+/* ---------- CHART 1: Classified Lead Volume by Week ---------- */
 function renderLeadsChart() {
-  const weeks = ['W5 Jan','W1 Feb','W2 Feb','W3 Feb','W4 Feb','W1 Mar','W2 Mar','W3 Mar','W4 Mar','W1 Apr','W2 Apr','W3 Apr'];
-  const vol   = [ 462,    478,     505,     490,     521,     540,     515,     555,     578,     560,     602,     548    ];
-  const goal  = 700;
+  const weeks   = ['W5 Jan','W1 Feb','W2 Feb','W3 Feb','W4 Feb','W1 Mar','W2 Mar','W3 Mar','W4 Mar','W1 Apr','W2 Apr','W3 Apr'];
+  const total   = [ 555,    568,     580,     592,     605,     612,     598,     625,     640,     632,     658,     648    ];
+  const icpPct  = [ 21,     22,      20,      23,      22,      24,      23,      25,      24,      25,      27,      26     ];
+  const icp     = total.map((t, i) => Math.round(t * icpPct[i] / 100));
+  const nonIcp  = total.map((t, i) => t - icp[i]);
+  const goal    = 700;
+  const icpGoal = Math.round(goal * 0.35); // 245
 
-  const barColors = vol.map(v => {
-    if (v >= goal) return COLORS.success;
-    if (v >= goal * 0.9) return COLORS.warning;
-    return COLORS.danger;
-  });
-
-  // 4-week moving average
-  const ma = vol.map((_, i) => {
+  // 4-week moving average over total classified
+  const ma = total.map((_, i) => {
     const start = Math.max(0, i - 3);
-    const slice = vol.slice(start, i + 1);
+    const slice = total.slice(start, i + 1);
     return Math.round(slice.reduce((a,b) => a+b, 0) / slice.length);
   });
 
+  const icpLabels = icpPct.map(p => `${p}%`);
+
   const traces = [
     {
-      type: 'bar', name: 'ICP Leads', x: weeks, y: vol,
-      marker: { color: barColors, line: { width: 0 } },
-      hovertemplate: '<b>%{x}</b><br>%{y} leads<extra></extra>'
+      type: 'bar', name: 'ICP', x: weeks, y: icp,
+      marker: { color: COLORS.primary, line: { width: 0 } },
+      text: icpLabels, textposition: 'inside', insidetextanchor: 'middle',
+      textfont: { size: 11, color: '#FFFFFF', family: 'Inter, sans-serif' },
+      hovertemplate: '<b>%{x}</b><br>ICP: %{y} leads<extra></extra>'
     },
     {
-      type: 'scatter', mode: 'lines+markers', name: '4-wk Moving Avg',
+      type: 'bar', name: 'Non-ICP', x: weeks, y: nonIcp,
+      marker: { color: '#ADB5BD', line: { width: 0 } },
+      text: total.map(t => t.toLocaleString()), textposition: 'outside',
+      textfont: { size: 11, color: getComputedStyle(document.body).getPropertyValue('--text'), family: 'Inter, sans-serif' },
+      hovertemplate: '<b>%{x}</b><br>Non-ICP: %{y} leads<extra></extra>'
+    },
+    {
+      type: 'scatter', mode: 'lines+markers', name: '4-wk Moving Avg (total)',
       x: weeks, y: ma,
       line: { color: COLORS.primary, width: 3, shape: 'spline' },
       marker: { size: 6, color: COLORS.primary },
@@ -358,24 +369,40 @@ function renderLeadsChart() {
   ];
 
   const layout = {
-    height: 360,
+    height: 380,
     margin: { l: 50, r: 20, t: 10, b: 50 },
     paper_bgcolor: 'rgba(0,0,0,0)',
     plot_bgcolor: 'rgba(0,0,0,0)',
     font: { family: 'Inter, sans-serif', color: getComputedStyle(document.body).getPropertyValue('--text') },
+    barmode: 'stack',
     xaxis: { tickfont: { size: 11 }, showgrid: false },
-    yaxis: { gridcolor: 'rgba(128,128,128,0.15)', title: { text: 'Leads', font: { size: 12 } }, range: [0, 800] },
-    shapes: [{
-      type: 'line', xref: 'paper', x0: 0, x1: 1,
-      y0: goal, y1: goal,
-      line: { color: COLORS.muted, width: 2, dash: 'dash' }
-    }],
-    annotations: [{
-      xref: 'paper', x: 0.99, y: goal, yshift: 10,
-      text: `<b>Weekly Target: ${goal}</b>`,
-      showarrow: false, xanchor: 'right',
-      font: { size: 11, color: COLORS.muted }
-    }],
+    yaxis: { gridcolor: 'rgba(128,128,128,0.15)', title: { text: 'Classified Leads', font: { size: 12 } }, range: [0, 850] },
+    shapes: [
+      {
+        type: 'line', xref: 'paper', x0: 0, x1: 1,
+        y0: goal, y1: goal,
+        line: { color: COLORS.muted, width: 2, dash: 'dash' }
+      },
+      {
+        type: 'line', xref: 'paper', x0: 0, x1: 1,
+        y0: icpGoal, y1: icpGoal,
+        line: { color: COLORS.primary, width: 1.5, dash: 'dot' }
+      }
+    ],
+    annotations: [
+      {
+        xref: 'paper', x: 0.99, y: goal, yshift: 10,
+        text: `<b>Weekly Target: ${goal}</b>`,
+        showarrow: false, xanchor: 'right',
+        font: { size: 11, color: COLORS.muted }
+      },
+      {
+        xref: 'paper', x: 0.01, y: icpGoal, yshift: 10,
+        text: `<b>ICP Target: 35% (${icpGoal}/wk)</b>`,
+        showarrow: false, xanchor: 'left',
+        font: { size: 11, color: COLORS.primary }
+      }
+    ],
     legend: { orientation: 'h', y: -0.18, x: 0.5, xanchor: 'center' },
     bargap: 0.35
   };
