@@ -69,15 +69,15 @@
   /* KPI Cards */
   .kpi-row {
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 18px;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 14px;
     margin-bottom: 28px;
   }
   .kpi-card {
     position: relative;
     background: var(--card);
     border-radius: 12px;
-    padding: 18px 20px 14px 24px;
+    padding: 16px 16px 12px 20px;
     box-shadow: var(--shadow);
     overflow: hidden;
     border: 1px solid var(--border);
@@ -92,6 +92,25 @@
   .kpi-card.green::before  { background: var(--success); }
   .kpi-card.orange::before { background: var(--warning); }
   .kpi-card.red::before    { background: var(--danger); }
+  .kpi-card.gray::before   { background: var(--muted); }
+  .kpi-card.info::before   { background: var(--primary); }
+
+  /* Status badges */
+  .badge {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 8px;
+    line-height: 1.4;
+    border: 1px solid transparent;
+  }
+  .badge.review  { background: rgba(232,89,12,0.12); color: var(--warning); border-color: rgba(232,89,12,0.35); }
+  .badge.pending { background: rgba(108,117,125,0.14); color: var(--muted); border-color: rgba(108,117,125,0.35); }
+  .badge.live    { background: rgba(47,158,68,0.12); color: var(--success); border-color: rgba(47,158,68,0.35); }
 
   .kpi-name {
     font-size: 12px; font-weight: 600; text-transform: uppercase;
@@ -143,8 +162,8 @@
   /* Attention section */
   .attention-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 18px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
   }
   .attn-card {
     border-radius: 12px;
@@ -158,6 +177,7 @@
   .attn-card.green  { border-left: 4px solid var(--success); background: linear-gradient(90deg, rgba(47,158,68,0.08), transparent 60%), var(--card); }
   .attn-card.orange { border-left: 4px solid var(--warning); background: linear-gradient(90deg, rgba(232,89,12,0.08), transparent 60%), var(--card); }
   .attn-card.red    { border-left: 4px solid var(--danger);  background: linear-gradient(90deg, rgba(224,49,49,0.08), transparent 60%), var(--card); }
+  .attn-card.gray   { border-left: 4px solid var(--muted);   background: linear-gradient(90deg, rgba(108,117,125,0.08), transparent 60%), var(--card); }
   .attn-icon {
     flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
@@ -166,6 +186,7 @@
   .attn-icon.green  { background: var(--success); }
   .attn-icon.orange { background: var(--warning); }
   .attn-icon.red    { background: var(--danger); }
+  .attn-icon.gray   { background: var(--muted); }
   .attn-title {
     font-weight: 600; font-size: 13px; margin-bottom: 4px;
     text-transform: uppercase; letter-spacing: 0.04em;
@@ -173,6 +194,7 @@
   .attn-title.green  { color: var(--success); }
   .attn-title.orange { color: var(--warning); }
   .attn-title.red    { color: var(--danger); }
+  .attn-title.gray   { color: var(--muted); }
   .attn-body { font-size: 13.5px; line-height: 1.45; color: var(--text); }
 
   .section-title {
@@ -180,14 +202,17 @@
     letter-spacing: 0.08em; color: var(--muted); margin: 8px 0 14px;
   }
 
-  @media (max-width: 1200px) {
+  @media (max-width: 1400px) {
     .kpi-row { grid-template-columns: repeat(3, 1fr); }
+    .attention-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 1100px) {
     .charts-grid { grid-template-columns: 1fr; }
-    .attention-grid { grid-template-columns: 1fr; }
   }
   @media (max-width: 720px) {
     .wrap { padding: 18px; }
     .kpi-row { grid-template-columns: 1fr 1fr; }
+    .attention-grid { grid-template-columns: 1fr; }
     header h1 { font-size: 22px; }
   }
 
@@ -205,7 +230,7 @@
 <header>
   <div>
     <h1>TaxDome Marketing — VP Dashboard</h1>
-    <div class="subtitle">Last updated: April 19, 2026 &nbsp;|&nbsp; Data through Week 16</div>
+    <div class="subtitle">Last updated: April 19, 2026 &nbsp;|&nbsp; Live data: SAL channels, ACV &nbsp;|&nbsp; Under review: classified leads, ICP share &nbsp;|&nbsp; Pending: TD Payments, Directory</div>
   </div>
   <button class="theme-btn" id="themeBtn" aria-label="Toggle dark mode">Toggle dark mode</button>
 </header>
@@ -216,13 +241,13 @@
 <div class="section-title">Performance Detail</div>
 <div class="charts-grid">
   <div class="card">
-    <h2>Classified Lead Volume by Week</h2>
-    <div class="chart-sub">Weekly classified leads (ICP + Non-ICP) vs. 2,800/month target (~700/week)</div>
+    <h2>Classified Lead Volume by Week &nbsp;<span class="badge review">Under review</span></h2>
+    <div class="chart-sub">Placeholder data. Query returning bulk-import spikes — verifying date basis with RevOps (final query will exclude <code>hs_analytics_source = OFFLINE</code>).</div>
     <div id="chartLeads" class="plot"></div>
   </div>
   <div class="card">
-    <h2>SAL by Channel</h2>
-    <div class="chart-sub">Actual vs. target, sorted by actual volume</div>
+    <h2>SAL by Channel &nbsp;<span class="badge live">Live</span></h2>
+    <div class="chart-sub">Last 4 weeks (Mar 23 – Apr 20) · HubSpot <code>hs_analytics_source</code> on contacts entering SAL</div>
     <div id="chartChannels" class="plot"></div>
   </div>
 </div>
@@ -261,36 +286,95 @@ function statusClass(actual, target) {
   return 'red';
 }
 function statusColor(cls) {
-  return cls === 'green' ? COLORS.success
-       : cls === 'orange' ? COLORS.warning
-       : COLORS.danger;
+  switch (cls) {
+    case 'green':  return COLORS.success;
+    case 'orange': return COLORS.warning;
+    case 'red':    return COLORS.danger;
+    case 'gray':   return COLORS.muted;
+    case 'info':   return COLORS.primary;
+    default:       return COLORS.muted;
+  }
 }
 
-/* ---------- KPI CARDS ---------- */
+/* ---------- KPI CARDS ----------
+   status meaning:
+   - live:    real HubSpot data, use green/orange/red based on target
+   - review:  placeholder data; flagged "Under review"
+   - pending: pre-launch or pending denominator decision
+*/
 const kpis = [
-  { name: 'Classified Leads',      value: 648,    target: 700,   unit: '',  suffix: '/wk', trend: [605,612,598,625,640,632,658,648], format: n => n.toLocaleString(),
-    compareOverride: 'Target: 700/wk &nbsp;·&nbsp; ICP share: <span class="pct">26%</span>' },
-  { name: 'ICP Lead Share',        value: 26,     target: 35,    unit: '%', suffix: '',    trend: [20,22,21,24,23,25,27,26],          format: n => n + '%' },
-  { name: 'Paid Channel SAL',      value: 32,     target: 37,    unit: '',  suffix: '/wk', trend: [28,30,25,33,29,35,31,32],          format: n => n.toLocaleString() },
-  { name: 'Avg ACV',               value: 2850,   target: 3000,  unit: '$', suffix: '',    trend: [2700,2750,2720,2800,2780,2830,2870,2850], format: n => '$' + n.toLocaleString() },
-  { name: 'TD Payments Activation',value: 22,     target: 30,    unit: '%', suffix: '',    trend: [15,16,18,17,19,20,21,22],          format: n => n + '%' }
+  {
+    name: 'Classified Leads', value: 648, target: 700, suffix: '/wk',
+    trend: [605,612,598,625,640,632,658,648],
+    format: n => n.toLocaleString(),
+    compareOverride: 'Target: 700/wk &nbsp;·&nbsp; ICP share: <span class="pct">28%</span>',
+    forceStatus: 'orange',
+    badge: { type: 'review', text: 'Under review — bulk import noise' }
+  },
+  {
+    name: 'ICP Lead Share', value: 28, target: 35, suffix: '%',
+    trend: [20,22,21,24,23,25,27,28],
+    format: n => n + '%',
+    forceStatus: 'orange',
+    badge: { type: 'review', text: 'Depends on classified lead cleanup' }
+  },
+  {
+    name: 'Weekly SAL (All Channels)', value: 220, target: null, suffix: '/wk',
+    trend: [241,264,244,189,164,220,222,220],
+    format: n => n.toLocaleString(),
+    compareOverride: 'No Q2 target &nbsp;·&nbsp; last 8 weeks',
+    forceStatus: 'info',
+    badge: { type: 'live', text: 'Live — HubSpot' }
+  },
+  {
+    name: 'Paid Channel SAL', value: 1, target: 37, suffix: '/wk',
+    trend: [0,2,1,2,2,1,0,1],
+    format: n => n.toLocaleString(),
+    compareOverride: 'Target 37/wk starts May &nbsp;·&nbsp; pre-launch baseline',
+    forceStatus: 'gray',
+    badge: { type: 'pending', text: 'Campaigns launch wk of Apr 20' }
+  },
+  {
+    name: 'Avg ACV', value: 2081, target: 3000, suffix: '',
+    trend: [1762, 1593, 2081],
+    trendLabels: ['Feb','Mar','Apr'],
+    format: n => '$' + n.toLocaleString(),
+    forceStatus: 'orange',
+    badge: { type: 'live', text: 'Live — Won deals' }
+  },
+  {
+    name: 'TD Payments Activation', value: 22, target: 30, suffix: '%',
+    trend: [15,16,18,17,19,20,21,22],
+    format: n => n + '%',
+    forceStatus: 'orange',
+    badge: { type: 'pending', text: 'Denominator TBD — w/ Petar' }
+  }
 ];
 
 function renderKPIs() {
   const row = document.getElementById('kpiRow');
   row.innerHTML = '';
   kpis.forEach((k, i) => {
-    const cls = statusClass(k.value, k.target);
-    const pct = Math.round((k.value / k.target) * 100);
+    const cls = k.forceStatus || statusClass(k.value, k.target);
     const card = document.createElement('div');
     card.className = `kpi-card ${cls}`;
-    const compareHtml = k.compareOverride
-      ? k.compareOverride
-      : `Target: ${k.format(k.target)}${k.suffix} &nbsp;·&nbsp; <span class="pct">${pct}%</span> of goal`;
+    let compareHtml;
+    if (k.compareOverride) {
+      compareHtml = k.compareOverride;
+    } else if (k.target == null) {
+      compareHtml = 'Live data';
+    } else {
+      const pct = Math.round((k.value / k.target) * 100);
+      compareHtml = `Target: ${k.format(k.target)}${k.suffix} &nbsp;·&nbsp; <span class="pct">${pct}%</span> of goal`;
+    }
+    const badgeHtml = k.badge
+      ? `<div><span class="badge ${k.badge.type}">${k.badge.text}</span></div>`
+      : '';
     card.innerHTML = `
       <div class="kpi-name">${k.name}</div>
       <div class="kpi-value">${k.format(k.value)}${k.suffix}</div>
       <div class="kpi-compare ${cls}">${compareHtml}</div>
+      ${badgeHtml}
       <div class="kpi-spark" id="spark-${i}"></div>
     `;
     row.appendChild(card);
@@ -410,49 +494,46 @@ function renderLeadsChart() {
   Plotly.newPlot('chartLeads', traces, layout, { displayModeBar: false, responsive: true });
 }
 
-/* ---------- CHART 2: SAL by Channel ---------- */
+/* ---------- CHART 2: SAL by Channel (live HubSpot data) ---------- */
 function renderChannelsChart() {
+  // Last 4 complete weeks (Mar 23 – Apr 20), contacts entering SAL grouped by hs_analytics_source
   let data = [
-    { channel: 'Paid Search',  actual: 52, target: 55 },
-    { channel: 'Paid Social',  actual: 34, target: 40 },
-    { channel: 'Organic',      actual: 28, target: 30 },
-    { channel: 'Partner',      actual: 18, target: 15 },
-    { channel: 'Direct',       actual: 12, target: 10 }
+    { channel: 'Organic Search',   actual: 311, paid: false },
+    { channel: 'Direct Traffic',   actual: 278, paid: false },
+    { channel: 'Other',            actual: 150, paid: false },
+    { channel: 'Referrals',        actual: 39,  paid: false },
+    { channel: 'Paid Social',      actual: 36,  paid: true  },
+    { channel: 'Paid Search',      actual: 3,   paid: true  }
   ];
-  data.sort((a, b) => a.actual - b.actual); // ascending so largest at top in horizontal
+  data.sort((a, b) => a.actual - b.actual); // ascending → largest at top
 
   const channels = data.map(d => d.channel);
   const actual   = data.map(d => d.actual);
-  const target   = data.map(d => d.target);
+  const total    = actual.reduce((a,b) => a+b, 0);
+  const colors   = data.map(d => d.paid ? COLORS.warning : COLORS.primary);
+  const labels   = data.map(d => `${d.actual}  (${Math.round(d.actual/total*100)}%)`);
 
   const traces = [
     {
-      type: 'bar', orientation: 'h', name: 'Actual',
+      type: 'bar', orientation: 'h',
       x: actual, y: channels,
-      marker: { color: COLORS.primary, line: { width: 0 } },
-      hovertemplate: '<b>%{y}</b><br>Actual: %{x}<extra></extra>',
-      text: actual, textposition: 'outside',
-      textfont: { size: 11, color: getComputedStyle(document.body).getPropertyValue('--text') }
-    },
-    {
-      type: 'bar', orientation: 'h', name: 'Target',
-      x: target, y: channels,
-      marker: { color: 'rgba(108,117,125,0.35)', line: { width: 0 } },
-      hovertemplate: '<b>%{y}</b><br>Target: %{x}<extra></extra>'
+      marker: { color: colors, line: { width: 0 } },
+      text: labels, textposition: 'outside',
+      textfont: { size: 11, color: getComputedStyle(document.body).getPropertyValue('--text') },
+      hovertemplate: '<b>%{y}</b><br>%{x} SAL (last 4 wks)<extra></extra>',
+      showlegend: false
     }
   ];
 
   const layout = {
     height: 360,
-    margin: { l: 100, r: 40, t: 10, b: 40 },
+    margin: { l: 120, r: 60, t: 10, b: 40 },
     paper_bgcolor: 'rgba(0,0,0,0)',
     plot_bgcolor: 'rgba(0,0,0,0)',
     font: { family: 'Inter, sans-serif', color: getComputedStyle(document.body).getPropertyValue('--text') },
-    barmode: 'group',
-    xaxis: { gridcolor: 'rgba(128,128,128,0.15)', title: { text: 'SAL (weekly)', font: { size: 12 } } },
+    xaxis: { gridcolor: 'rgba(128,128,128,0.15)', title: { text: `SAL count · total ${total.toLocaleString()}`, font: { size: 12 } } },
     yaxis: { tickfont: { size: 12 } },
-    legend: { orientation: 'h', y: -0.15, x: 0.5, xanchor: 'center' },
-    bargap: 0.25, bargroupgap: 0.1
+    bargap: 0.3
   };
 
   Plotly.newPlot('chartChannels', traces, layout, { displayModeBar: false, responsive: true });
@@ -463,25 +544,33 @@ function renderOKRChart() {
   // pace = 19/91 of Q2
   const paceFrac = 19 / 91;
   const krs = [
-    { name: 'ICP % of leads',          actual: 26,   target: 35,   label: '26% / 35%',        launched: true },
-    { name: 'Classified leads/month',  actual: 2340, target: 2800, label: '2,340 / 2,800',    launched: true },
-    { name: 'ICP % SAL from paid',     actual: 34,   target: 40,   label: '34% / 40%',        launched: true },
-    { name: 'Total SAL from paid',     actual: 128,  target: 150,  label: '128 / 150',        launched: true },
-    { name: 'Avg ACV',                 actual: 2850, target: 3000, label: '$2,850 / $3,000',  launched: true },
-    { name: 'TD Payments activation',  actual: 22,   target: 30,   label: '22% / 30%',        launched: true },
-    { name: 'Directory visitors',      actual: 0,    target: 1,    label: 'Not yet launched', launched: false },
-    { name: 'Directory conversion',    actual: 0,    target: 1,    label: 'Not yet launched', launched: false }
+    { name: 'ICP % of leads',          actual: 28,   target: 35,   label: '28% / 35%',              status: 'review' },
+    { name: 'Classified leads/month',  actual: 2340, target: 2800, label: 'Under review',           status: 'review' },
+    { name: 'ICP % SAL from paid',     actual: 0,    target: 40,   label: 'Pre-launch baseline',    status: 'pending' },
+    { name: 'Total SAL from paid',     actual: 1,    target: 37,   label: '1/wk · campaigns launching', status: 'pending' },
+    { name: 'Avg ACV',                 actual: 2081, target: 3000, label: '$2,081 / $3,000',        status: 'live' },
+    { name: 'TD Payments activation',  actual: 22,   target: 30,   label: '22% / 30% · denom. TBD', status: 'review' },
+    { name: 'Directory visitors',      actual: 0,    target: 1,    label: 'Not yet launched',       status: 'not-launched' },
+    { name: 'Directory conversion',    actual: 0,    target: 1,    label: 'Not yet launched',       status: 'not-launched' }
   ];
 
   // Render from top of chart to bottom in the same order given
   const reversed = [...krs].reverse();
   const names    = reversed.map(k => k.name);
-  const progress = reversed.map(k => k.launched ? Math.round((k.actual / k.target) * 100) : 0);
+  const progress = reversed.map(k => {
+    if (k.status === 'not-launched' || k.status === 'pending') return 0;
+    return Math.round((k.actual / k.target) * 100);
+  });
   const colors   = reversed.map(k => {
-    if (!k.launched) return 'rgba(108,117,125,0.35)';
+    if (k.status === 'not-launched' || k.status === 'pending') return 'rgba(108,117,125,0.35)';
+    if (k.status === 'review') return COLORS.warning;
     return statusColor(statusClass(k.actual, k.target));
   });
-  const labels   = reversed.map((k, i) => k.launched ? `${progress[i]}%  ·  ${k.label}` : 'Not yet launched');
+  const labels   = reversed.map((k, i) => {
+    if (k.status === 'not-launched') return 'Not yet launched';
+    if (k.status === 'pending')      return k.label;
+    return `${progress[i]}%  ·  ${k.label}`;
+  });
 
   // Background "100%" bars
   const bgTrace = {
@@ -541,22 +630,28 @@ function renderOKRChart() {
 /* ---------- ATTENTION CARDS ---------- */
 const attention = [
   {
-    status: 'red',
-    title: 'Off Track',
-    icon: '!',
-    body: 'ICP Lead Share trending 26% vs 35% target — at current pace, Q2 landing: 29%.'
-  },
-  {
     status: 'orange',
-    title: 'Needs Acceleration',
+    title: 'Data Quality',
     icon: '!',
-    body: 'TD Payments activation needs 8 percentage points in 10 weeks — requires acceleration.'
+    body: 'Classified lead volume shows 10× weekly swings — suspected bulk imports. Verifying date basis and import filters with RevOps this week.'
   },
   {
     status: 'green',
-    title: 'On Track',
+    title: 'ACV Trending Up',
     icon: '✓',
-    body: 'ACV trending strong at $2,850 — on track to exceed $3,000 target.'
+    body: 'ACV trending up — $1,762 (Feb) → $2,081 (Apr). Gap to $3,000 target is real but directionally positive.'
+  },
+  {
+    status: 'green',
+    title: 'Channel Data Live',
+    icon: '✓',
+    body: 'SAL channel data live — Organic Search (38%) and Direct (34%) dominate. Paid campaigns launching this week.'
+  },
+  {
+    status: 'gray',
+    title: 'Paid Baseline',
+    icon: '•',
+    body: 'Paid SAL baseline period — campaigns go live week of Apr 20. First measurable results expected May.'
   }
 ];
 
