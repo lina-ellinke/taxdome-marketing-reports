@@ -155,8 +155,22 @@
     font-size: 16px; font-weight: 600; letter-spacing: -0.01em;
   }
   .card .chart-sub {
-    font-size: 12px; color: var(--muted); margin-bottom: 14px;
+    font-size: 12px; color: var(--muted); margin-bottom: 10px;
   }
+  .chart-summary {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 12px;
+    margin-bottom: 14px;
+    background: rgba(76,110,245,0.06);
+    border-left: 3px solid var(--primary);
+    border-radius: 4px;
+    line-height: 1.5;
+  }
+  .chart-summary .sep { color: var(--muted); font-weight: 400; margin: 0 10px; }
+  .chart-summary .delta { font-size: 12px; font-weight: 600; margin-left: 4px; }
+  .chart-summary .delta.up   { color: var(--success); }
+  .chart-summary .delta.down { color: var(--danger); }
   .plot { width: 100%; }
 
   /* Attention section */
@@ -248,6 +262,7 @@
   <div class="card">
     <h2>SAL by Channel — Week of Apr 13 &nbsp;<span class="badge live">Live</span></h2>
     <div class="chart-sub">This week vs. prior week vs. same week last year</div>
+    <div id="chartChannelsSummary" class="chart-summary"></div>
     <div id="chartChannels" class="plot"></div>
   </div>
 </div>
@@ -513,6 +528,27 @@ function renderChannelsChart() {
   const thisVals = data.map(d => d.this);
   const priorVals = data.map(d => d.prior);
   const yoyVals  = data.map(d => d.yoy);
+
+  // --- summary line above the chart ---
+  const totalThis  = thisVals.reduce((a,b) => a+b, 0);
+  const totalPrior = priorVals.reduce((a,b) => a+b, 0);
+  const totalYoY   = yoyVals.reduce((a,b) => a+b, 0);
+  const summaryEl = document.getElementById('chartChannelsSummary');
+  if (summaryEl) {
+    const deltaHtml = (cur, base, label) => {
+      if (base === 0 && cur === 0) return '<span class="delta">—</span>';
+      if (base === 0) return `<span class="delta up">(+new ${label} ↑)</span>`;
+      const pct = Math.round((cur - base) / base * 100);
+      const up  = pct >= 0;
+      const sign = up ? '+' : '';
+      const arrow = up ? '↑' : '↓';
+      return `<span class="delta ${up ? 'up' : 'down'}">(${sign}${pct}% ${label} ${arrow})</span>`;
+    };
+    summaryEl.innerHTML =
+      `Total SAL this week: ${totalThis.toLocaleString()}` +
+      `<span class="sep">|</span>Prior week: ${totalPrior.toLocaleString()} ${deltaHtml(totalThis, totalPrior, 'WoW')}` +
+      `<span class="sep">|</span>Same week 2025: ${totalYoY.toLocaleString()} ${deltaHtml(totalThis, totalYoY, 'YoY')}`;
+  }
 
   const fmtPct = (a, b) => {
     if (b === 0 && a === 0) return '—';
