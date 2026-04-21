@@ -265,9 +265,8 @@
     <div id="chartLeads" class="plot"></div>
   </div>
   <div class="card">
-    <h2>SAL by Channel — Week of Apr 13 &nbsp;<span class="badge live">Live</span></h2>
-    <div class="chart-sub">This week vs. prior week vs. same week last year</div>
-    <div id="chartChannelsSummary" class="chart-summary"></div>
+    <h2>Online SAL by Channel — Week of Apr 13 &nbsp;<span class="badge live">Live</span></h2>
+    <div class="chart-sub">This week vs. prior week vs. same week last year &nbsp;·&nbsp; Excludes offline leads</div>
     <div id="chartChannels" class="plot"></div>
   </div>
 </div>
@@ -521,47 +520,33 @@ function renderLeadsChart() {
   Plotly.newPlot('chartLeads', traces, layout, { displayModeBar: false, responsive: true });
 }
 
-/* ---------- CHART 2: SAL by Channel — WoW + YoY ---------- */
+/* ---------- CHART 2: Online SAL by Channel — WoW + YoY ---------- */
 function renderChannelsChart() {
-  // Contacts entering SAL (hs_v2_date_entered_967637273) grouped by hs_analytics_source
-  // this: W12 2026 (Apr 13-19) · prior: W11 2026 (Apr 6-12) · yoy: Apr 13-19 2025
-  let data = [
+  // Contacts entering SAL (hs_v2_date_entered_967637273) grouped by hs_analytics_source,
+  // excluding OFFLINE. this: W16 2026 (Apr 13-19) · prior: W15 2026 (Apr 6-12) · yoy: Apr 13-19 2025.
+  // "Online Other" = all online sources not individually listed (EMAIL_MARKETING,
+  // OTHER_CAMPAIGNS, AI_REFERRALS, or null hs_analytics_source).
+  const channelData = [
     { channel: 'Organic Search', this: 106, prior: 62, yoy: 51 },
     { channel: 'Direct Traffic', this: 66,  prior: 64, yoy: 38 },
-    { channel: 'Other',          this: 32,  prior: 30, yoy: 16 },
     { channel: 'Referrals',      this: 15,  prior: 5,  yoy: 7  },
+    { channel: 'Online Other',   this: 7,   prior: 5,  yoy: 2  },
     { channel: 'Paid Search',    this: 1,   prior: 0,  yoy: 0, yoyNoData: true },
     { channel: 'Paid Social',    this: 0,   prior: 3,  yoy: 0, yoyNoData: true }
   ];
-  // Sort by this week's volume desc — Plotly horizontal bars render bottom→top,
-  // so reverse to put largest at the top.
-  data.sort((a, b) => a.this - b.this);
+  // Top-line row: comes from HubSpot query excluding OFFLINE — authoritative total.
+  const totalRow = { channel: 'Total Online SAL', this: 195, prior: 139, yoy: 98, isTotal: true };
 
-  const channels = data.map(d => d.channel);
+  // Sort channels by this week's volume ascending, then append Total at the end
+  // so it renders at the TOP of the horizontal chart.
+  channelData.sort((a, b) => a.this - b.this);
+  const data = [...channelData, totalRow];
+
+  const channels = data.map(d => d.isTotal ? '<b>Total Online SAL</b>' : d.channel);
   const thisVals = data.map(d => d.this);
   const priorVals = data.map(d => d.prior);
   const yoyVals  = data.map(d => d.yoy);
-
-  // --- summary line above the chart ---
-  const totalThis  = thisVals.reduce((a,b) => a+b, 0);
-  const totalPrior = priorVals.reduce((a,b) => a+b, 0);
-  const totalYoY   = yoyVals.reduce((a,b) => a+b, 0);
-  const summaryEl = document.getElementById('chartChannelsSummary');
-  if (summaryEl) {
-    const deltaHtml = (cur, base, label) => {
-      if (base === 0 && cur === 0) return '<span class="delta">—</span>';
-      if (base === 0) return `<span class="delta up">(+new ${label} ↑)</span>`;
-      const pct = Math.round((cur - base) / base * 100);
-      const up  = pct >= 0;
-      const sign = up ? '+' : '';
-      const arrow = up ? '↑' : '↓';
-      return `<span class="delta ${up ? 'up' : 'down'}">(${sign}${pct}% ${label} ${arrow})</span>`;
-    };
-    summaryEl.innerHTML =
-      `Total SAL this week: ${totalThis.toLocaleString()}` +
-      `<span class="sep">|</span>Prior week: ${totalPrior.toLocaleString()} ${deltaHtml(totalThis, totalPrior, 'WoW')}` +
-      `<span class="sep">|</span>Same week 2025: ${totalYoY.toLocaleString()} ${deltaHtml(totalThis, totalYoY, 'YoY')}`;
-  }
+  const totalIdx = data.length - 1;
 
   const fmtPct = (a, b) => {
     if (b === 0 && a === 0) return '—';
@@ -603,30 +588,56 @@ function renderChannelsChart() {
   // WoW + YoY delta annotations — two stacked per row
   const maxVal = Math.max(...thisVals, ...priorVals, ...yoyVals);
   const annotations = [];
-  data.forEach(d => {
+  data.forEach((d, i) => {
     const wow    = fmtPct(d.this, d.prior);
     const wowCol = pctColor(d.this, d.prior);
     const yoyTxt = d.yoyNoData ? 'YoY: no data' : `${fmtPct(d.this, d.yoy)} YoY`;
     const yoyCol = d.yoyNoData ? COLORS.muted : pctColor(d.this, d.yoy);
+    // Reference the y-axis category via its rendered label so HTML in the
+    // Total row ('<b>Total Online SAL</b>') matches.
+    const yCat = channels[i];
     annotations.push({
-      x: maxVal * 1.04, y: d.channel, xref: 'x', yref: 'y',
+      x: maxVal * 1.04, y: yCat, xref: 'x', yref: 'y',
       xanchor: 'left', yanchor: 'middle', yshift: 8,
       text: `<b>${wow} WoW</b>`,
       showarrow: false,
-      font: { size: 12, family: 'Inter, sans-serif', color: wowCol }
+      font: { size: d.isTotal ? 13 : 12, family: 'Inter, sans-serif', color: wowCol }
     });
     annotations.push({
-      x: maxVal * 1.04, y: d.channel, xref: 'x', yref: 'y',
+      x: maxVal * 1.04, y: yCat, xref: 'x', yref: 'y',
       xanchor: 'left', yanchor: 'middle', yshift: -8,
       text: yoyTxt,
       showarrow: false,
-      font: { size: 10, family: 'Inter, sans-serif', color: yoyCol }
+      font: { size: d.isTotal ? 11 : 10, family: 'Inter, sans-serif', color: yoyCol }
     });
   });
 
+  // Visual separation between Total row (top) and channel breakdown below.
+  // Categorical y-axis treats indices as numeric positions; Total sits at totalIdx.
+  const shapes = [
+    {
+      // subtle background tint behind the Total row
+      type: 'rect',
+      xref: 'paper', x0: 0, x1: 1,
+      yref: 'y',
+      y0: totalIdx - 0.5, y1: totalIdx + 0.5,
+      fillcolor: 'rgba(76,110,245,0.07)',
+      line: { width: 0 },
+      layer: 'below'
+    },
+    {
+      // thicker divider line between Total and channels
+      type: 'line',
+      xref: 'paper', x0: 0, x1: 1,
+      yref: 'y',
+      y0: totalIdx - 0.5, y1: totalIdx - 0.5,
+      line: { color: 'rgba(108,117,125,0.55)', width: 2 }
+    }
+  ];
+
   const layout = {
-    height: 420,
-    margin: { l: 120, r: 170, t: 10, b: 50 },
+    height: 470,
+    margin: { l: 130, r: 170, t: 10, b: 50 },
     paper_bgcolor: 'rgba(0,0,0,0)',
     plot_bgcolor: 'rgba(0,0,0,0)',
     font: { family: 'Inter, sans-serif', color: getComputedStyle(document.body).getPropertyValue('--text') },
@@ -639,6 +650,7 @@ function renderChannelsChart() {
     yaxis: { tickfont: { size: 12 } },
     legend: { orientation: 'h', y: -0.14, x: 0.5, xanchor: 'center', font: { size: 11 } },
     bargap: 0.28, bargroupgap: 0.05,
+    shapes,
     annotations
   };
 
