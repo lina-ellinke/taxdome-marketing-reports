@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>TaxDome Marketing — VP Dashboard</title>
+<title>TaxDome Marketing — Weekly Overview</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -177,6 +177,40 @@
   .chart-summary .delta.down { color: var(--danger); }
   .plot { width: 100%; }
 
+  /* OKR chart legend */
+  .okr-legend {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+  }
+  .okr-legend-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 22px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+  .okr-dot {
+    display: inline-block;
+    width: 11px; height: 11px;
+    border-radius: 3px;
+    margin-right: 7px;
+    vertical-align: -1px;
+  }
+  .okr-dot.green  { background: var(--success); }
+  .okr-dot.orange { background: var(--warning); }
+  .okr-dot.red    { background: var(--danger); }
+  .okr-dot.gray   { background: rgba(108,117,125,0.45); }
+  .okr-legend-note {
+    font-size: 11.5px;
+    color: var(--muted);
+    font-style: italic;
+    line-height: 1.5;
+    max-width: 900px;
+  }
+
   /* Attention section */
   .attention-grid {
     display: grid;
@@ -248,7 +282,7 @@
 
 <header>
   <div>
-    <h1>TaxDome Marketing — VP Dashboard</h1>
+    <h1>TaxDome Marketing — Weekly Overview</h1>
     <div class="subtitle">Last updated: April 19, 2026 &nbsp;|&nbsp; Live data: SAL channels, ACV &nbsp;|&nbsp; Under review: classified leads, ICP share &nbsp;|&nbsp; Pending: TD Payments, Directory</div>
   </div>
   <button class="theme-btn" id="themeBtn" aria-label="Toggle dark mode">Toggle dark mode</button>
@@ -276,6 +310,17 @@
     <h2>Q2 OKR Progress</h2>
     <div class="chart-sub">Progress vs. key results — vertical line marks quarter-to-date pace (~21%)</div>
     <div id="chartOKR" class="plot"></div>
+    <div class="okr-legend">
+      <div class="okr-legend-row">
+        <span><span class="okr-dot green"></span>On track (90%+ of target)</span>
+        <span><span class="okr-dot orange"></span>Needs attention (70–89%)</span>
+        <span><span class="okr-dot red"></span>Off track (below 70%)</span>
+        <span><span class="okr-dot gray"></span>Pre-launch or data pending</span>
+      </div>
+      <div class="okr-legend-note">
+        Color reflects progress toward target. Bars extending past the Q2 pace line (21%) indicate ahead-of-schedule progress regardless of color — a bar can be ahead of pace but still short of the absolute target.
+      </div>
+    </div>
   </div>
 </div>
 
@@ -671,8 +716,8 @@ function renderOKRChart() {
   const krs = [
     { name: 'ICP % of leads',          actual: 28,   target: 35,   label: '28% / 35%',              status: 'review' },
     { name: 'Classified leads/month',  actual: 2340, target: 2800, label: 'Under review',           status: 'review' },
-    { name: 'ICP % SAL from paid',     actual: 0,    target: 40,   label: 'Pre-launch baseline',    status: 'pending' },
-    { name: 'Total SAL from paid',     actual: 1,    target: 37,   label: '1/wk · campaigns launching', status: 'pending' },
+    { name: 'ICP % SAL from Paid Online Channels',  actual: 0,    target: 40,   label: 'Pre-launch baseline',    status: 'pending' },
+    { name: 'Total SAL from Paid Online Channels',  actual: 1,    target: 37,   label: '1/wk · campaigns launching', status: 'pending' },
     { name: 'Avg ACV',                 actual: 2081, target: 3000, label: '$2,081 / $3,000',        status: 'live' },
     { name: 'TD Payments activation',  actual: 22,   target: 30,   label: '22% / 30% · denom. TBD', status: 'review' },
     { name: 'Directory visitors',      actual: 0,    target: 1,    label: 'Not yet launched',       status: 'not-launched' },
@@ -721,7 +766,7 @@ function renderOKRChart() {
 
   const layout = {
     height: 420,
-    margin: { l: 210, r: 120, t: 20, b: 40 },
+    margin: { l: 260, r: 120, t: 20, b: 40 },
     paper_bgcolor: 'rgba(0,0,0,0)',
     plot_bgcolor: 'rgba(0,0,0,0)',
     font: { family: 'Inter, sans-serif', color: getComputedStyle(document.body).getPropertyValue('--text') },
