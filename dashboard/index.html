@@ -326,7 +326,11 @@ const kpis = [
     name: 'Classified Leads', value: 648, target: 700, suffix: '/wk',
     trend: [605,612,598,625,640,632,658,648],
     format: n => n.toLocaleString(),
-    compareOverride: 'Target: 700/wk &nbsp;·&nbsp; ICP share: <span class="pct">28%</span> &nbsp;·&nbsp; <b style="color:var(--danger)">−2% WoW ↓</b>',
+    compareOverride:
+      'Target: 700/wk &nbsp;·&nbsp; ICP share: <span class="pct">28%</span> &nbsp;·&nbsp; <b style="color:var(--danger)">−2% WoW ↓</b>' +
+      '<div style="font-size:10px; margin-top:4px; color:var(--muted); font-weight:400; font-style:italic;">' +
+        'Classified = companies identified as ICP or Non-ICP (excludes unclassified)' +
+      '</div>',
     forceStatus: 'orange',
     badge: { type: 'review', text: 'Under review — bulk import noise' }
   },
