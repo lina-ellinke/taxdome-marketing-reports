@@ -338,7 +338,7 @@ const kpis = [
     badge: { type: 'review', text: 'Depends on classified lead cleanup' }
   },
   {
-    name: 'Weekly SAL (All Channels)', value: 220, target: null, suffix: '/wk',
+    name: 'Weekly SAL (Online Channels)', value: 220, target: null, suffix: '/wk',
     trend: [241,264,244,189,164,220,222,220],
     format: n => n.toLocaleString(),
     compareOverride:
@@ -354,7 +354,7 @@ const kpis = [
     badge: { type: 'live', text: 'Live — HubSpot' }
   },
   {
-    name: 'Paid Channel SAL', value: 1, target: 37, suffix: '/wk',
+    name: 'Paid Online Channel SAL', value: 1, target: 37, suffix: '/wk',
     trend: [30, 25, 28, 20, 23, 12, 3, 1],
     format: n => n.toLocaleString(),
     compareOverride: 'Target 37/wk &nbsp;·&nbsp; <span class="pct">−67% WoW</span> (prior: 3)',
