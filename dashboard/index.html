@@ -337,8 +337,16 @@ const kpis = [
     name: 'Weekly SAL (All Channels)', value: 220, target: null, suffix: '/wk',
     trend: [241,264,244,189,164,220,222,220],
     format: n => n.toLocaleString(),
-    compareOverride: 'No Q2 target &nbsp;·&nbsp; last 8 weeks',
-    forceStatus: 'info',
+    compareOverride:
+      'vs prior week: <b style="color:var(--success)">+34% WoW ↑</b> &nbsp;·&nbsp; ' +
+      'vs Q2 2025 avg: <b style="color:var(--success)">+90% YoY ↑</b>' +
+      '<div style="font-size:11px; margin-top:4px; color:var(--muted); font-weight:500;">' +
+        'Q1 2026 avg: 215/wk &nbsp;·&nbsp; Q2 2025 avg: 116/wk' +
+      '</div>' +
+      '<div style="font-size:10px; margin-top:2px; color:var(--muted); font-weight:400; font-style:italic;">' +
+        'Online SAL · This week' +
+      '</div>',
+    forceStatus: 'green',
     badge: { type: 'live', text: 'Live — HubSpot' }
   },
   {
