@@ -326,7 +326,7 @@ const kpis = [
     name: 'Classified Leads', value: 648, target: 700, suffix: '/wk',
     trend: [605,612,598,625,640,632,658,648],
     format: n => n.toLocaleString(),
-    compareOverride: 'Target: 700/wk &nbsp;·&nbsp; ICP share: <span class="pct">28%</span>',
+    compareOverride: 'Target: 700/wk &nbsp;·&nbsp; ICP share: <span class="pct">28%</span> &nbsp;·&nbsp; <b style="color:var(--danger)">−2% WoW ↓</b>',
     forceStatus: 'orange',
     badge: { type: 'review', text: 'Under review — bulk import noise' }
   },
@@ -334,6 +334,7 @@ const kpis = [
     name: 'ICP Lead Share', value: 28, target: 35, suffix: '',
     trend: [20,22,21,24,23,25,27,28],
     format: n => n + '%',
+    compareOverride: 'Target: 35% &nbsp;·&nbsp; <span class="pct">80%</span> of goal &nbsp;·&nbsp; <b style="color:var(--success)">+1 pp WoW ↑</b>',
     forceStatus: 'orange',
     badge: { type: 'review', text: 'Depends on classified lead cleanup' }
   },
@@ -365,6 +366,7 @@ const kpis = [
     trend: [1762, 1593, 2081],
     trendLabels: ['Feb','Mar','Apr'],
     format: n => '$' + n.toLocaleString(),
+    compareOverride: 'Target: $3,000 &nbsp;·&nbsp; <span class="pct">69%</span> of goal &nbsp;·&nbsp; <b style="color:var(--success)">+31% MoM ↑</b>',
     forceStatus: 'orange',
     badge: { type: 'live', text: 'Live — Won deals' }
   },
@@ -372,6 +374,7 @@ const kpis = [
     name: 'TD Payments Activation', value: 22, target: 30, suffix: '',
     trend: [15,16,18,17,19,20,21,22],
     format: n => n + '%',
+    compareOverride: 'Target: 30% &nbsp;·&nbsp; <span class="pct">73%</span> of goal &nbsp;·&nbsp; <span style="color:var(--muted)">WoW: pending data</span>',
     forceStatus: 'orange',
     badge: { type: 'pending', text: 'Denominator TBD — w/ RevOps' }
   }
