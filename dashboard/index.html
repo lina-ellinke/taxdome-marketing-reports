@@ -358,7 +358,7 @@
 <header>
   <div>
     <h1>TaxDome Marketing — Weekly Overview</h1>
-    <div class="subtitle">Last updated: April 21, 2026 &nbsp;|&nbsp; Week of April 13-19 &nbsp;|&nbsp; Online leads only (excludes offline)</div>
+    <div class="subtitle">Last updated: April 21, 2026 &nbsp;|&nbsp; Week of April 14-20 &nbsp;|&nbsp; Online leads only (excludes offline)</div>
   </div>
   <button class="theme-btn" id="themeBtn" aria-label="Toggle dark mode">Toggle dark mode</button>
 </header>
@@ -384,7 +384,7 @@
     </div>
   </div>
   <div class="card">
-    <h2>Online SAL by Channel — Week of Apr 13 &nbsp;<span class="badge live">Live</span></h2>
+    <h2>Online SAL by Channel — Week of Apr 14 &nbsp;<span class="badge live">Live</span></h2>
     <div class="chart-sub">This week vs. prior week vs. same week last year &nbsp;·&nbsp; Excludes offline leads</div>
     <div id="chartChannels" class="plot"></div>
   </div>
@@ -644,7 +644,7 @@ function hexToRgba(hex, alpha) {
 function renderLeadsChart() {
   // Live HubSpot data — companies by createdate where icp__nonicp IN ('ICP','Non-ICP')
   // AND hs_analytics_source != OFFLINE (online-only). Week buckets: Monday 00:00 → next
-  // Monday 00:00 UTC. Most recent complete week = Apr 13-19.
+  // Monday 00:00 UTC. Most recent complete week = Apr 14-20.
   const weeks  = ['W5 Jan','W1 Feb','W2 Feb','W3 Feb','W4 Feb','W1 Mar','W2 Mar','W3 Mar','W4 Mar','W1 Apr','W2 Apr','W3 Apr'];
   const icp    = [ 98,    123,     102,     157,     100,     110,     140,     115,     142,     56,      111,     80      ];
   const nonIcp = [ 259,   215,     194,     208,     248,     256,     261,     205,     405,     172,     175,     199     ];
@@ -731,7 +731,7 @@ function renderLeadsChart() {
 /* ---------- CHART 2: Online SAL by Channel — WoW + YoY ---------- */
 function renderChannelsChart() {
   // Contacts entering SAL (hs_v2_date_entered_967637273) grouped by hs_analytics_source,
-  // excluding OFFLINE. this: W16 2026 (Apr 13-19) · prior: W15 2026 (Apr 6-12) · yoy: Apr 13-19 2025.
+  // excluding OFFLINE. this: W16 2026 (Apr 14-20) · prior: W15 2026 (Apr 7-13) · yoy: Apr 14-20 2025.
   // "Online Other" = all online sources not individually listed (EMAIL_MARKETING,
   // OTHER_CAMPAIGNS, AI_REFERRALS, or null hs_analytics_source).
   const channelData = [
