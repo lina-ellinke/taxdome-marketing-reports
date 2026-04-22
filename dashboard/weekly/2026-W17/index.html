@@ -239,6 +239,31 @@
   .chart-summary .delta.down { color: var(--danger); }
   .plot { width: 100%; }
 
+  /* Chart alignment overlay — used when a chart's data is under review */
+  .chart-overlay-wrap { position: relative; }
+  .chart-alignment-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(248, 249, 250, 0.68);
+    border-radius: 8px;
+    pointer-events: none;
+  }
+  [data-theme="dark"] .chart-alignment-overlay {
+    background: rgba(18, 22, 29, 0.72);
+  }
+  .chart-alignment-overlay-inner {
+    background: var(--card);
+    border: 2px solid var(--warning);
+    border-radius: 10px;
+    padding: 18px 28px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    max-width: 80%;
+  }
+
   /* OKR chart legend */
   .okr-legend {
     margin-top: 14px;
@@ -378,7 +403,19 @@
   <div class="card">
     <h2>Classified Lead Volume by Week &nbsp;<span class="badge live">Live — HubSpot</span></h2>
     <div class="chart-sub">Weekly companies created in HubSpot identified as ICP or Non-ICP</div>
-    <div id="chartLeads" class="plot"></div>
+    <div class="chart-overlay-wrap">
+      <div id="chartLeads" class="plot"></div>
+      <div class="chart-alignment-overlay">
+        <div class="chart-alignment-overlay-inner">
+          <div style="font-size: 18px; font-weight: 700; color: var(--warning); margin-bottom: 6px;">
+            Lead data under alignment with RevOps
+          </div>
+          <div style="font-size: 14px; color: var(--muted);">
+            Updated numbers next week
+          </div>
+        </div>
+      </div>
+    </div>
     <div style="font-size: 11px; color: var(--muted); font-style: italic; margin-top: 8px; line-height: 1.5;">
       Target varies by month — April: 300/wk, May: 995/wk, June: 1,195/wk (post-tax season ramp). Excludes offline leads and unclassified companies.
     </div>
@@ -404,9 +441,6 @@
       </div>
       <div class="okr-legend-note">
         Color indicates whether current progress is on pace to meet the Q2 target. The vertical line marks linear quarter-to-date pace.
-      </div>
-      <div class="okr-legend-note" style="margin-top: 6px;">
-        * Classified leads target is back-loaded (Apr: 1,198 / May: 3,979 / Jun: 4,781). Linear pace comparison does not apply to this KR.
       </div>
       <div class="okr-transition-note">
         Note: SAL is being retired in favor of SQL / high-intent MQL. Marketing is aligning with RevOps and Sales on updated funnel definitions. Q2 metrics will transition once alignment is complete.
@@ -519,22 +553,24 @@ function statusColor(cls) {
 */
 const kpis = [
   {
-    name: 'Classified Leads', value: 279, target: 300, suffix: '/wk',
-    trend: [348, 366, 401, 320, 547, 228, 286, 279],
-    format: n => n.toLocaleString(),
+    name: 'Classified Leads', value: 'Aligning', target: null, suffix: '',
+    trend: [1, 1, 1, 1, 1, 1, 1, 1],
+    format: n => n,
     compareOverride:
-      'April target: 300/wk &nbsp;·&nbsp; <span class="pct">93%</span> of goal &nbsp;·&nbsp; <b style="color:var(--danger)">−2% WoW ↓</b> &nbsp;·&nbsp; <b style="color:var(--success)">+51% YoY ↑</b>' +
+      'Lead definitions being aligned with RevOps this week' +
       '<div style="font-size:10px; margin-top:4px; color:var(--muted); font-weight:400; font-style:italic;">' +
-        'Online ICP/Non-ICP only · Target varies: Apr 300/wk, May 995/wk, Jun 1,195/wk' +
+        'Classified = companies identified as ICP or Non-ICP (excludes unclassified)' +
       '</div>',
-    badge: { type: 'live', text: 'Live — HubSpot' }
+    forceStatus: 'gray',
+    badge: { type: 'pending', text: 'RevOps alignment in progress' }
   },
   {
-    name: 'ICP Lead Share', value: 29, target: 35, suffix: '',
-    trend: [29, 30, 35, 36, 26, 25, 39, 29],
-    format: n => n + '%',
-    compareOverride: 'Target: 35% &nbsp;·&nbsp; <span class="pct">83%</span> of goal &nbsp;·&nbsp; <b style="color:var(--danger)">−10 pp WoW ↓</b> &nbsp;·&nbsp; <b style="color:var(--danger)">−11 pp YoY ↓</b>',
-    badge: { type: 'live', text: 'Live — HubSpot' }
+    name: 'ICP Lead Share', value: 'Aligning', target: null, suffix: '',
+    trend: [1, 1, 1, 1, 1, 1, 1, 1],
+    format: n => n,
+    compareOverride: 'Depends on lead definition alignment',
+    forceStatus: 'gray',
+    badge: { type: 'pending', text: 'RevOps alignment in progress' }
   },
   {
     name: 'Weekly SAL (Online Channels)', value: 220, target: null, suffix: '/wk',
@@ -870,8 +906,8 @@ function renderOKRChart() {
   // pace = 21/91 of Q2 (today is day 21)
   const paceFrac = 21 / 91;
   const krs = [
-    { name: 'ICP % of online leads (QTD avg)', actual: 31, target: 35, label: '31% / 35%',                             status: 'live' },
-    { name: 'Classified leads (Q2 total)',  actual: 1218, target: 8299, label: '1,218 / 8,299 · Apr target exceeded*', status: 'live', forceColor: COLORS.success },
+    { name: 'ICP % of online leads (QTD avg)', actual: 0, target: 35,   label: 'Aligning with RevOps',                  status: 'aligning' },
+    { name: 'Classified leads (Q2 total)',     actual: 0, target: 8299, label: 'Aligning with RevOps',                  status: 'aligning' },
     { name: 'ICP % SAL from Paid Online Channels',  actual: 0,    target: 40,   label: 'Pre-launch baseline',    status: 'pending' },
     { name: 'Total SAL from Paid Online Channels',  actual: 1,    target: 37,   label: '1/wk · campaigns launching', status: 'pending' },
     { name: 'Avg ACV (Q2 QTD)',             actual: 2081, target: 3000, label: '$2,081 / $3,000',                       status: 'live' },
@@ -884,19 +920,21 @@ function renderOKRChart() {
   const reversed = [...krs].reverse();
   const names    = reversed.map(k => k.name);
   // Raw progress used for pace/color decisions (can exceed 100% when target met).
+  // Statuses that don't have meaningful progress yet render at 0.
+  const inactiveStatuses = new Set(['not-launched', 'pending', 'aligning']);
   const rawProgress = reversed.map(k => {
-    if (k.status === 'not-launched' || k.status === 'pending') return 0;
+    if (inactiveStatuses.has(k.status)) return 0;
     return Math.round((k.actual / k.target) * 100);
   });
   // Displayed progress is capped at 100% so the bar doesn't overflow the chart.
   const progress = rawProgress.map(p => Math.min(p, 100));
   // Pace-based color: green if on or ahead of pace, orange if within 5pp,
-  // red if more than 5pp below pace. Gray for pre-launch / not launched.
+  // red if more than 5pp below pace. Gray for inactive statuses.
   // `forceColor` on a KR overrides the pace calculation (e.g. back-loaded targets).
   const pacePct = Math.round(paceFrac * 100);
   const colors  = reversed.map((k, i) => {
     if (k.forceColor) return k.forceColor;
-    if (k.status === 'not-launched' || k.status === 'pending') return 'rgba(108,117,125,0.35)';
+    if (inactiveStatuses.has(k.status)) return 'rgba(108,117,125,0.35)';
     const gap = rawProgress[i] - pacePct;
     if (gap >= 0)   return COLORS.success;
     if (gap >= -5)  return COLORS.warning;
@@ -905,6 +943,7 @@ function renderOKRChart() {
   const labels   = reversed.map((k, i) => {
     if (k.status === 'not-launched') return 'Not yet launched';
     if (k.status === 'pending')      return k.label;
+    if (k.status === 'aligning')     return k.label;
     return `${progress[i]}%  ·  ${k.label}`;
   });
 
