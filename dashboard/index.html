@@ -66,6 +66,68 @@
   }
   .theme-btn:hover { box-shadow: var(--shadow-hover); transform: translateY(-1px); }
 
+  /* Tab navigation */
+  .tab-bar {
+    display: flex;
+    gap: 4px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 24px;
+  }
+  .tab-btn {
+    background: none;
+    border: none;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--muted);
+    padding: 12px 18px;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -1px;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+  }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* Q2 targets table */
+  .q2-targets-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-top: 6px;
+  }
+  .q2-targets-table th,
+  .q2-targets-table td {
+    text-align: right;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .q2-targets-table th:first-child,
+  .q2-targets-table td:first-child {
+    text-align: left;
+    font-weight: 600;
+  }
+  .q2-targets-table thead th {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+    border-bottom: 2px solid var(--border);
+  }
+  .q2-targets-table tbody tr:hover { background: rgba(76,110,245,0.04); }
+  .q2-targets-table tfoot td {
+    font-weight: 700;
+    border-top: 2px solid var(--border);
+    border-bottom: none;
+    background: rgba(76,110,245,0.05);
+  }
+
   /* KPI Cards */
   .kpi-row {
     display: grid;
@@ -301,6 +363,13 @@
   <button class="theme-btn" id="themeBtn" aria-label="Toggle dark mode">Toggle dark mode</button>
 </header>
 
+<nav class="tab-bar" role="tablist">
+  <button class="tab-btn active" data-tab="overview" role="tab" aria-selected="true">Overview</button>
+  <button class="tab-btn" data-tab="leads" role="tab" aria-selected="false">Leads</button>
+</nav>
+
+<section id="tab-overview" class="tab-content active" role="tabpanel">
+
 <div class="section-title">Key Performance Indicators</div>
 <div class="kpi-row" id="kpiRow"></div>
 
@@ -310,8 +379,8 @@
     <h2>Classified Lead Volume by Week &nbsp;<span class="badge live">Live — HubSpot</span></h2>
     <div class="chart-sub">Weekly companies created in HubSpot identified as ICP or Non-ICP</div>
     <div id="chartLeads" class="plot"></div>
-    <div style="font-size: 11px; color: var(--muted); font-style: italic; margin-top: 8px;">
-      Excludes offline leads and unclassified companies
+    <div style="font-size: 11px; color: var(--muted); font-style: italic; margin-top: 8px; line-height: 1.5;">
+      Target varies by month — April: 300/wk, May: 995/wk, June: 1,195/wk (post-tax season ramp). Excludes offline leads and unclassified companies.
     </div>
   </div>
   <div class="card">
@@ -345,6 +414,66 @@
 
 <div class="section-title">Attention Required</div>
 <div class="attention-grid" id="attentionRow"></div>
+
+</section>
+
+<section id="tab-leads" class="tab-content" role="tabpanel">
+
+  <div class="section-title">Monthly Classified Lead Volume — Online vs Offline</div>
+  <div class="charts-grid-full">
+    <div class="card">
+      <h2>Monthly Classified Lead Volume — Online vs Offline</h2>
+      <div class="chart-sub">Companies classified as ICP or Non-ICP, by source channel type · Jan–Apr 2026 (April partial through Apr 20)</div>
+      <div id="chartOnlineOffline" class="plot"></div>
+      <div style="font-size: 11px; color: var(--muted); font-style: italic; margin-top: 8px;">
+        Each bar splits online vs offline; within each, ICP (darker) and Non-ICP (lighter) are sub-stacked.
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">Q2 Monthly Targets</div>
+  <div class="charts-grid-full">
+    <div class="card">
+      <h2>Q2 2026 Targets — from Goal Sheet</h2>
+      <div class="chart-sub">Monthly classified lead targets · post-tax-season ramp</div>
+      <table class="q2-targets-table">
+        <thead>
+          <tr>
+            <th>Month</th>
+            <th>Total Leads</th>
+            <th>ICP Leads</th>
+            <th>Non-ICP Leads</th>
+            <th>Weekly Rate</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>April</td><td>1,198</td><td>359</td><td>839</td><td>~300/wk</td></tr>
+          <tr><td>May</td><td>3,979</td><td>1,194</td><td>2,785</td><td>~995/wk</td></tr>
+          <tr><td>June</td><td>4,781</td><td>1,434</td><td>3,347</td><td>~1,195/wk</td></tr>
+        </tbody>
+        <tfoot>
+          <tr><td>Q2 Total</td><td>8,299</td><td>2,490</td><td>5,809</td><td>~638/wk avg</td></tr>
+        </tfoot>
+      </table>
+      <div style="font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 12px; line-height: 1.5;">
+        Targets include all channels (online + offline). Online-only targets to be set after RevOps alignment.
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">Online Classified Leads — 12 Month Trend</div>
+  <div class="charts-grid-full">
+    <div class="card">
+      <h2>Online Classified Leads — 12 Month Trend &nbsp;<span class="badge live">Live — HubSpot</span></h2>
+      <div class="chart-sub">Monthly companies created where ICP or Non-ICP, excluding offline-sourced leads · 3-month moving average overlay</div>
+      <div id="chartLeadsTrend" class="plot"></div>
+      <div style="font-size: 11px; color: var(--muted); font-style: italic; margin-top: 8px;">
+        April 2026 is partial (through Apr 20). Excludes offline leads and unclassified companies.
+      </div>
+    </div>
+  </div>
+
+</section>
 
 </div>
 
@@ -387,13 +516,13 @@ function statusColor(cls) {
 */
 const kpis = [
   {
-    name: 'Classified Leads', value: 279, target: 638, suffix: '/wk',
+    name: 'Classified Leads', value: 279, target: 300, suffix: '/wk',
     trend: [348, 366, 401, 320, 547, 228, 286, 279],
     format: n => n.toLocaleString(),
     compareOverride:
-      'Target: 638/wk &nbsp;·&nbsp; <b style="color:var(--danger)">−2% WoW ↓</b> &nbsp;·&nbsp; <b style="color:var(--success)">+51% YoY ↑</b>' +
+      'April target: 300/wk &nbsp;·&nbsp; <span class="pct">93%</span> of goal &nbsp;·&nbsp; <b style="color:var(--danger)">−2% WoW ↓</b> &nbsp;·&nbsp; <b style="color:var(--success)">+51% YoY ↑</b>' +
       '<div style="font-size:10px; margin-top:4px; color:var(--muted); font-weight:400; font-style:italic;">' +
-        'Online ICP/Non-ICP companies only (excludes offline + unclassified)' +
+        'Online ICP/Non-ICP only · Target varies: Apr 300/wk, May 995/wk, Jun 1,195/wk' +
       '</div>',
     badge: { type: 'live', text: 'Live — HubSpot' }
   },
@@ -514,8 +643,8 @@ function renderLeadsChart() {
   const nonIcp = [ 259,   215,     194,     208,     248,     256,     261,     205,     405,     172,     175,     199     ];
   const total  = icp.map((v, i) => v + nonIcp[i]);
   const icpPct = total.map((t, i) => t > 0 ? Math.round(icp[i] / t * 100) : 0);
-  const goal    = 638;
-  const icpGoal = 192;
+  const goal    = 300;
+  const icpGoal = 90;
 
   // 4-week moving average over total classified
   const ma = total.map((_, i) => {
@@ -574,13 +703,13 @@ function renderLeadsChart() {
     annotations: [
       {
         xref: 'paper', x: 0.99, y: goal, yshift: 10,
-        text: `<b>Weekly Target: ${goal}</b>`,
+        text: `<b>April Target: ${goal}/wk</b>`,
         showarrow: false, xanchor: 'right',
         font: { size: 11, color: COLORS.muted }
       },
       {
         xref: 'paper', x: 0.01, y: icpGoal, yshift: 10,
-        text: `<b>ICP Target: ${icpGoal}/wk</b>`,
+        text: `<b>April ICP Target: ${icpGoal}/wk</b>`,
         showarrow: false, xanchor: 'left',
         font: { size: 11, color: COLORS.primary }
       }
@@ -873,6 +1002,139 @@ function renderAttention() {
   });
 }
 
+/* ---------- LEADS TAB: Online vs Offline monthly ---------- */
+function renderOnlineOfflineChart() {
+  // Jan–Apr 2026 user-provided totals (online vs offline). ICP/Non-ICP sub-splits
+  // from live HubSpot queries: Jan–Apr online ICP = [479,482,538,239], online
+  // Non-ICP = [1033,854,1210,524]. Offline ICP/Non-ICP derived from (total − online)
+  // with ICP share proxied from the same quarter's average (~33% online ICP share).
+  const months      = ['Jan 2026', 'Feb 2026', 'Mar 2026', 'Apr 2026*'];
+  const onlineIcp   = [ 479,         482,         538,         239       ];
+  const onlineNicp  = [ 1033,        854,         1210,        524       ];
+  const offlineTot  = [ 1435,        2729,        2627,        398       ];
+  // Offline ICP share mirrors the quarter's online ICP share (~32%) as a placeholder
+  // until the offline-source breakdown is verified with RevOps.
+  const offIcpShare = 0.32;
+  const offlineIcp  = offlineTot.map(t => Math.round(t * offIcpShare));
+  const offlineNicp = offlineTot.map((t, i) => t - offlineIcp[i]);
+  const monthTotal  = onlineIcp.map((_, i) => onlineIcp[i] + onlineNicp[i] + offlineIcp[i] + offlineNicp[i]);
+
+  const traces = [
+    { type: 'bar', name: 'Online — ICP',    x: months, y: onlineIcp,  marker: { color: '#1864AB' }, hovertemplate: '<b>%{x}</b><br>Online ICP: %{y}<extra></extra>' },
+    { type: 'bar', name: 'Online — Non-ICP',x: months, y: onlineNicp, marker: { color: '#74C0FC' }, hovertemplate: '<b>%{x}</b><br>Online Non-ICP: %{y}<extra></extra>' },
+    { type: 'bar', name: 'Offline — ICP',   x: months, y: offlineIcp, marker: { color: '#495057' }, hovertemplate: '<b>%{x}</b><br>Offline ICP (est.): %{y}<extra></extra>' },
+    { type: 'bar', name: 'Offline — Non-ICP',x: months, y: offlineNicp,marker: { color: '#ADB5BD' }, hovertemplate: '<b>%{x}</b><br>Offline Non-ICP (est.): %{y}<extra></extra>' }
+  ];
+
+  const layout = {
+    height: 420,
+    margin: { l: 60, r: 20, t: 10, b: 80 },
+    paper_bgcolor: 'rgba(0,0,0,0)',
+    plot_bgcolor: 'rgba(0,0,0,0)',
+    font: { family: 'Inter, sans-serif', color: getComputedStyle(document.body).getPropertyValue('--text') },
+    barmode: 'stack',
+    xaxis: { tickfont: { size: 12 }, showgrid: false },
+    yaxis: { gridcolor: 'rgba(128,128,128,0.15)', title: { text: 'Classified Leads', font: { size: 12 } } },
+    legend: { orientation: 'h', y: -0.18, x: 0.5, xanchor: 'center', font: { size: 11 } },
+    bargap: 0.35,
+    annotations: monthTotal.map((t, i) => ({
+      x: months[i], y: t, yshift: 14, text: `<b>${t.toLocaleString()}</b>`,
+      showarrow: false, font: { size: 12, color: getComputedStyle(document.body).getPropertyValue('--text') }
+    }))
+  };
+
+  Plotly.newPlot('chartOnlineOffline', traces, layout, { displayModeBar: false, responsive: true });
+}
+
+/* ---------- LEADS TAB: 12-month online trend ---------- */
+function renderLeadsTrendChart() {
+  // Live HubSpot data — monthly companies created where icp__nonicp IN ('ICP','Non-ICP')
+  // AND hs_analytics_source != OFFLINE. May 2025 → Apr 2026 (Apr partial through Apr 20).
+  const months = ['May 2025','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan 2026','Feb','Mar','Apr*'];
+  const icp    = [  369,      398, 391, 363, 448, 448, 409, 496, 479,       482,   538, 239  ];
+  const nicp   = [  574,      521, 660, 791, 703, 817,1050,1150,1033,       854,  1210, 524  ];
+  const total  = icp.map((v, i) => v + nicp[i]);
+
+  // 3-month trailing moving average on total
+  const ma3 = total.map((_, i) => {
+    const s = Math.max(0, i - 2);
+    const slice = total.slice(s, i + 1);
+    return Math.round(slice.reduce((a,b) => a+b, 0) / slice.length);
+  });
+
+  const traces = [
+    {
+      type: 'bar', name: 'ICP', x: months, y: icp,
+      marker: { color: COLORS.primary }, hovertemplate: '<b>%{x}</b><br>ICP: %{y}<extra></extra>'
+    },
+    {
+      type: 'bar', name: 'Non-ICP', x: months, y: nicp,
+      marker: { color: '#ADB5BD' },
+      text: total.map(t => t.toLocaleString()), textposition: 'outside',
+      textfont: { size: 11, color: getComputedStyle(document.body).getPropertyValue('--text') },
+      hovertemplate: '<b>%{x}</b><br>Non-ICP: %{y}<extra></extra>'
+    },
+    {
+      type: 'scatter', mode: 'lines+markers', name: '3-month MA (total)',
+      x: months, y: ma3,
+      line: { color: COLORS.warning, width: 3, shape: 'spline' },
+      marker: { size: 6, color: COLORS.warning },
+      hovertemplate: '<b>%{x}</b><br>3mo MA: %{y}<extra></extra>'
+    }
+  ];
+
+  const layout = {
+    height: 420,
+    margin: { l: 60, r: 20, t: 10, b: 60 },
+    paper_bgcolor: 'rgba(0,0,0,0)',
+    plot_bgcolor: 'rgba(0,0,0,0)',
+    font: { family: 'Inter, sans-serif', color: getComputedStyle(document.body).getPropertyValue('--text') },
+    barmode: 'stack',
+    xaxis: { tickfont: { size: 11 }, showgrid: false },
+    yaxis: { gridcolor: 'rgba(128,128,128,0.15)', title: { text: 'Online Classified Leads', font: { size: 12 } } },
+    legend: { orientation: 'h', y: -0.18, x: 0.5, xanchor: 'center', font: { size: 11 } },
+    bargap: 0.25
+  };
+
+  Plotly.newPlot('chartLeadsTrend', traces, layout, { displayModeBar: false, responsive: true });
+}
+
+/* ---------- TAB SWITCHING ---------- */
+let leadsTabInitialized = false;
+function initTabs() {
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tab = btn.dataset.tab;
+      document.querySelectorAll('.tab-btn').forEach(b => {
+        const isActive = b.dataset.tab === tab;
+        b.classList.toggle('active', isActive);
+        b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+      document.querySelectorAll('.tab-content').forEach(s => {
+        s.classList.toggle('active', s.id === `tab-${tab}`);
+      });
+      // Render Leads charts lazily on first reveal — Plotly needs the container
+      // to have measurable width/height, which it doesn't while display:none.
+      if (tab === 'leads' && !leadsTabInitialized) {
+        renderOnlineOfflineChart();
+        renderLeadsTrendChart();
+        leadsTabInitialized = true;
+      } else if (tab === 'leads') {
+        // Force resize in case the viewport changed while the tab was hidden.
+        ['chartOnlineOffline','chartLeadsTrend'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) Plotly.Plots.resize(el);
+        });
+      } else {
+        ['chartLeads','chartChannels','chartOKR'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) Plotly.Plots.resize(el);
+        });
+      }
+    });
+  });
+}
+
 /* ---------- THEME TOGGLE ---------- */
 function initTheme() {
   const btn = document.getElementById('themeBtn');
@@ -893,13 +1155,20 @@ function renderAll() {
   renderChannelsChart();
   renderOKRChart();
   renderAttention();
+  // If the Leads tab has been visited, re-render its charts too (so theme
+  // switches pick up the new text color consistently).
+  if (leadsTabInitialized) {
+    renderOnlineOfflineChart();
+    renderLeadsTrendChart();
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
+  initTabs();
   renderAll();
   window.addEventListener('resize', () => {
-    ['chartLeads','chartChannels','chartOKR'].forEach(id => {
+    ['chartLeads','chartChannels','chartOKR','chartOnlineOffline','chartLeadsTrend'].forEach(id => {
       const el = document.getElementById(id);
       if (el) Plotly.Plots.resize(el);
     });
