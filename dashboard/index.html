@@ -569,12 +569,16 @@ const kpis = [
     badge: { type: 'live', text: 'Live — Won deals' }
   },
   {
-    name: 'TD Payments Activation', value: 22, target: 30, suffix: '',
-    trend: [15,16,18,17,19,20,21,22],
+    name: 'TD Payments Activation', value: 12.6, target: 30, suffix: '',
+    trend: [12.6, 12.6, 12.6, 12.6, 12.6, 12.6, 12.6, 12.6],
     format: n => n + '%',
-    compareOverride: 'Target: 30% &nbsp;·&nbsp; <span class="pct">73%</span> of goal &nbsp;·&nbsp; <span style="color:var(--muted)">WoW: pending data</span>',
-    forceStatus: 'orange',
-    badge: { type: 'pending', text: 'Denominator TBD — w/ RevOps' }
+    compareOverride:
+      'Target: 30% &nbsp;·&nbsp; <span class="pct">42%</span> of goal' +
+      '<div style="font-size:10px; margin-top:4px; color:var(--muted); font-weight:400; font-style:italic;">' +
+        '1,358 of 10,757 paid subscribers' +
+      '</div>',
+    forceStatus: 'green',
+    badge: { type: 'live', text: 'Live — HubSpot' }
   }
 ];
 
@@ -871,7 +875,7 @@ function renderOKRChart() {
     { name: 'ICP % SAL from Paid Online Channels',  actual: 0,    target: 40,   label: 'Pre-launch baseline',    status: 'pending' },
     { name: 'Total SAL from Paid Online Channels',  actual: 1,    target: 37,   label: '1/wk · campaigns launching', status: 'pending' },
     { name: 'Avg ACV (Q2 QTD)',             actual: 2081, target: 3000, label: '$2,081 / $3,000',                       status: 'live' },
-    { name: 'TD Payments activation',       actual: 22,   target: 30,   label: '22% / 30% · denom. TBD',                status: 'review' },
+    { name: 'TD Payments activation',       actual: 12.6, target: 30,   label: '12.6% / 30% · 1,358 of 10,757',         status: 'live' },
     { name: 'Directory visitors',           actual: 0,    target: 1,    label: 'Not yet launched',                      status: 'not-launched' },
     { name: 'Directory conversion',         actual: 0,    target: 1,    label: 'Not yet launched',                      status: 'not-launched' }
   ];
