@@ -312,13 +312,13 @@
     <div id="chartOKR" class="plot"></div>
     <div class="okr-legend">
       <div class="okr-legend-row">
-        <span><span class="okr-dot green"></span>On track (90%+ of target)</span>
-        <span><span class="okr-dot orange"></span>Needs attention (70–89%)</span>
-        <span><span class="okr-dot red"></span>Off track (below 70%)</span>
+        <span><span class="okr-dot green"></span>On pace to meet target</span>
+        <span><span class="okr-dot orange"></span>At risk of missing target</span>
+        <span><span class="okr-dot red"></span>Not on pace to meet target</span>
         <span><span class="okr-dot gray"></span>Pre-launch or data pending</span>
       </div>
       <div class="okr-legend-note">
-        Color reflects progress toward target. Bars extending past the Q2 pace line (21%) indicate ahead-of-schedule progress regardless of color — a bar can be ahead of pace but still short of the absolute target.
+        Color indicates whether current progress is on pace to meet the Q2 target. The vertical line marks linear quarter-to-date pace (21%).
       </div>
     </div>
   </div>
@@ -731,10 +731,15 @@ function renderOKRChart() {
     if (k.status === 'not-launched' || k.status === 'pending') return 0;
     return Math.round((k.actual / k.target) * 100);
   });
-  const colors   = reversed.map(k => {
+  // Pace-based color: green if on or ahead of pace, orange if within 5pp,
+  // red if more than 5pp below pace. Gray for pre-launch / not launched.
+  const pacePct = Math.round(paceFrac * 100);
+  const colors  = reversed.map((k, i) => {
     if (k.status === 'not-launched' || k.status === 'pending') return 'rgba(108,117,125,0.35)';
-    if (k.status === 'review') return COLORS.warning;
-    return statusColor(statusClass(k.actual, k.target));
+    const gap = progress[i] - pacePct;
+    if (gap >= 0)   return COLORS.success;
+    if (gap >= -5)  return COLORS.warning;
+    return COLORS.danger;
   });
   const labels   = reversed.map((k, i) => {
     if (k.status === 'not-launched') return 'Not yet launched';
