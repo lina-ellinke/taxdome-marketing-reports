@@ -426,7 +426,7 @@
   <div class="charts-grid-full">
     <div class="card">
       <h2>Monthly Classified Lead Volume — Online vs Offline</h2>
-      <div class="chart-sub">Companies classified as ICP or Non-ICP, by source channel type · Jan–Apr 2026 (April partial through Apr 20)</div>
+      <div class="chart-sub">Companies classified as ICP or Non-ICP, by source channel type · Jan–Apr 2026 (April partial through Apr 21)</div>
       <div id="chartOnlineOffline" class="plot"></div>
       <div style="font-size: 11px; color: var(--muted); font-style: italic; margin-top: 8px;">
         Each bar splits online vs offline; within each, ICP (darker) and Non-ICP (lighter) are sub-stacked.
@@ -471,7 +471,7 @@
       <div class="chart-sub">Monthly companies created where ICP or Non-ICP, excluding offline-sourced leads · 3-month moving average overlay</div>
       <div id="chartLeadsTrend" class="plot"></div>
       <div style="font-size: 11px; color: var(--muted); font-style: italic; margin-top: 8px;">
-        April 2026 is partial (through Apr 20). Excludes offline leads and unclassified companies.
+        April 2026 is partial (through Apr 21). Excludes offline leads and unclassified companies.
       </div>
     </div>
   </div>
@@ -1012,26 +1012,22 @@ function renderAttention() {
 
 /* ---------- LEADS TAB: Online vs Offline monthly ---------- */
 function renderOnlineOfflineChart() {
-  // Jan–Apr 2026 user-provided totals (online vs offline). ICP/Non-ICP sub-splits
-  // from live HubSpot queries: Jan–Apr online ICP = [479,482,538,239], online
-  // Non-ICP = [1033,854,1210,524]. Offline ICP/Non-ICP derived from (total − online)
-  // with ICP share proxied from the same quarter's average (~33% online ICP share).
+  // Jan–Mar 2026: live HubSpot online totals + offline totals from user. Offline
+  // ICP/Non-ICP split estimated at 32% ICP (quarter-level proxy) until verified
+  // with RevOps. April 2026: partial through Apr 21; all four segments are
+  // verified values so totals match the OKR chart's "Classified leads (Q2 total)".
   const months      = ['Jan 2026', 'Feb 2026', 'Mar 2026', 'Apr 2026*'];
-  const onlineIcp   = [ 479,         482,         538,         239       ];
-  const onlineNicp  = [ 1033,        854,         1210,        524       ];
-  const offlineTot  = [ 1435,        2729,        2627,        398       ];
-  // Offline ICP share mirrors the quarter's online ICP share (~32%) as a placeholder
-  // until the offline-source breakdown is verified with RevOps.
-  const offIcpShare = 0.32;
-  const offlineIcp  = offlineTot.map(t => Math.round(t * offIcpShare));
-  const offlineNicp = offlineTot.map((t, i) => t - offlineIcp[i]);
+  const onlineIcp   = [ 479,         482,         538,         257       ];
+  const onlineNicp  = [ 1033,        854,         1210,        559       ];
+  const offlineIcp  = [ 459,         873,         841,         366       ];
+  const offlineNicp = [ 976,         1856,        1786,        36        ];
   const monthTotal  = onlineIcp.map((_, i) => onlineIcp[i] + onlineNicp[i] + offlineIcp[i] + offlineNicp[i]);
 
   const traces = [
     { type: 'bar', name: 'Online — ICP',    x: months, y: onlineIcp,  marker: { color: '#1864AB' }, hovertemplate: '<b>%{x}</b><br>Online ICP: %{y}<extra></extra>' },
     { type: 'bar', name: 'Online — Non-ICP',x: months, y: onlineNicp, marker: { color: '#74C0FC' }, hovertemplate: '<b>%{x}</b><br>Online Non-ICP: %{y}<extra></extra>' },
-    { type: 'bar', name: 'Offline — ICP',   x: months, y: offlineIcp, marker: { color: '#495057' }, hovertemplate: '<b>%{x}</b><br>Offline ICP (est.): %{y}<extra></extra>' },
-    { type: 'bar', name: 'Offline — Non-ICP',x: months, y: offlineNicp,marker: { color: '#ADB5BD' }, hovertemplate: '<b>%{x}</b><br>Offline Non-ICP (est.): %{y}<extra></extra>' }
+    { type: 'bar', name: 'Offline — ICP',   x: months, y: offlineIcp, marker: { color: '#495057' }, hovertemplate: '<b>%{x}</b><br>Offline ICP: %{y}<extra></extra>' },
+    { type: 'bar', name: 'Offline — Non-ICP',x: months, y: offlineNicp,marker: { color: '#ADB5BD' }, hovertemplate: '<b>%{x}</b><br>Offline Non-ICP: %{y}<extra></extra>' }
   ];
 
   const layout = {
@@ -1059,8 +1055,8 @@ function renderLeadsTrendChart() {
   // Live HubSpot data — monthly companies created where icp__nonicp IN ('ICP','Non-ICP')
   // AND hs_analytics_source != OFFLINE. May 2025 → Apr 2026 (Apr partial through Apr 20).
   const months = ['May 2025','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan 2026','Feb','Mar','Apr*'];
-  const icp    = [  369,      398, 391, 363, 448, 448, 409, 496, 479,       482,   538, 239  ];
-  const nicp   = [  574,      521, 660, 791, 703, 817,1050,1150,1033,       854,  1210, 524  ];
+  const icp    = [  369,      398, 391, 363, 448, 448, 409, 496, 479,       482,   538, 257  ];
+  const nicp   = [  574,      521, 660, 791, 703, 817,1050,1150,1033,       854,  1210, 559  ];
   const total  = icp.map((v, i) => v + nicp[i]);
 
   // 3-month trailing moving average on total
