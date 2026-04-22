@@ -296,7 +296,7 @@
 <header>
   <div>
     <h1>TaxDome Marketing — Weekly Overview</h1>
-    <div class="subtitle">Last updated: April 19, 2026 &nbsp;|&nbsp; Live data: SAL channels, ACV &nbsp;|&nbsp; Under review: classified leads, ICP share &nbsp;|&nbsp; Pending: TD Payments, Directory</div>
+    <div class="subtitle">Last updated: April 21, 2026 &nbsp;|&nbsp; Week of April 13-19 &nbsp;|&nbsp; Online leads only (excludes offline)</div>
   </div>
   <button class="theme-btn" id="themeBtn" aria-label="Toggle dark mode">Toggle dark mode</button>
 </header>
@@ -307,8 +307,8 @@
 <div class="section-title">Performance Detail</div>
 <div class="charts-grid">
   <div class="card">
-    <h2>Classified Lead Volume by Week &nbsp;<span class="badge review">Under review</span></h2>
-    <div class="chart-sub">Placeholder data. Query returning bulk-import spikes — verifying date basis with RevOps (final query will exclude <code>hs_analytics_source = OFFLINE</code>).</div>
+    <h2>Classified Lead Volume by Week &nbsp;<span class="badge live">Live — HubSpot</span></h2>
+    <div class="chart-sub">Weekly companies created in HubSpot identified as ICP or Non-ICP · excludes unclassified records</div>
     <div id="chartLeads" class="plot"></div>
   </div>
   <div class="card">
@@ -331,7 +331,7 @@
         <span><span class="okr-dot gray"></span>Pre-launch or data pending</span>
       </div>
       <div class="okr-legend-note">
-        Color indicates whether current progress is on pace to meet the Q2 target. The vertical line marks linear quarter-to-date pace (21%).
+        Color indicates whether current progress is on pace to meet the Q2 target. The vertical line marks linear quarter-to-date pace.
       </div>
       <div class="okr-transition-note">
         Note: SAL is being retired in favor of SQL / high-intent MQL. Marketing is aligning with RevOps and Sales on updated funnel definitions. Q2 metrics will transition once alignment is complete.
@@ -384,24 +384,22 @@ function statusColor(cls) {
 */
 const kpis = [
   {
-    name: 'Classified Leads', value: 648, target: 700, suffix: '/wk',
-    trend: [605,612,598,625,640,632,658,648],
+    name: 'Classified Leads', value: 287, target: 700, suffix: '/wk',
+    trend: [703, 659, 2454, 335, 809, 235, 667, 287],
     format: n => n.toLocaleString(),
     compareOverride:
-      'Target: 700/wk &nbsp;·&nbsp; <b style="color:var(--danger)">−2% WoW ↓</b>' +
+      'Target: 700/wk &nbsp;·&nbsp; <b style="color:var(--danger)">−57% WoW ↓</b> &nbsp;·&nbsp; <b style="color:var(--danger)">−47% YoY ↓</b>' +
       '<div style="font-size:10px; margin-top:4px; color:var(--muted); font-weight:400; font-style:italic;">' +
         'Classified = companies identified as ICP or Non-ICP (excludes unclassified)' +
       '</div>',
-    forceStatus: 'orange',
-    badge: { type: 'review', text: 'Under review — bulk import noise' }
+    badge: { type: 'live', text: 'Live — HubSpot' }
   },
   {
     name: 'ICP Lead Share', value: 28, target: 35, suffix: '',
-    trend: [20,22,21,24,23,25,27,28],
+    trend: [63, 28, 47, 35, 49, 24, 71, 28],
     format: n => n + '%',
-    compareOverride: 'Target: 35% &nbsp;·&nbsp; <span class="pct">80%</span> of goal &nbsp;·&nbsp; <b style="color:var(--success)">+1 pp WoW ↑</b>',
-    forceStatus: 'orange',
-    badge: { type: 'review', text: 'Depends on classified lead cleanup' }
+    compareOverride: 'Target: 35% &nbsp;·&nbsp; <span class="pct">80%</span> of goal &nbsp;·&nbsp; <b style="color:var(--danger)">−43 pp WoW ↓</b> &nbsp;·&nbsp; <b style="color:var(--danger)">−48 pp YoY ↓</b>',
+    badge: { type: 'live', text: 'Live — HubSpot' }
   },
   {
     name: 'Weekly SAL (Online Channels)', value: 220, target: null, suffix: '/wk',
@@ -505,11 +503,13 @@ function hexToRgba(hex, alpha) {
 
 /* ---------- CHART 1: Classified Lead Volume by Week ---------- */
 function renderLeadsChart() {
-  const weeks   = ['W5 Jan','W1 Feb','W2 Feb','W3 Feb','W4 Feb','W1 Mar','W2 Mar','W3 Mar','W4 Mar','W1 Apr','W2 Apr','W3 Apr'];
-  const total   = [ 555,    568,     580,     592,     605,     612,     598,     625,     640,     632,     658,     648    ];
-  const icpPct  = [ 21,     22,      20,      23,      22,      24,      23,      25,      24,      25,      27,      26     ];
-  const icp     = total.map((t, i) => Math.round(t * icpPct[i] / 100));
-  const nonIcp  = total.map((t, i) => t - icp[i]);
+  // Live HubSpot data — companies by createdate where icp__nonicp IN ('ICP','Non-ICP')
+  // Week buckets: Monday 00:00 → next Monday 00:00 UTC. Most recent complete week = Apr 13-19.
+  const weeks  = ['W5 Jan','W1 Feb','W2 Feb','W3 Feb','W4 Feb','W1 Mar','W2 Mar','W3 Mar','W4 Mar','W1 Apr','W2 Apr','W3 Apr'];
+  const icp    = [ 208,   603,     553,     1557,    443,     186,     1155,    118,     395,     57,      473,     81      ];
+  const nonIcp = [ 289,   232,     206,     213,     260,     473,     1299,    217,     414,     178,     194,     206     ];
+  const total  = icp.map((v, i) => v + nonIcp[i]);
+  const icpPct = total.map((t, i) => t > 0 ? Math.round(icp[i] / t * 100) : 0);
   const goal    = 700;
   const icpGoal = Math.round(goal * 0.35); // 245
 
@@ -554,7 +554,7 @@ function renderLeadsChart() {
     font: { family: 'Inter, sans-serif', color: getComputedStyle(document.body).getPropertyValue('--text') },
     barmode: 'stack',
     xaxis: { tickfont: { size: 11 }, showgrid: false },
-    yaxis: { gridcolor: 'rgba(128,128,128,0.15)', title: { text: 'Classified Leads', font: { size: 12 } }, range: [0, 850] },
+    yaxis: { gridcolor: 'rgba(128,128,128,0.15)', title: { text: 'Classified Leads', font: { size: 12 } }, range: [0, 2800] },
     shapes: [
       {
         type: 'line', xref: 'paper', x0: 0, x1: 1,
@@ -730,8 +730,8 @@ function renderOKRChart() {
   // pace = 19/91 of Q2
   const paceFrac = 19 / 91;
   const krs = [
-    { name: 'ICP % of leads',          actual: 28,   target: 35,   label: '28% / 35%',              status: 'review' },
-    { name: 'Classified leads/month',  actual: 2340, target: 2800, label: 'Under review',           status: 'review' },
+    { name: 'ICP % of leads',          actual: 28,   target: 35,   label: '28% / 35%',              status: 'live' },
+    { name: 'Classified leads/month',  actual: 1998, target: 2800, label: '1,998 / 2,800',          status: 'live' },
     { name: 'ICP % SAL from Paid Online Channels',  actual: 0,    target: 40,   label: 'Pre-launch baseline',    status: 'pending' },
     { name: 'Total SAL from Paid Online Channels',  actual: 1,    target: 37,   label: '1/wk · campaigns launching', status: 'pending' },
     { name: 'Avg ACV',                 actual: 2081, target: 3000, label: '$2,081 / $3,000',        status: 'live' },
