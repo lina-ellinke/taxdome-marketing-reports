@@ -308,8 +308,11 @@
 <div class="charts-grid">
   <div class="card">
     <h2>Classified Lead Volume by Week &nbsp;<span class="badge live">Live — HubSpot</span></h2>
-    <div class="chart-sub">Weekly companies created in HubSpot identified as ICP or Non-ICP · excludes unclassified records</div>
+    <div class="chart-sub">Weekly companies created in HubSpot identified as ICP or Non-ICP</div>
     <div id="chartLeads" class="plot"></div>
+    <div style="font-size: 11px; color: var(--muted); font-style: italic; margin-top: 8px;">
+      Excludes offline leads and unclassified companies
+    </div>
   </div>
   <div class="card">
     <h2>Online SAL by Channel — Week of Apr 13 &nbsp;<span class="badge live">Live</span></h2>
@@ -384,21 +387,21 @@ function statusColor(cls) {
 */
 const kpis = [
   {
-    name: 'Classified Leads', value: 287, target: 700, suffix: '/wk',
-    trend: [703, 659, 2454, 335, 809, 235, 667, 287],
+    name: 'Classified Leads', value: 279, target: 700, suffix: '/wk',
+    trend: [348, 366, 401, 320, 547, 228, 286, 279],
     format: n => n.toLocaleString(),
     compareOverride:
-      'Target: 700/wk &nbsp;·&nbsp; <b style="color:var(--danger)">−57% WoW ↓</b> &nbsp;·&nbsp; <b style="color:var(--danger)">−47% YoY ↓</b>' +
+      'Target: 700/wk &nbsp;·&nbsp; <b style="color:var(--danger)">−2% WoW ↓</b> &nbsp;·&nbsp; <b style="color:var(--success)">+51% YoY ↑</b>' +
       '<div style="font-size:10px; margin-top:4px; color:var(--muted); font-weight:400; font-style:italic;">' +
-        'Classified = companies identified as ICP or Non-ICP (excludes unclassified)' +
+        'Online ICP/Non-ICP companies only (excludes offline + unclassified)' +
       '</div>',
     badge: { type: 'live', text: 'Live — HubSpot' }
   },
   {
-    name: 'ICP Lead Share', value: 28, target: 35, suffix: '',
-    trend: [63, 28, 47, 35, 49, 24, 71, 28],
+    name: 'ICP Lead Share', value: 29, target: 35, suffix: '',
+    trend: [29, 30, 35, 36, 26, 25, 39, 29],
     format: n => n + '%',
-    compareOverride: 'Target: 35% &nbsp;·&nbsp; <span class="pct">80%</span> of goal &nbsp;·&nbsp; <b style="color:var(--danger)">−43 pp WoW ↓</b> &nbsp;·&nbsp; <b style="color:var(--danger)">−48 pp YoY ↓</b>',
+    compareOverride: 'Target: 35% &nbsp;·&nbsp; <span class="pct">83%</span> of goal &nbsp;·&nbsp; <b style="color:var(--danger)">−10 pp WoW ↓</b> &nbsp;·&nbsp; <b style="color:var(--danger)">−11 pp YoY ↓</b>',
     badge: { type: 'live', text: 'Live — HubSpot' }
   },
   {
@@ -504,10 +507,11 @@ function hexToRgba(hex, alpha) {
 /* ---------- CHART 1: Classified Lead Volume by Week ---------- */
 function renderLeadsChart() {
   // Live HubSpot data — companies by createdate where icp__nonicp IN ('ICP','Non-ICP')
-  // Week buckets: Monday 00:00 → next Monday 00:00 UTC. Most recent complete week = Apr 13-19.
+  // AND hs_analytics_source != OFFLINE (online-only). Week buckets: Monday 00:00 → next
+  // Monday 00:00 UTC. Most recent complete week = Apr 13-19.
   const weeks  = ['W5 Jan','W1 Feb','W2 Feb','W3 Feb','W4 Feb','W1 Mar','W2 Mar','W3 Mar','W4 Mar','W1 Apr','W2 Apr','W3 Apr'];
-  const icp    = [ 208,   603,     553,     1557,    443,     186,     1155,    118,     395,     57,      473,     81      ];
-  const nonIcp = [ 289,   232,     206,     213,     260,     473,     1299,    217,     414,     178,     194,     206     ];
+  const icp    = [ 98,    123,     102,     157,     100,     110,     140,     115,     142,     56,      111,     80      ];
+  const nonIcp = [ 259,   215,     194,     208,     248,     256,     261,     205,     405,     172,     175,     199     ];
   const total  = icp.map((v, i) => v + nonIcp[i]);
   const icpPct = total.map((t, i) => t > 0 ? Math.round(icp[i] / t * 100) : 0);
   const goal    = 700;
@@ -554,7 +558,7 @@ function renderLeadsChart() {
     font: { family: 'Inter, sans-serif', color: getComputedStyle(document.body).getPropertyValue('--text') },
     barmode: 'stack',
     xaxis: { tickfont: { size: 11 }, showgrid: false },
-    yaxis: { gridcolor: 'rgba(128,128,128,0.15)', title: { text: 'Classified Leads', font: { size: 12 } }, range: [0, 2800] },
+    yaxis: { gridcolor: 'rgba(128,128,128,0.15)', title: { text: 'Classified Leads', font: { size: 12 } }, range: [0, 800] },
     shapes: [
       {
         type: 'line', xref: 'paper', x0: 0, x1: 1,
@@ -727,11 +731,11 @@ function renderChannelsChart() {
 
 /* ---------- CHART 3: OKR Progress ---------- */
 function renderOKRChart() {
-  // pace = 19/91 of Q2
-  const paceFrac = 19 / 91;
+  // pace = 21/91 of Q2 (today is day 21)
+  const paceFrac = 21 / 91;
   const krs = [
-    { name: 'ICP % of leads',          actual: 28,   target: 35,   label: '28% / 35%',              status: 'live' },
-    { name: 'Classified leads/month',  actual: 1998, target: 2800, label: '1,998 / 2,800',          status: 'live' },
+    { name: 'ICP % of leads',          actual: 29,   target: 35,   label: '29% / 35%',              status: 'live' },
+    { name: 'Classified leads/month',  actual: 1340, target: 2800, label: '1,340 / 2,800',          status: 'live' },
     { name: 'ICP % SAL from Paid Online Channels',  actual: 0,    target: 40,   label: 'Pre-launch baseline',    status: 'pending' },
     { name: 'Total SAL from Paid Online Channels',  actual: 1,    target: 37,   label: '1/wk · campaigns launching', status: 'pending' },
     { name: 'Avg ACV',                 actual: 2081, target: 3000, label: '$2,081 / $3,000',        status: 'live' },
