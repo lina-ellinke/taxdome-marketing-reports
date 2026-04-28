@@ -902,22 +902,22 @@ function renderChannelsChart() {
 
   const traces = [
     {
-      type: 'bar', orientation: 'h', name: 'This week (W16)',
+      type: 'bar', orientation: 'h', name: 'This week (W17)',
       x: thisVals, y: channels,
       marker: { color: thisColor, line: { width: 0 } },
-      hovertemplate: '<b>%{y}</b><br>This week: %{x}<extra></extra>'
+      hovertemplate: '%{x} leads<extra></extra>'
     },
     {
-      type: 'bar', orientation: 'h', name: 'Prior week (W15)',
+      type: 'bar', orientation: 'h', name: 'Prior week (W16)',
       x: priorVals, y: channels,
       marker: { color: priorColor, line: { width: 0 } },
-      hovertemplate: '<b>%{y}</b><br>Prior week: %{x}<extra></extra>'
+      hovertemplate: '%{x} leads<extra></extra>'
     },
     {
       type: 'bar', orientation: 'h', name: 'Same week 2025',
       x: yoyVals, y: channels,
       marker: { color: yoyColor, line: { color: '#868E96', width: 1 } },
-      hovertemplate: '<b>%{y}</b><br>Same week 2025: %{x}<extra></extra>'
+      hovertemplate: '%{x} leads<extra></extra>'
     }
   ];
 
@@ -978,6 +978,13 @@ function renderChannelsChart() {
     plot_bgcolor: 'rgba(0,0,0,0)',
     font: { family: 'Inter, sans-serif', color: getComputedStyle(document.body).getPropertyValue('--text') },
     barmode: 'group',
+    hovermode: 'y unified',
+    hoverlabel: {
+      bgcolor: '#1A1A2E',
+      bordercolor: 'transparent',
+      font: { color: '#FFFFFF', size: 13, family: 'Inter, sans-serif' },
+      align: 'left'
+    },
     xaxis: {
       gridcolor: 'rgba(128,128,128,0.15)',
       title: { text: 'Lead count', font: { size: 12 } },
@@ -1366,13 +1373,13 @@ function renderMQLChannelsChart() {
   const traces = [
     { type: 'bar', orientation: 'h', name: 'This week (W17)',
       x: thisVals, y: channels, marker: { color: '#1864AB', line: { width: 0 } },
-      hovertemplate: '<b>%{y}</b><br>This week: %{x}<extra></extra>' },
+      hovertemplate: '%{x} MQLs<extra></extra>' },
     { type: 'bar', orientation: 'h', name: 'Prior week (W16)',
       x: priorVals, y: channels, marker: { color: '#74C0FC', line: { width: 0 } },
-      hovertemplate: '<b>%{y}</b><br>Prior week: %{x}<extra></extra>' },
+      hovertemplate: '%{x} MQLs<extra></extra>' },
     { type: 'bar', orientation: 'h', name: 'Same week 2025',
       x: yoyVals, y: channels, marker: { color: 'rgba(173,181,189,0.55)', line: { color: '#868E96', width: 1 } },
-      hovertemplate: '<b>%{y}</b><br>Same week 2025: %{x}<extra></extra>' }
+      hovertemplate: '%{x} MQLs<extra></extra>' }
   ];
 
   const maxVal = Math.max(...thisVals, ...priorVals, ...yoyVals);
@@ -1413,6 +1420,13 @@ function renderMQLChannelsChart() {
     plot_bgcolor: 'rgba(0,0,0,0)',
     font: { family: 'Inter, sans-serif', color: getComputedStyle(document.body).getPropertyValue('--text') },
     barmode: 'group',
+    hovermode: 'y unified',
+    hoverlabel: {
+      bgcolor: '#1A1A2E',
+      bordercolor: 'transparent',
+      font: { color: '#FFFFFF', size: 13, family: 'Inter, sans-serif' },
+      align: 'left'
+    },
     xaxis: { gridcolor: 'rgba(128,128,128,0.15)', title: { text: 'MQL count', font: { size: 12 } }, range: [0, maxVal * 1.45] },
     yaxis: { tickfont: { size: 12 } },
     legend: { orientation: 'h', y: -0.14, x: 0.5, xanchor: 'center', font: { size: 11 } },
@@ -1563,13 +1577,13 @@ function renderSQLChannelsChart() {
   const traces = [
     { type: 'bar', orientation: 'h', name: 'This week (W17)',
       x: thisVals, y: channels, marker: { color: '#1864AB', line: { width: 0 } },
-      hovertemplate: '<b>%{y}</b><br>This week: %{x}<extra></extra>' },
+      hovertemplate: '%{x} SQLs<extra></extra>' },
     { type: 'bar', orientation: 'h', name: 'Prior week (W16)',
       x: priorVals, y: channels, marker: { color: '#74C0FC', line: { width: 0 } },
-      hovertemplate: '<b>%{y}</b><br>Prior week: %{x}<extra></extra>' },
+      hovertemplate: '%{x} SQLs<extra></extra>' },
     { type: 'bar', orientation: 'h', name: 'Same week 2025',
       x: yoyVals, y: channels, marker: { color: 'rgba(173,181,189,0.55)', line: { color: '#868E96', width: 1 } },
-      hovertemplate: '<b>%{y}</b><br>Same week 2025: %{x}<extra></extra>' }
+      hovertemplate: '%{x} SQLs<extra></extra>' }
   ];
 
   const maxVal = Math.max(...thisVals, ...priorVals, ...yoyVals);
@@ -1610,6 +1624,13 @@ function renderSQLChannelsChart() {
     plot_bgcolor: 'rgba(0,0,0,0)',
     font: { family: 'Inter, sans-serif', color: getComputedStyle(document.body).getPropertyValue('--text') },
     barmode: 'group',
+    hovermode: 'y unified',
+    hoverlabel: {
+      bgcolor: '#1A1A2E',
+      bordercolor: 'transparent',
+      font: { color: '#FFFFFF', size: 13, family: 'Inter, sans-serif' },
+      align: 'left'
+    },
     xaxis: { gridcolor: 'rgba(128,128,128,0.15)', title: { text: 'SQL count', font: { size: 12 } }, range: [0, maxVal * 1.45] },
     yaxis: { tickfont: { size: 12 } },
     legend: { orientation: 'h', y: -0.14, x: 0.5, xanchor: 'center', font: { size: 11 } },
