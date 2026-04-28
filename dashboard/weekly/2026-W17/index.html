@@ -391,6 +391,8 @@
 <nav class="tab-bar" role="tablist">
   <button class="tab-btn active" data-tab="overview" role="tab" aria-selected="true">Overview</button>
   <button class="tab-btn" data-tab="leads" role="tab" aria-selected="false">Leads</button>
+  <button class="tab-btn" data-tab="mqls" role="tab" aria-selected="false">MQLs</button>
+  <button class="tab-btn" data-tab="sqls" role="tab" aria-selected="false">SQLs</button>
 </nav>
 
 <section id="tab-overview" class="tab-content active" role="tabpanel">
@@ -498,6 +500,43 @@
     </div>
   </div>
 
+</section>
+
+<section id="tab-mqls" class="tab-content" role="tabpanel">
+
+  <div class="section-title">MQL Summary</div>
+  <div class="kpi-row" id="mqlKpiRow"></div>
+
+  <div class="section-title">MQL Volume</div>
+  <div class="charts-grid-full">
+    <div class="card">
+      <h2>MQL Volume by Week &nbsp;<span class="badge live">Live — HubSpot</span></h2>
+      <div class="chart-sub">US/CA marketing companies entering MQL stage · list 9736 · split by enriched ICP/Non-ICP</div>
+      <div id="chartMQLWeekly" class="plot"></div>
+      <div style="font-size: 11px; color: var(--muted); font-style: italic; margin-top: 8px; line-height: 1.5;">
+        Methodology: companies in HubSpot list 9736 where <code>hs_v2_date_entered_marketingqualifiedlead</code> falls in the week, classified by <code>marketing_icp__nonicp_enriched</code>.
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">MQL by Channel</div>
+  <div class="charts-grid-full">
+    <div class="card">
+      <h2>MQL by Channel — Week of Apr 21 &nbsp;<span class="badge live">Live</span></h2>
+      <div class="chart-sub">Companies entering MQL stage by channel (leadgen_channel_original2) · US/CA list 9736</div>
+      <div id="chartMQLChannels" class="plot"></div>
+    </div>
+  </div>
+
+</section>
+
+<section id="tab-sqls" class="tab-content" role="tabpanel">
+  <div class="section-title">SQLs</div>
+  <div class="card">
+    <p style="color: var(--muted); font-size: 14px; line-height: 1.6;">
+      SQL tab is being built — data pull in progress. Coming in next deploy.
+    </p>
+  </div>
 </section>
 
 </div>
@@ -909,6 +948,7 @@ function renderOKRChart() {
   const krs = [
     { name: 'ICP % of classified leads', actual: 22, target: 35,    label: '22% / 35% · 163 / 725 classified',                       status: 'live', forceColor: COLORS.success },
     { name: 'Classified leads (Q2 total)', actual: 766, target: 8299, label: '766 / 8,299 · Apr target 1,198 · 64% · back-loaded Q2', status: 'live', forceColor: COLORS.success },
+    { name: 'MQLs (Q2 total)',             actual: 556, target: 3983, label: '556 / 3,983 · Apr target 575 · 97% · back-loaded Q2', status: 'live', forceColor: COLORS.success },
     { name: 'ICP % SAL from Paid Online Channels',  actual: 0,    target: 40,   label: 'Pre-launch baseline',    status: 'pending' },
     { name: 'Total SAL from Paid Online Channels',  actual: 1,    target: 37,   label: '1/wk · campaigns launching', status: 'pending' },
     { name: 'Avg ACV (Q2 QTD)',             actual: 2081, target: 3000, label: '$2,081 / $3,000',                       status: 'live' },
@@ -1147,8 +1187,189 @@ function renderLeadsTrendChart() {
   Plotly.newPlot('chartLeadsTrend', traces, layout, { displayModeBar: false, responsive: true });
 }
 
+/* ---------- MQL TAB ---------- */
+function renderMQLKPIs() {
+  // Live HubSpot — list 9736 entering MQL stage. W17 (this) = Apr 21-27 2026.
+  const cards = [
+    {
+      name: 'Total MQL — This Week', value: 157, suffix: '',
+      compare: 'Prior week: 169 &nbsp;·&nbsp; <b style="color:var(--danger)">−7% WoW ↓</b>',
+      foot: 'List 9736 · hs_v2_date_entered_marketingqualifiedlead in W17',
+      cls: 'orange'
+    },
+    {
+      name: 'ICP Share of MQL', value: 36, suffix: '%',
+      compare: 'Prior week: 32% &nbsp;·&nbsp; <b style="color:var(--success)">+4 pp WoW ↑</b>',
+      foot: '56 ICP / 101 Non-ICP this week',
+      cls: 'green'
+    },
+    {
+      name: 'April QTD MQL', value: 556, suffix: '',
+      compare: 'April target: 575 &nbsp;·&nbsp; <span class="pct">97%</span> achieved',
+      foot: 'On pace to clear monthly goal · YoY same week 2025: 121',
+      cls: 'green'
+    }
+  ];
+  const row = document.getElementById('mqlKpiRow');
+  row.innerHTML = '';
+  cards.forEach(c => {
+    const el = document.createElement('div');
+    el.className = `kpi-card ${c.cls}`;
+    el.innerHTML = `
+      <div class="kpi-name">${c.name}</div>
+      <div class="kpi-value">${c.value.toLocaleString()}${c.suffix}</div>
+      <div class="kpi-compare ${c.cls}">${c.compare}</div>
+      <div style="font-size:10px; margin-top:4px; color:var(--muted); font-weight:400; font-style:italic;">${c.foot}</div>
+      <div><span class="badge live">Live — HubSpot</span></div>
+    `;
+    row.appendChild(el);
+  });
+}
+
+function renderMQLWeeklyChart() {
+  // Live data — companies in list 9736 with hs_v2_date_entered_marketingqualifiedlead per week.
+  const weeks  = ['W1 Feb','W2 Feb','W3 Feb','W4 Feb','W1 Mar','W2 Mar','W3 Mar','W4 Mar','W1 Apr','W2 Apr','W3 Apr','W4 Apr'];
+  const icp    = [  46,    42,     54,     29,     47,     40,     29,     35,     33,     34,     54,     56    ];
+  const nonIcp = [ 147,   135,    149,    122,    120,    114,    103,    115,     73,     95,    115,    101    ];
+  const total  = icp.map((v, i) => v + nonIcp[i]);
+  const ma4 = total.map((_, i) => {
+    const s = Math.max(0, i - 3);
+    const slice = total.slice(s, i + 1);
+    return Math.round(slice.reduce((a,b) => a+b, 0) / slice.length);
+  });
+  const traces = [
+    {
+      type: 'bar', name: 'ICP', x: weeks, y: icp,
+      marker: { color: COLORS.primary, line: { width: 0 } },
+      hovertemplate: '<b>%{x}</b><br>ICP: %{y}<extra></extra>'
+    },
+    {
+      type: 'bar', name: 'Non-ICP', x: weeks, y: nonIcp,
+      marker: { color: '#ADB5BD', line: { width: 0 } },
+      text: total.map(t => t.toLocaleString()), textposition: 'outside',
+      textfont: { size: 11, color: getComputedStyle(document.body).getPropertyValue('--text') },
+      hovertemplate: '<b>%{x}</b><br>Non-ICP: %{y}<extra></extra>'
+    },
+    {
+      type: 'scatter', mode: 'lines+markers', name: '4-wk Moving Avg (total)',
+      x: weeks, y: ma4,
+      line: { color: COLORS.warning, width: 3, shape: 'spline' },
+      marker: { size: 6, color: COLORS.warning },
+      hovertemplate: '<b>%{x}</b><br>4wk MA: %{y}<extra></extra>'
+    }
+  ];
+  const layout = {
+    height: 400,
+    margin: { l: 50, r: 20, t: 10, b: 50 },
+    paper_bgcolor: 'rgba(0,0,0,0)',
+    plot_bgcolor: 'rgba(0,0,0,0)',
+    font: { family: 'Inter, sans-serif', color: getComputedStyle(document.body).getPropertyValue('--text') },
+    barmode: 'stack',
+    xaxis: { tickfont: { size: 11 }, showgrid: false },
+    yaxis: { gridcolor: 'rgba(128,128,128,0.15)', title: { text: 'MQL Volume', font: { size: 12 } }, range: [0, 250] },
+    legend: { orientation: 'h', y: -0.18, x: 0.5, xanchor: 'center' },
+    bargap: 0.35
+  };
+  Plotly.newPlot('chartMQLWeekly', traces, layout, { displayModeBar: false, responsive: true });
+}
+
+function renderMQLChannelsChart() {
+  // Live HubSpot — list 9736 entering MQL by leadgen_channel_original2.
+  // this: W17 2026 (Apr 21-27) · prior: W16 2026 (Apr 14-20) · yoy: Apr 21-27 2025.
+  // Note: leadgen_channel_original2 was barely populated in 2025 — individual-channel
+  // YoY is unreliable, only Total YoY shown.
+  const channelData = [
+    { channel: 'Organic Search', this: 94, prior: 93, yoy: 0, yoyNoData: true },
+    { channel: 'Direct Traffic', this: 36, prior: 54, yoy: 0, yoyNoData: true },
+    { channel: 'Other',          this: 10, prior: 1,  yoy: 0, yoyNoData: true },
+    { channel: 'Import',         this: 9,  prior: 16, yoy: 0, yoyNoData: true },
+    { channel: 'Paid Search',    this: 5,  prior: 2,  yoy: 0, yoyNoData: true },
+    { channel: 'LLM',            this: 3,  prior: 3,  yoy: 0, yoyNoData: true }
+  ];
+  const totalRow = { channel: 'Total MQL', this: 157, prior: 169, yoy: 121, isTotal: true };
+  channelData.sort((a, b) => a.this - b.this);
+  const data = [...channelData, totalRow];
+
+  const channels = data.map(d => d.isTotal ? '<b>Total MQL</b>' : d.channel);
+  const thisVals = data.map(d => d.this);
+  const priorVals = data.map(d => d.prior);
+  const yoyVals  = data.map(d => d.yoy);
+  const totalIdx = data.length - 1;
+
+  const fmtPct = (a, b) => {
+    if (b === 0 && a === 0) return '—';
+    if (b === 0) return '+new';
+    const pct = Math.round((a - b) / b * 100);
+    return (pct >= 0 ? '+' : '') + pct + '%';
+  };
+  const pctColor = (a, b) => {
+    if (b === 0 && a === 0) return COLORS.muted;
+    if (b === 0) return COLORS.success;
+    return a >= b ? COLORS.success : COLORS.danger;
+  };
+
+  const traces = [
+    { type: 'bar', orientation: 'h', name: 'This week (W17)',
+      x: thisVals, y: channels, marker: { color: '#1864AB', line: { width: 0 } },
+      hovertemplate: '<b>%{y}</b><br>This week: %{x}<extra></extra>' },
+    { type: 'bar', orientation: 'h', name: 'Prior week (W16)',
+      x: priorVals, y: channels, marker: { color: '#74C0FC', line: { width: 0 } },
+      hovertemplate: '<b>%{y}</b><br>Prior week: %{x}<extra></extra>' },
+    { type: 'bar', orientation: 'h', name: 'Same week 2025',
+      x: yoyVals, y: channels, marker: { color: 'rgba(173,181,189,0.55)', line: { color: '#868E96', width: 1 } },
+      hovertemplate: '<b>%{y}</b><br>Same week 2025: %{x}<extra></extra>' }
+  ];
+
+  const maxVal = Math.max(...thisVals, ...priorVals, ...yoyVals);
+  const annotations = [];
+  data.forEach((d, i) => {
+    const wow    = fmtPct(d.this, d.prior);
+    const wowCol = pctColor(d.this, d.prior);
+    const yoyTxt = d.yoyNoData ? 'YoY: no data' : `${fmtPct(d.this, d.yoy)} YoY`;
+    const yoyCol = d.yoyNoData ? COLORS.muted : pctColor(d.this, d.yoy);
+    const yCat = channels[i];
+    annotations.push({
+      x: maxVal * 1.04, y: yCat, xref: 'x', yref: 'y',
+      xanchor: 'left', yanchor: 'middle', yshift: 8,
+      text: `<b>${wow} WoW</b>`, showarrow: false,
+      font: { size: d.isTotal ? 13 : 12, family: 'Inter, sans-serif', color: wowCol }
+    });
+    annotations.push({
+      x: maxVal * 1.04, y: yCat, xref: 'x', yref: 'y',
+      xanchor: 'left', yanchor: 'middle', yshift: -8,
+      text: yoyTxt, showarrow: false,
+      font: { size: d.isTotal ? 11 : 10, family: 'Inter, sans-serif', color: yoyCol }
+    });
+  });
+
+  const shapes = [
+    { type: 'rect', xref: 'paper', x0: 0, x1: 1, yref: 'y',
+      y0: totalIdx - 0.5, y1: totalIdx + 0.5,
+      fillcolor: 'rgba(76,110,245,0.07)', line: { width: 0 }, layer: 'below' },
+    { type: 'line', xref: 'paper', x0: 0, x1: 1, yref: 'y',
+      y0: totalIdx - 0.5, y1: totalIdx - 0.5,
+      line: { color: 'rgba(108,117,125,0.55)', width: 2 } }
+  ];
+
+  const layout = {
+    height: 440,
+    margin: { l: 130, r: 170, t: 10, b: 50 },
+    paper_bgcolor: 'rgba(0,0,0,0)',
+    plot_bgcolor: 'rgba(0,0,0,0)',
+    font: { family: 'Inter, sans-serif', color: getComputedStyle(document.body).getPropertyValue('--text') },
+    barmode: 'group',
+    xaxis: { gridcolor: 'rgba(128,128,128,0.15)', title: { text: 'MQL count', font: { size: 12 } }, range: [0, maxVal * 1.45] },
+    yaxis: { tickfont: { size: 12 } },
+    legend: { orientation: 'h', y: -0.14, x: 0.5, xanchor: 'center', font: { size: 11 } },
+    bargap: 0.28, bargroupgap: 0.05,
+    shapes, annotations
+  };
+  Plotly.newPlot('chartMQLChannels', traces, layout, { displayModeBar: false, responsive: true });
+}
+
 /* ---------- TAB SWITCHING ---------- */
 let leadsTabInitialized = false;
+let mqlsTabInitialized = false;
 function initTabs() {
   document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -1161,19 +1382,28 @@ function initTabs() {
       document.querySelectorAll('.tab-content').forEach(s => {
         s.classList.toggle('active', s.id === `tab-${tab}`);
       });
-      // Render Leads charts lazily on first reveal — Plotly needs the container
+      // Render charts lazily on first reveal — Plotly needs the container
       // to have measurable width/height, which it doesn't while display:none.
       if (tab === 'leads' && !leadsTabInitialized) {
         renderOnlineOfflineChart();
         renderLeadsTrendChart();
         leadsTabInitialized = true;
       } else if (tab === 'leads') {
-        // Force resize in case the viewport changed while the tab was hidden.
         ['chartOnlineOffline','chartLeadsTrend'].forEach(id => {
           const el = document.getElementById(id);
           if (el) Plotly.Plots.resize(el);
         });
-      } else {
+      } else if (tab === 'mqls' && !mqlsTabInitialized) {
+        renderMQLKPIs();
+        renderMQLWeeklyChart();
+        renderMQLChannelsChart();
+        mqlsTabInitialized = true;
+      } else if (tab === 'mqls') {
+        ['chartMQLWeekly','chartMQLChannels'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) Plotly.Plots.resize(el);
+        });
+      } else if (tab === 'overview') {
         ['chartLeads','chartChannels','chartOKR'].forEach(id => {
           const el = document.getElementById(id);
           if (el) Plotly.Plots.resize(el);
@@ -1208,6 +1438,11 @@ function renderAll() {
   if (leadsTabInitialized) {
     renderOnlineOfflineChart();
     renderLeadsTrendChart();
+  }
+  if (mqlsTabInitialized) {
+    renderMQLKPIs();
+    renderMQLWeeklyChart();
+    renderMQLChannelsChart();
   }
 }
 
