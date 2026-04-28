@@ -390,7 +390,7 @@
 
 <nav class="tab-bar" role="tablist">
   <button class="tab-btn active" data-tab="overview" role="tab" aria-selected="true">Overview</button>
-  <button class="tab-btn" data-tab="leads" role="tab" aria-selected="false">Leads</button>
+  <button class="tab-btn" data-tab="funnel" role="tab" aria-selected="false">Funnel</button>
   <button class="tab-btn" data-tab="mqls" role="tab" aria-selected="false">MQLs</button>
   <button class="tab-btn" data-tab="sqls" role="tab" aria-selected="false">SQLs</button>
 </nav>
@@ -444,58 +444,88 @@
 
 </section>
 
-<section id="tab-leads" class="tab-content" role="tabpanel">
+<section id="tab-funnel" class="tab-content" role="tabpanel">
 
-  <div class="section-title">Monthly Classified Lead Volume — Online vs Offline</div>
+  <div class="section-title">April QTD Funnel Summary</div>
   <div class="charts-grid-full">
     <div class="card">
-      <h2>Monthly Classified Lead Volume — Online vs Offline</h2>
-      <div class="chart-sub">Companies classified as ICP or Non-ICP, by source channel type · Jan–Apr 2026 (April partial through Apr 21)</div>
-      <div id="chartOnlineOffline" class="plot"></div>
-      <div style="font-size: 11px; color: var(--muted); font-style: italic; margin-top: 8px;">
-        Each bar splits online vs offline; within each, ICP (darker) and Non-ICP (lighter) are sub-stacked.
-      </div>
-    </div>
-  </div>
-
-  <div class="section-title">Q2 Monthly Targets</div>
-  <div class="charts-grid-full">
-    <div class="card">
-      <h2>Q2 2026 Targets — from Goal Sheet</h2>
-      <div class="chart-sub">Monthly classified lead targets · post-tax-season ramp</div>
+      <h2>Full Funnel — April QTD &nbsp;<span class="badge live">Live — HubSpot</span></h2>
+      <div class="chart-sub">US/CA marketing companies (list 9736) · stage entries through Apr 28</div>
       <table class="q2-targets-table">
         <thead>
           <tr>
-            <th>Month</th>
-            <th>Total Leads</th>
-            <th>ICP Leads</th>
-            <th>Non-ICP Leads</th>
+            <th>Stage</th>
+            <th>April QTD</th>
+            <th>April Target</th>
+            <th>% Achieved</th>
             <th>Weekly Rate</th>
+            <th>Weekly Target</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td>April</td><td>1,198</td><td>359</td><td>839</td><td>~300/wk</td></tr>
-          <tr><td>May</td><td>3,979</td><td>1,194</td><td>2,785</td><td>~995/wk</td></tr>
-          <tr><td>June</td><td>4,781</td><td>1,434</td><td>3,347</td><td>~1,195/wk</td></tr>
+          <tr><td>Leads</td><td>766</td><td>1,198</td><td>64%</td><td>~192/wk</td><td>300/wk</td></tr>
+          <tr><td>MQLs (low-intent)</td><td>525</td><td>719</td><td>73%</td><td>~131/wk</td><td>180/wk</td></tr>
+          <tr><td>MQLs</td><td>556</td><td>575</td><td>97%</td><td>~139/wk</td><td>144/wk</td></tr>
+          <tr><td>SQLs</td><td>374</td><td>288</td><td><b style="color:var(--success);">130%</b></td><td>~94/wk</td><td>72/wk</td></tr>
         </tbody>
-        <tfoot>
-          <tr><td>Q2 Total</td><td>8,299</td><td>2,490</td><td>5,809</td><td>~638/wk avg</td></tr>
-        </tfoot>
       </table>
       <div style="font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 12px; line-height: 1.5;">
-        Targets include all channels (online + offline). Online-only targets to be set after RevOps alignment.
+        Methodology: companies in HubSpot list 9736. Lead = <code>hs_v2_date_entered_lead</code>; MQL-low = <code>hs_v2_date_exited_1048697784</code>; MQL = <code>hs_v2_date_entered_marketingqualifiedlead</code>; SQL = <code>hs_v2_date_entered_opportunity</code>. Window: Apr 1 – Apr 28.
       </div>
     </div>
   </div>
 
-  <div class="section-title">Online Classified Leads — 12 Month Trend</div>
+  <div class="section-title">Stage-to-Stage Conversion (April QTD)</div>
   <div class="charts-grid-full">
     <div class="card">
-      <h2>Online Classified Leads — 12 Month Trend &nbsp;<span class="badge live">Live — HubSpot</span></h2>
-      <div class="chart-sub">Monthly companies created where ICP or Non-ICP, excluding offline-sourced leads · 3-month moving average overlay</div>
-      <div id="chartLeadsTrend" class="plot"></div>
-      <div style="font-size: 11px; color: var(--muted); font-style: italic; margin-top: 8px;">
-        April 2026 is partial (through Apr 21). Excludes offline leads and unclassified companies.
+      <h2>Funnel Conversion Rates &nbsp;<span class="badge live">Live</span></h2>
+      <div class="chart-sub">Of contacts entering each stage in April QTD, share progressing to the next stage (period-aggregate basis, not cohort)</div>
+      <table class="q2-targets-table">
+        <thead>
+          <tr>
+            <th>Transition</th>
+            <th>Numerator</th>
+            <th>Denominator</th>
+            <th>Conversion Rate</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Lead → MQL-low</td><td>525</td><td>766</td><td><b>69%</b></td></tr>
+          <tr><td>MQL-low → MQL</td><td>556</td><td>525</td><td><b>106%*</b></td></tr>
+          <tr><td>MQL → SQL</td><td>374</td><td>556</td><td><b>67%</b></td></tr>
+        </tbody>
+      </table>
+      <div style="font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 12px; line-height: 1.5;">
+        * MQL-low → MQL exceeds 100% because period-aggregate ratios mix in contacts that bypassed MQL-low (entered MQL directly) or carried over from earlier periods. A true cohort conversion analysis would track specific contacts through stages over time and is queued as a follow-up.
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">Q2 Monthly Funnel Targets</div>
+  <div class="charts-grid-full">
+    <div class="card">
+      <h2>Q2 2026 Monthly Funnel Targets (from Marketing Funnel Plan)</h2>
+      <div class="chart-sub">Stage-by-stage monthly targets · post-tax-season ramp</div>
+      <table class="q2-targets-table">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>April</th>
+            <th>May</th>
+            <th>June</th>
+            <th>Q2 Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Leads</td><td>1,198</td><td>3,979</td><td>4,781</td><td>9,958</td></tr>
+          <tr><td>MQLs-low</td><td>719</td><td>2,388</td><td>2,869</td><td>5,976</td></tr>
+          <tr><td>MQLs</td><td>575</td><td>1,910</td><td>2,295</td><td>4,780</td></tr>
+          <tr><td>SQLs</td><td>288</td><td>955</td><td>1,148</td><td>2,391</td></tr>
+          <tr><td>Customers</td><td>115</td><td>382</td><td>459</td><td>956</td></tr>
+        </tbody>
+      </table>
+      <div style="font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 12px; line-height: 1.5;">
+        Source: Marketing Funnel Plan (RevOps). Q2 Lead total in plan reads 8,299 — discrepancy with Apr+May+Jun=9,958 noted; using monthly figures as authoritative.
       </div>
     </div>
   </div>
@@ -531,12 +561,23 @@
 </section>
 
 <section id="tab-sqls" class="tab-content" role="tabpanel">
-  <div class="section-title">SQLs</div>
-  <div class="card">
-    <p style="color: var(--muted); font-size: 14px; line-height: 1.6;">
-      SQL tab is being built — data pull in progress. Coming in next deploy.
-    </p>
+
+  <div class="section-title">SQL Summary</div>
+  <div class="kpi-row" id="sqlKpiRow"></div>
+
+  <div class="charts-grid-full">
+    <div class="card">
+      <h2>SQL Volume by Week</h2>
+      <div class="chart-sub">12-week SQL trend with ICP/Non-ICP split · Apr goal line at 72/wk</div>
+      <p style="color: var(--muted); font-size: 13px; line-height: 1.6; padding: 24px 12px;">
+        Weekly chart and channel breakdown queued for next deploy. Headline April QTD (374, 130% of target) is shown in the summary cards above.
+      </p>
+      <div style="font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 8px;">
+        Target varies by month — Apr: 72/wk · May: 239/wk · Jun: 287/wk
+      </div>
+    </div>
   </div>
+
 </section>
 
 </div>
@@ -639,13 +680,13 @@ const kpis = [
     badge: { type: 'live', text: 'Live — Won deals' }
   },
   {
-    name: 'TD Payments Activation', value: 12.6, target: 30, suffix: '',
-    trend: [12.6, 12.6, 12.6, 12.6, 12.6, 12.6, 12.6, 12.6],
+    name: 'TD Payments Activation', value: 13.2, target: 30, suffix: '',
+    trend: [13.2, 13.2, 13.2, 13.2, 13.2, 13.2, 13.2, 13.2],
     format: n => n + '%',
     compareOverride:
-      'Target: 30% &nbsp;·&nbsp; <span class="pct">42%</span> of goal &nbsp;·&nbsp; 1,358 of 10,757 paid subscribers' +
+      'Target: 30% &nbsp;·&nbsp; <span class="pct">44%</span> of goal' +
       '<div style="font-size:10px; margin-top:4px; color:var(--muted); font-weight:400; font-style:italic;">' +
-        'stripe_account_status unpopulated · using td_payments_enabled with license_type=paid denominator' +
+        '1,411 of 10,669 paid firms with CSAM · denominator: license_type=paid AND csam HAS_PROPERTY' +
       '</div>',
     forceStatus: 'green',
     badge: { type: 'live', text: 'Live — HubSpot' }
@@ -952,7 +993,7 @@ function renderOKRChart() {
     { name: 'MQLs from Paid Online Channels', actual: 15, target: 150, label: '15 / 150 · Paid campaigns launched wk of Apr 20 · Q1 avg: 88/mo', status: 'live', forceColor: COLORS.danger },
     { name: 'SQLs from Paid Online Channels', actual: 15, target: 75,  label: '15 / 75 · Paid campaigns launched wk of Apr 20 · Q1 avg: 34/mo', status: 'live', forceColor: COLORS.danger },
     { name: 'Avg ACV (Q2 QTD)',             actual: 2081, target: 3000, label: '$2,081 / $3,000',                       status: 'live' },
-    { name: 'TD Payments activation',       actual: 12.6, target: 30,   label: '12.6% / 30% · 1,358 of 10,757',         status: 'live' },
+    { name: 'TD Payments activation',       actual: 13.2, target: 30,   label: '13.2% / 30% · 1,411 of 10,669 paid w/ CSAM', status: 'live' },
     { name: 'Directory visitors',           actual: 0,    target: 1,    label: 'Not yet launched',                      status: 'not-launched' },
     { name: 'Directory conversion',         actual: 0,    target: 1,    label: 'Not yet launched',                      status: 'not-launched' }
   ];
@@ -1367,9 +1408,51 @@ function renderMQLChannelsChart() {
   Plotly.newPlot('chartMQLChannels', traces, layout, { displayModeBar: false, responsive: true });
 }
 
+/* ---------- SQL TAB ---------- */
+function renderSQLKPIs() {
+  // Live HubSpot — list 9736 entering SQL stage. April QTD = 374 (130% of 288 target).
+  // Weekly + WoW + YoY queries deferred to a follow-up commit; April QTD stat is sufficient
+  // to show the headline result on this card.
+  const cards = [
+    {
+      name: 'April QTD SQL', value: 374, suffix: '',
+      compare: 'April target: 288 &nbsp;·&nbsp; <span class="pct">130%</span> achieved &nbsp;·&nbsp; <b style="color:var(--success)">exceeding</b>',
+      foot: 'List 9736 · hs_v2_date_entered_opportunity in Apr 1-28',
+      cls: 'green'
+    },
+    {
+      name: 'Weekly SQL — This Week', value: '—', suffix: '',
+      compare: 'Weekly breakdown queued for next deploy',
+      foot: 'Will include WoW and YoY change vs prior week and Apr 21-27 2025',
+      cls: 'gray'
+    },
+    {
+      name: 'ICP Share of SQL', value: '—', suffix: '',
+      compare: 'ICP/Non-ICP split queued for next deploy',
+      foot: 'Will derive from marketing_icp__nonicp_enriched on SQL cohort',
+      cls: 'gray'
+    }
+  ];
+  const row = document.getElementById('sqlKpiRow');
+  if (!row) return;
+  row.innerHTML = '';
+  cards.forEach(c => {
+    const el = document.createElement('div');
+    el.className = `kpi-card ${c.cls}`;
+    el.innerHTML = `
+      <div class="kpi-name">${c.name}</div>
+      <div class="kpi-value">${typeof c.value === 'number' ? c.value.toLocaleString() : c.value}${c.suffix}</div>
+      <div class="kpi-compare ${c.cls}">${c.compare}</div>
+      <div style="font-size:10px; margin-top:4px; color:var(--muted); font-weight:400; font-style:italic;">${c.foot}</div>
+      <div><span class="badge ${c.cls === 'gray' ? 'pending' : 'live'}">${c.cls === 'gray' ? 'Coming next deploy' : 'Live — HubSpot'}</span></div>
+    `;
+    row.appendChild(el);
+  });
+}
+
 /* ---------- TAB SWITCHING ---------- */
-let leadsTabInitialized = false;
 let mqlsTabInitialized = false;
+let sqlsTabInitialized = false;
 function initTabs() {
   document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -1384,16 +1467,8 @@ function initTabs() {
       });
       // Render charts lazily on first reveal — Plotly needs the container
       // to have measurable width/height, which it doesn't while display:none.
-      if (tab === 'leads' && !leadsTabInitialized) {
-        renderOnlineOfflineChart();
-        renderLeadsTrendChart();
-        leadsTabInitialized = true;
-      } else if (tab === 'leads') {
-        ['chartOnlineOffline','chartLeadsTrend'].forEach(id => {
-          const el = document.getElementById(id);
-          if (el) Plotly.Plots.resize(el);
-        });
-      } else if (tab === 'mqls' && !mqlsTabInitialized) {
+      // The Funnel tab is tables-only, no Plotly setup needed.
+      if (tab === 'mqls' && !mqlsTabInitialized) {
         renderMQLKPIs();
         renderMQLWeeklyChart();
         renderMQLChannelsChart();
@@ -1403,6 +1478,9 @@ function initTabs() {
           const el = document.getElementById(id);
           if (el) Plotly.Plots.resize(el);
         });
+      } else if (tab === 'sqls' && !sqlsTabInitialized) {
+        renderSQLKPIs();
+        sqlsTabInitialized = true;
       } else if (tab === 'overview') {
         ['chartLeads','chartChannels','chartOKR'].forEach(id => {
           const el = document.getElementById(id);
@@ -1435,14 +1513,13 @@ function renderAll() {
   renderAttention();
   // If the Leads tab has been visited, re-render its charts too (so theme
   // switches pick up the new text color consistently).
-  if (leadsTabInitialized) {
-    renderOnlineOfflineChart();
-    renderLeadsTrendChart();
-  }
   if (mqlsTabInitialized) {
     renderMQLKPIs();
     renderMQLWeeklyChart();
     renderMQLChannelsChart();
+  }
+  if (sqlsTabInitialized) {
+    renderSQLKPIs();
   }
 }
 
@@ -1451,7 +1528,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initTabs();
   renderAll();
   window.addEventListener('resize', () => {
-    ['chartLeads','chartChannels','chartOKR','chartOnlineOffline','chartLeadsTrend'].forEach(id => {
+    ['chartLeads','chartChannels','chartOKR','chartMQLWeekly','chartMQLChannels'].forEach(id => {
       const el = document.getElementById(id);
       if (el) Plotly.Plots.resize(el);
     });
