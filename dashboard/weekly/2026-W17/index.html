@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -23,14 +23,17 @@
     --shadow-hover: 0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.06);
   }
   [data-theme="dark"] {
-    --bg:     #12161D;
-    --card:   #1B212B;
-    --text:   #E9ECEF;
-    --muted:  #ADB5BD;
-    --border: #2B323D;
-    --shadow: 0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
-    --shadow-hover: 0 4px 12px rgba(0,0,0,0.4), 0 2px 4px rgba(0,0,0,0.3);
+    --bg:     #1A1A2E;
+    --card:   #16213E;
+    --text:   #E0E0E0;
+    --muted:  #9AA0B4;
+    --border: #2A3358;
+    --shadow: 0 1px 3px rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.25);
+    --shadow-hover: 0 4px 14px rgba(0,0,0,0.5), 0 2px 6px rgba(0,0,0,0.35);
   }
+  [data-theme="dark"] header h1,
+  [data-theme="dark"] .kpi-value,
+  [data-theme="dark"] .card h2 { color: #FFFFFF; }
 
   * { box-sizing: border-box; }
   html, body {
@@ -385,7 +388,7 @@
     <h1>TaxDome Marketing — Weekly Overview — Week 17 (Apr 14-20, 2026)</h1>
     <div class="subtitle">Last updated: April 27, 2026 &nbsp;|&nbsp; Week of April 21-27 &nbsp;|&nbsp; US/CA marketing leads (list 9736)</div>
   </div>
-  <button class="theme-btn" id="themeBtn" aria-label="Toggle dark mode">Toggle dark mode</button>
+  <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">Toggle light mode</button>
 </header>
 
 <nav class="tab-bar" role="tablist">
@@ -1667,11 +1670,17 @@ function initTabs() {
 /* ---------- THEME TOGGLE ---------- */
 function initTheme() {
   const btn = document.getElementById('themeBtn');
+  const updateLabel = () => {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    btn.textContent = isDark ? 'Toggle light mode' : 'Toggle dark mode';
+  };
+  updateLabel();
   btn.addEventListener('click', () => {
     const current = document.documentElement.getAttribute('data-theme');
     const next = current === 'dark' ? null : 'dark';
     if (next) document.documentElement.setAttribute('data-theme', next);
     else document.documentElement.removeAttribute('data-theme');
+    updateLabel();
     // Re-render charts to pick up new text color
     renderAll();
   });
