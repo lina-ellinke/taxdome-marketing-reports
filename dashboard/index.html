@@ -409,8 +409,8 @@
     </div>
   </div>
   <div class="card">
-    <h2>Online SAL by Channel — Week of Apr 14 &nbsp;<span class="badge live">Live</span></h2>
-    <div class="chart-sub">This week vs. prior week vs. same week last year &nbsp;·&nbsp; Excludes offline leads</div>
+    <h2>Leads by Channel — Week of Apr 21 &nbsp;<span class="badge live">Live</span></h2>
+    <div class="chart-sub">Classified leads entering Lead stage by channel (leadgen_channel_original2) · US/CA list 9736</div>
     <div id="chartChannels" class="plot"></div>
   </div>
 </div>
@@ -762,19 +762,25 @@ function renderLeadsChart() {
 /* ---------- CHART 2: Online SAL by Channel — WoW + YoY ---------- */
 function renderChannelsChart() {
   // Contacts entering SAL (hs_v2_date_entered_967637273) grouped by hs_analytics_source,
-  // excluding OFFLINE. this: W16 2026 (Apr 14-20) · prior: W15 2026 (Apr 7-13) · yoy: Apr 14-20 2025.
-  // "Online Other" = all online sources not individually listed (EMAIL_MARKETING,
-  // OTHER_CAMPAIGNS, AI_REFERRALS, or null hs_analytics_source).
+  // RevOps methodology — companies in list 9736 (US/CA Marketing source company new)
+  // entering Lead stage (hs_v2_date_entered_lead) in the week, attributed by
+  // leadgen_channel_original2. this: W17 2026 (Apr 21-27) · prior: W16 2026 (Apr 14-20)
+  // · yoy: Apr 21-27 2025. Note: leadgen_channel_original2 was barely populated in
+  // 2025 (190 of 200 YoY records have no channel set), so individual-channel YoY
+  // is unreliable and flagged as "no data".
   const channelData = [
-    { channel: 'Organic Search', this: 106, prior: 62, yoy: 51 },
-    { channel: 'Direct Traffic', this: 66,  prior: 64, yoy: 38 },
-    { channel: 'Referrals',      this: 15,  prior: 5,  yoy: 7  },
-    { channel: 'Online Other',   this: 7,   prior: 5,  yoy: 2  },
-    { channel: 'Paid Search',    this: 1,   prior: 0,  yoy: 0, yoyNoData: true },
-    { channel: 'Paid Social',    this: 0,   prior: 3,  yoy: 0, yoyNoData: true }
+    { channel: 'Organic Search', this: 86, prior: 88,  yoy: 0, yoyNoData: true },
+    { channel: 'Direct Traffic', this: 49, prior: 105, yoy: 0, yoyNoData: true },
+    { channel: 'Other',          this: 11, prior: 4,   yoy: 0, yoyNoData: true },
+    { channel: 'Import',         this: 8,  prior: 14,  yoy: 0, yoyNoData: true },
+    { channel: 'Paid Search',    this: 5,  prior: 2,   yoy: 0, yoyNoData: true },
+    { channel: 'LLM',            this: 2,  prior: 1,   yoy: 0, yoyNoData: true },
+    { channel: 'Paid Social',    this: 2,  prior: 0,   yoy: 0, yoyNoData: true },
+    { channel: 'Referral_other', this: 1,  prior: 2,   yoy: 0, yoyNoData: true }
   ];
-  // Top-line row: comes from HubSpot query excluding OFFLINE — authoritative total.
-  const totalRow = { channel: 'Total Online SAL', this: 195, prior: 139, yoy: 98, isTotal: true };
+  // Top-line row: list 9736 entering Lead stage in the week (no channel filter).
+  // YoY remains valid for the total since it doesn't depend on channel attribution.
+  const totalRow = { channel: 'Total Leads', this: 164, prior: 216, yoy: 200, isTotal: true };
 
   // Sort channels by this week's volume ascending, then append Total at the end
   // so it renders at the TOP of the horizontal chart.
