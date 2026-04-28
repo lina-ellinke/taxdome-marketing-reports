@@ -525,7 +525,7 @@
         </tbody>
       </table>
       <div style="font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 12px; line-height: 1.5;">
-        Source: Marketing Funnel Plan (RevOps). Q2 Lead total in plan reads 8,299 — discrepancy with Apr+May+Jun=9,958 noted; using monthly figures as authoritative.
+        Source: Marketing Funnel Plan (RevOps). Note: Monthly targets for Leads and MQLs sum to ~20% above quarterly targets (Leads: 9,958 vs 8,299; MQLs: 4,780 vs 3,983). SQLs are aligned (2,391 vs 2,390). Discrepancy under review with RevOps.
       </div>
     </div>
   </div>
@@ -625,7 +625,7 @@ const kpis = [
     trend: [256, 226, 199, 242, 173, 245, 193, 147],
     format: n => n.toLocaleString(),
     compareOverride:
-      'April target: 1,198 &nbsp;·&nbsp; <span class="pct">64%</span> achieved &nbsp;·&nbsp; US/CA QTD' +
+      'April target: 1,198 &nbsp;·&nbsp; <span class="pct">64%</span> achieved &nbsp;·&nbsp; US/CA QTD &nbsp;·&nbsp; <span style="color:var(--muted)">YoY: N/A</span>' +
       '<div style="font-size:10px; margin-top:4px; color:var(--muted); font-weight:400; font-style:italic;">' +
         'List 9736 · marketing_icp__nonicp_enriched · ICP 21% / Non-ICP 73% / Unclassified 5% · sparkline shows weekly volume' +
       '</div>',
@@ -637,33 +637,34 @@ const kpis = [
     trend: [16, 16, 14, 18, 21, 17, 23, 34],
     format: n => n + '%',
     compareOverride:
-      'Target: 35% &nbsp;·&nbsp; <span class="pct">63%</span> of goal &nbsp;·&nbsp; QTD: 163 ICP / 562 Non-ICP of 725 classified' +
+      'Target: 35% &nbsp;·&nbsp; <span class="pct">63%</span> of goal &nbsp;·&nbsp; QTD: 163 ICP / 562 Non-ICP of 725 classified &nbsp;·&nbsp; <span style="color:var(--muted)">YoY: N/A</span>' +
       '<div style="font-size:10px; margin-top:4px; color:var(--muted); font-weight:400; font-style:italic;">' +
         'Enriched ICP field on list 9736 · sparkline shows weekly ICP share (W17 hit 34%)' +
       '</div>',
     badge: { type: 'live', text: 'Live — HubSpot' }
   },
   {
-    name: 'Weekly SAL (Online Channels)', value: 220, target: null, suffix: '/wk',
-    trend: [241,264,244,189,164,220,222,220],
+    name: 'Paid MQL', value: 15, target: 54, suffix: '',
+    trend: [3, 2, 4, 1, 3, 2, 1, 5],
     format: n => n.toLocaleString(),
     compareOverride:
-      'vs prior week: <b style="color:var(--success)">+34% WoW ↑</b> &nbsp;·&nbsp; ' +
-      'vs Q2 2025 avg: <b style="color:var(--success)">+90% YoY ↑</b>' +
-      '<div style="font-size:11px; margin-top:4px; color:var(--muted); font-weight:500;">' +
-        'Q1 2026 avg: 215/wk &nbsp;·&nbsp; Q2 2025 avg: 116/wk' +
-      '</div>' +
-      '<div style="font-size:10px; margin-top:2px; color:var(--muted); font-weight:400; font-style:italic;">' +
-        'Online SAL · This week' +
+      'April target: 54 &nbsp;·&nbsp; <span class="pct">28%</span> achieved &nbsp;·&nbsp; <b style="color:var(--success)">+150% WoW ↑</b> &nbsp;·&nbsp; <span style="color:var(--muted)">YoY: N/A</span>' +
+      '<div style="font-size:10px; margin-top:4px; color:var(--muted); font-weight:400; font-style:italic;">' +
+        'Apr 54 · May 180 · Jun 216 · Q2 total: 450 · Paid Search + Paid Social via leadgen_channel_original2' +
       '</div>',
-    forceStatus: 'green',
+    forceStatus: 'orange',
     badge: { type: 'live', text: 'Live — HubSpot' }
   },
   {
-    name: 'Paid Online Channel SAL', value: 1, target: 37, suffix: '/wk',
-    trend: [30, 25, 28, 20, 23, 12, 3, 1],
+    name: 'Paid SQL', value: 15, target: 21, suffix: '',
+    trend: [4, 3, 5, 2, 3, 4, 3, 5],
     format: n => n.toLocaleString(),
-    compareOverride: 'Target 37/wk &nbsp;·&nbsp; <span class="pct">−67% WoW</span> (prior: 3)',
+    compareOverride:
+      'April target: 21 &nbsp;·&nbsp; <span class="pct">71%</span> achieved &nbsp;·&nbsp; <span style="color:var(--muted)">WoW: pending data</span> &nbsp;·&nbsp; <span style="color:var(--muted)">YoY: N/A</span>' +
+      '<div style="font-size:10px; margin-top:4px; color:var(--muted); font-weight:400; font-style:italic;">' +
+        'Q2 target 176 (derived from Q1 39% paid MQL→SQL conversion) · Apr 21 · May 70 · Jun 85' +
+      '</div>',
+    forceStatus: 'orange',
     badge: { type: 'live', text: 'Live — HubSpot' }
   },
   {
@@ -672,7 +673,7 @@ const kpis = [
     trendLabels: ['Feb','Mar','Apr'],
     format: n => '$' + n.toLocaleString(),
     compareOverride:
-      'Target: $3,000 &nbsp;·&nbsp; <span class="pct">69%</span> of goal &nbsp;·&nbsp; <b style="color:var(--success)">+31% MoM ↑</b>' +
+      'Target: $3,000 &nbsp;·&nbsp; <span class="pct">69%</span> of goal &nbsp;·&nbsp; <b style="color:var(--success)">+31% MoM ↑</b> &nbsp;·&nbsp; <span style="color:var(--muted)">YoY: N/A</span>' +
       '<div style="font-size:10px; margin-top:4px; color:var(--muted); font-weight:400; font-style:italic;">' +
         'total_arr on companies is unpopulated · using deal-level <code>amount</code> as proxy' +
       '</div>',
@@ -684,7 +685,7 @@ const kpis = [
     trend: [13.2, 13.2, 13.2, 13.2, 13.2, 13.2, 13.2, 13.2],
     format: n => n + '%',
     compareOverride:
-      'Target: 30% &nbsp;·&nbsp; <span class="pct">44%</span> of goal' +
+      'Target: 30% &nbsp;·&nbsp; <span class="pct">44%</span> of goal &nbsp;·&nbsp; <span style="color:var(--muted)">WoW: pending data</span> &nbsp;·&nbsp; <span style="color:var(--muted)">YoY: N/A</span>' +
       '<div style="font-size:10px; margin-top:4px; color:var(--muted); font-weight:400; font-style:italic;">' +
         '1,411 of 10,669 paid firms with CSAM · denominator: license_type=paid AND csam HAS_PROPERTY' +
       '</div>',
@@ -990,8 +991,8 @@ function renderOKRChart() {
     { name: 'ICP % of classified leads', actual: 22, target: 35,    label: '22% / 35% · 163 / 725 classified',                       status: 'live', forceColor: COLORS.success },
     { name: 'Classified leads (Q2 total)', actual: 766, target: 8299, label: '766 / 8,299 · Apr target 1,198 · 64% · back-loaded Q2', status: 'live', forceColor: COLORS.success },
     { name: 'MQLs (Q2 total)',             actual: 556, target: 3983, label: '556 / 3,983 · Apr target 575 · 97% · back-loaded Q2', status: 'live', forceColor: COLORS.success },
-    { name: 'MQLs from Paid Online Channels', actual: 15, target: 150, label: '15 / 150 · Paid campaigns launched wk of Apr 20 · Q1 avg: 88/mo', status: 'live', forceColor: COLORS.danger },
-    { name: 'SQLs from Paid Online Channels', actual: 15, target: 75,  label: '15 / 75 · Paid campaigns launched wk of Apr 20 · Q1 avg: 34/mo', status: 'live', forceColor: COLORS.danger },
+    { name: 'Paid MQLs (Q2 total)', actual: 15, target: 450, label: '15 / 450 · Apr target: 54 · campaigns launched wk of Apr 20',  status: 'live', forceColor: COLORS.danger },
+    { name: 'Paid SQLs (Q2 total)', actual: 15, target: 176, label: '15 / 176 · Apr target: 21 · derived from 39% paid MQL→SQL',    status: 'live', forceColor: COLORS.danger },
     { name: 'Avg ACV (Q2 QTD)',             actual: 2081, target: 3000, label: '$2,081 / $3,000',                       status: 'live' },
     { name: 'TD Payments activation',       actual: 13.2, target: 30,   label: '13.2% / 30% · 1,411 of 10,669 paid w/ CSAM', status: 'live' },
     { name: 'Directory visitors',           actual: 0,    target: 1,    label: 'Not yet launched',                      status: 'not-launched' },
@@ -1088,33 +1089,33 @@ function renderOKRChart() {
 const attention = [
   {
     status: 'orange',
-    title: 'Data Quality',
+    title: 'Funnel Target Discrepancy',
     icon: '!',
-    body: 'Classified lead volume shows 10× weekly swings — suspected bulk imports. Verifying date basis and import filters with RevOps this week.'
+    body: 'Monthly targets for Leads and MQLs sum to ~20% above quarterly targets (Leads: 9,958 vs 8,299; MQLs: 4,780 vs 3,983). SQLs are aligned. Under review with RevOps.'
   },
   {
     status: 'green',
     title: 'ACV Trending Up',
     icon: '✓',
-    body: 'ACV trending up — $1,762 (Feb) → $2,081 (Apr). Gap to $3,000 target is real but directionally positive.'
-  },
-  {
-    status: 'green',
-    title: 'Channel Data Live',
-    icon: '✓',
-    body: 'SAL channel data live — Organic Search (38%) and Direct (34%) dominate. Paid campaigns launching this week.'
-  },
-  {
-    status: 'orange',
-    title: 'Paid SAL Dip',
-    icon: '!',
-    body: 'Paid SAL 1/wk, down 67% WoW (prior: 3, YoY baseline: 0). Q2 campaign push launching this week.'
+    body: 'ACV trending up: $1,762 (Feb) → $2,081 (Apr), +31% MoM. Gap to $3,000 target is real but directionally positive.'
   },
   {
     status: 'info',
     title: 'Funnel Transition',
     icon: 'i',
-    body: 'SAL retiring in favor of SQL / high-intent MQL. Aligning with RevOps and Sales on measurement methodology. Current metrics remain active until transition is complete.'
+    body: 'SAL retiring in favor of SQL / high-intent MQL. Marketing aligning with RevOps and Sales on updated funnel definitions. Current metrics remain active until transition is complete.'
+  },
+  {
+    status: 'orange',
+    title: 'Paid Campaigns Ramping',
+    icon: '!',
+    body: 'Paid MQLs at 15 vs 54 April target. Campaigns launched week of Apr 20. First full month of results expected in May (target: 180 paid MQLs).'
+  },
+  {
+    status: 'green',
+    title: 'ICP Share Improving',
+    icon: '✓',
+    body: 'ICP share of classified leads at 22% QTD, approaching 35% target. W17 hit 34% — highest in 8-week window. Trend is positive.'
   }
 ];
 
@@ -1234,20 +1235,20 @@ function renderMQLKPIs() {
   const cards = [
     {
       name: 'Total MQL — This Week', value: 157, suffix: '',
-      compare: 'Prior week: 169 &nbsp;·&nbsp; <b style="color:var(--danger)">−7% WoW ↓</b>',
+      compare: 'Prior wk: 169 &nbsp;·&nbsp; <b style="color:var(--danger)">−7% WoW ↓</b> &nbsp;·&nbsp; <b style="color:var(--success)">+30% YoY ↑</b> (vs 121)',
       foot: 'List 9736 · hs_v2_date_entered_marketingqualifiedlead in W17',
       cls: 'orange'
     },
     {
       name: 'ICP Share of MQL', value: 36, suffix: '%',
-      compare: 'Prior week: 32% &nbsp;·&nbsp; <b style="color:var(--success)">+4 pp WoW ↑</b>',
+      compare: 'Prior wk: 32% &nbsp;·&nbsp; <b style="color:var(--success)">+4 pp WoW ↑</b> &nbsp;·&nbsp; <span style="color:var(--muted)">YoY: N/A</span>',
       foot: '56 ICP / 101 Non-ICP this week',
       cls: 'green'
     },
     {
       name: 'April QTD MQL', value: 556, suffix: '',
-      compare: 'April target: 575 &nbsp;·&nbsp; <span class="pct">97%</span> achieved',
-      foot: 'On pace to clear monthly goal · YoY same week 2025: 121',
+      compare: 'April target: 575 &nbsp;·&nbsp; <span class="pct">97%</span> achieved &nbsp;·&nbsp; <b style="color:var(--success)">+360% YoY</b> (vs 121 same wk \'25)',
+      foot: 'On pace to clear monthly goal',
       cls: 'green'
     }
   ];
@@ -1273,6 +1274,7 @@ function renderMQLWeeklyChart() {
   const icp    = [  46,    42,     54,     29,     47,     40,     29,     35,     33,     34,     54,     56    ];
   const nonIcp = [ 147,   135,    149,    122,    120,    114,    103,    115,     73,     95,    115,    101    ];
   const total  = icp.map((v, i) => v + nonIcp[i]);
+  const icpPct = total.map((t, i) => t > 0 ? Math.round(icp[i] / t * 100) : 0);
   const ma4 = total.map((_, i) => {
     const s = Math.max(0, i - 3);
     const slice = total.slice(s, i + 1);
@@ -1282,6 +1284,8 @@ function renderMQLWeeklyChart() {
     {
       type: 'bar', name: 'ICP', x: weeks, y: icp,
       marker: { color: COLORS.primary, line: { width: 0 } },
+      text: icpPct.map(p => `${p}%`), textposition: 'inside', insidetextanchor: 'middle',
+      textfont: { size: 11, color: '#FFFFFF', family: 'Inter, sans-serif' },
       hovertemplate: '<b>%{x}</b><br>ICP: %{y}<extra></extra>'
     },
     {
@@ -1416,19 +1420,19 @@ function renderSQLKPIs() {
   const cards = [
     {
       name: 'April QTD SQL', value: 374, suffix: '',
-      compare: 'April target: 288 &nbsp;·&nbsp; <span class="pct">130%</span> achieved &nbsp;·&nbsp; <b style="color:var(--success)">exceeding</b>',
+      compare: 'April target: 288 &nbsp;·&nbsp; <span class="pct">130%</span> achieved &nbsp;·&nbsp; <b style="color:var(--success)">exceeding</b> &nbsp;·&nbsp; <span style="color:var(--muted)">YoY: N/A</span>',
       foot: 'List 9736 · hs_v2_date_entered_opportunity in Apr 1-28',
       cls: 'green'
     },
     {
       name: 'Weekly SQL — This Week', value: '—', suffix: '',
-      compare: 'Weekly breakdown queued for next deploy',
-      foot: 'Will include WoW and YoY change vs prior week and Apr 21-27 2025',
+      compare: 'Weekly breakdown queued for next deploy &nbsp;·&nbsp; <span style="color:var(--muted)">WoW: pending data</span> &nbsp;·&nbsp; <span style="color:var(--muted)">YoY: N/A</span>',
+      foot: 'Will include WoW change vs prior week once weekly counts are pulled',
       cls: 'gray'
     },
     {
       name: 'ICP Share of SQL', value: '—', suffix: '',
-      compare: 'ICP/Non-ICP split queued for next deploy',
+      compare: 'ICP/Non-ICP split queued for next deploy &nbsp;·&nbsp; <span style="color:var(--muted)">WoW: pending data</span> &nbsp;·&nbsp; <span style="color:var(--muted)">YoY: N/A</span>',
       foot: 'Will derive from marketing_icp__nonicp_enriched on SQL cohort',
       cls: 'gray'
     }
