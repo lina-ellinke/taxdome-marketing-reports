@@ -848,9 +848,8 @@ function renderLeadsChart() {
   Plotly.newPlot('chartLeads', traces, layout, { displayModeBar: false, responsive: true });
 }
 
-/* ---------- CHART 2: Online SAL by Channel — WoW + YoY ---------- */
+/* ---------- CHART 2: Leads by Channel — WoW + YoY ---------- */
 function renderChannelsChart() {
-  // Contacts entering SAL (hs_v2_date_entered_967637273) grouped by hs_analytics_source,
   // RevOps methodology — companies in list 9736 (US/CA Marketing source company new)
   // entering Lead stage (hs_v2_date_entered_lead) in the week, attributed by
   // leadgen_channel_original2. this: W17 2026 (Apr 21-27) · prior: W16 2026 (Apr 14-20)
@@ -876,7 +875,7 @@ function renderChannelsChart() {
   channelData.sort((a, b) => a.this - b.this);
   const data = [...channelData, totalRow];
 
-  const channels = data.map(d => d.isTotal ? '<b>Total Online SAL</b>' : d.channel);
+  const channels = data.map(d => d.isTotal ? '<b>Total Leads</b>' : d.channel);
   const thisVals = data.map(d => d.this);
   const priorVals = data.map(d => d.prior);
   const yoyVals  = data.map(d => d.yoy);
@@ -928,7 +927,7 @@ function renderChannelsChart() {
     const yoyTxt = d.yoyNoData ? 'YoY: no data' : `${fmtPct(d.this, d.yoy)} YoY`;
     const yoyCol = d.yoyNoData ? COLORS.muted : pctColor(d.this, d.yoy);
     // Reference the y-axis category via its rendered label so HTML in the
-    // Total row ('<b>Total Online SAL</b>') matches.
+    // Total row ('<b>Total Leads</b>') matches.
     const yCat = channels[i];
     annotations.push({
       x: maxVal * 1.04, y: yCat, xref: 'x', yref: 'y',
@@ -978,7 +977,7 @@ function renderChannelsChart() {
     barmode: 'group',
     xaxis: {
       gridcolor: 'rgba(128,128,128,0.15)',
-      title: { text: 'SAL count', font: { size: 12 } },
+      title: { text: 'Lead count', font: { size: 12 } },
       range: [0, maxVal * 1.45]
     },
     yaxis: { tickfont: { size: 12 } },
