@@ -393,9 +393,10 @@
 
 <nav class="tab-bar" role="tablist">
   <button class="tab-btn active" data-tab="overview" role="tab" aria-selected="true">Overview</button>
-  <button class="tab-btn" data-tab="funnel" role="tab" aria-selected="false">Funnel</button>
+  <button class="tab-btn" data-tab="leads" role="tab" aria-selected="false">Leads</button>
   <button class="tab-btn" data-tab="mqls" role="tab" aria-selected="false">MQLs</button>
   <button class="tab-btn" data-tab="sqls" role="tab" aria-selected="false">SQLs</button>
+  <button class="tab-btn" data-tab="funnel" role="tab" aria-selected="false">Funnel</button>
 </nav>
 
 <section id="tab-overview" class="tab-content active" role="tabpanel">
@@ -403,23 +404,7 @@
 <div class="section-title">Key Performance Indicators</div>
 <div class="kpi-row" id="kpiRow"></div>
 
-<div class="section-title">Performance Detail</div>
-<div class="charts-grid">
-  <div class="card">
-    <h2>Classified Lead Volume by Week &nbsp;<span class="badge live">Live — HubSpot</span></h2>
-    <div class="chart-sub">US/CA marketing leads (list 9736) entering Lead stage · split by enriched ICP / Non-ICP</div>
-    <div id="chartLeads" class="plot"></div>
-    <div style="font-size: 11px; color: var(--muted); font-style: italic; margin-top: 8px; line-height: 1.5;">
-      Target varies by month — April: 300/wk, May: 995/wk, June: 1,195/wk (post-tax season ramp). Methodology: companies in HubSpot list 9736 where <code>hs_v2_date_entered_lead</code> falls in the week, classified by <code>marketing_icp__nonicp_enriched</code>.
-    </div>
-  </div>
-  <div class="card">
-    <h2>Leads by Channel — Week of Apr 21 &nbsp;<span class="badge live">Live</span></h2>
-    <div class="chart-sub">Classified leads entering Lead stage by channel (leadgen_channel_original2) · US/CA list 9736</div>
-    <div id="chartChannels" class="plot"></div>
-  </div>
-</div>
-
+<div class="section-title">Q2 OKR Progress</div>
 <div class="charts-grid-full">
   <div class="card">
     <h2>Q2 OKR Progress</h2>
@@ -447,88 +432,130 @@
 
 </section>
 
-<section id="tab-funnel" class="tab-content" role="tabpanel">
+<section id="tab-leads" class="tab-content" role="tabpanel">
 
-  <div class="section-title">April QTD Funnel Summary</div>
+  <div class="section-title">Leads Summary</div>
+  <div class="kpi-row" id="leadsKpiRow"></div>
+
+  <div class="section-title">Leads Volume</div>
   <div class="charts-grid-full">
     <div class="card">
-      <h2>Full Funnel — April QTD &nbsp;<span class="badge live">Live — HubSpot</span></h2>
-      <div class="chart-sub">US/CA marketing companies (list 9736) · stage entries through Apr 28</div>
-      <table class="q2-targets-table">
-        <thead>
-          <tr>
-            <th>Stage</th>
-            <th>April QTD</th>
-            <th>April Target</th>
-            <th>% Achieved</th>
-            <th>Weekly Rate</th>
-            <th>Weekly Target</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>Leads</td><td>766</td><td>1,198</td><td>64%</td><td>~192/wk</td><td>300/wk</td></tr>
-          <tr><td>MQLs (low-intent)</td><td>525</td><td>719</td><td>73%</td><td>~131/wk</td><td>180/wk</td></tr>
-          <tr><td>MQLs</td><td>556</td><td>575</td><td>97%</td><td>~139/wk</td><td>144/wk</td></tr>
-          <tr><td>SQLs</td><td>374</td><td>288</td><td><b style="color:var(--success);">130%</b></td><td>~94/wk</td><td>72/wk</td></tr>
-        </tbody>
-      </table>
-      <div style="font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 12px; line-height: 1.5;">
-        Methodology: companies in HubSpot list 9736. Lead = <code>hs_v2_date_entered_lead</code>; MQL-low = <code>hs_v2_date_exited_1048697784</code>; MQL = <code>hs_v2_date_entered_marketingqualifiedlead</code>; SQL = <code>hs_v2_date_entered_opportunity</code>. Window: Apr 1 – Apr 28.
+      <h2>Classified Lead Volume by Week &nbsp;<span class="badge live">Live — HubSpot</span></h2>
+      <div class="chart-sub">US/CA marketing leads (list 9736) entering Lead stage · split by enriched ICP / Non-ICP</div>
+      <div id="chartLeads" class="plot"></div>
+      <div style="font-size: 11px; color: var(--muted); font-style: italic; margin-top: 8px; line-height: 1.5;">
+        Target varies by month — April: 300/wk, May: 995/wk, June: 1,195/wk (post-tax season ramp). Methodology: companies in HubSpot list 9736 where <code>hs_v2_date_entered_lead</code> falls in the week, classified by <code>marketing_icp__nonicp_enriched</code>.
       </div>
     </div>
   </div>
 
-  <div class="section-title">Stage-to-Stage Conversion (April QTD)</div>
+  <div class="section-title">Leads by Channel</div>
   <div class="charts-grid-full">
     <div class="card">
-      <h2>Funnel Conversion Rates &nbsp;<span class="badge live">Live</span></h2>
-      <div class="chart-sub">Of contacts entering each stage in April QTD, share progressing to the next stage (period-aggregate basis, not cohort)</div>
+      <h2>Leads by Channel — Week of Apr 21 &nbsp;<span class="badge live">Live</span></h2>
+      <div class="chart-sub">Classified leads entering Lead stage by channel (leadgen_channel_original2) · US/CA list 9736</div>
+      <div id="chartChannels" class="plot"></div>
+    </div>
+  </div>
+
+</section>
+
+<section id="tab-funnel" class="tab-content" role="tabpanel">
+
+  <div class="section-title">Q2 Progress — Quarter to Date</div>
+  <div class="charts-grid-full">
+    <div class="card">
+      <div style="background: rgba(232,89,12,0.10); border-left: 3px solid var(--warning); padding: 12px 14px; border-radius: 4px; font-size: 13px; line-height: 1.55; margin-bottom: 14px;">
+        <b style="color: var(--warning);">Note:</b> Q2 targets are intentionally back-loaded — April targets are 12–15% of Q2 total, with May and June carrying 85–88% of volume. Being below linear Q2 pace in April is expected by design.
+      </div>
+      <h2>Q2 QTD vs Quarterly Targets &nbsp;<span class="badge live">Live — HubSpot</span></h2>
+      <div class="chart-sub">Stage-by-stage Q2 QTD progress · pace = 30% of Q2 elapsed (day 28 of 91)</div>
+      <table class="q2-targets-table">
+        <thead>
+          <tr>
+            <th>Stage</th>
+            <th>Q2 QTD</th>
+            <th>Q2 Target</th>
+            <th>% Achieved</th>
+            <th>Q2 Pace</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Leads</td>      <td>766</td>  <td>8,299*</td> <td>9.2%</td>  <td>30%</td> <td><b style="color:var(--danger);">Behind</b></td></tr>
+          <tr><td>MQLs-low</td>   <td>525</td>  <td>5,976*</td> <td>8.8%</td>  <td>30%</td> <td><b style="color:var(--danger);">Behind</b></td></tr>
+          <tr><td>MQLs</td>       <td>556</td>  <td>4,780*</td> <td>11.6%</td> <td>30%</td> <td><b style="color:var(--danger);">Behind</b></td></tr>
+          <tr><td>SQLs</td>       <td>374</td>  <td>2,391</td>  <td>15.6%</td> <td>30%</td> <td><b style="color:var(--danger);">Behind</b></td></tr>
+        </tbody>
+      </table>
+      <div style="font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 12px; line-height: 1.5;">
+        * Monthly sum differs from quarterly target — see footnote in Section D. "Behind" status reflects linear-pace comparison only; back-loaded targets are expected to catch up in May–June.
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">Monthly Progress — Current Month</div>
+  <div class="charts-grid-full">
+    <div class="card">
+      <h2>Monthly Funnel Tracker &nbsp;<span class="badge live">Live — HubSpot</span></h2>
+      <div class="chart-sub">April actuals through Apr 28 · May and June show targets only</div>
+      <table class="q2-targets-table">
+        <thead>
+          <tr>
+            <th>Stage</th>
+            <th>Apr Actual</th>
+            <th>Apr Target</th>
+            <th>Apr %</th>
+            <th>May Target</th>
+            <th>Jun Target</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Leads</td>     <td>766</td>                                       <td>1,198</td> <td><b style="color:var(--danger);">64%</b></td>  <td style="color:var(--muted);">3,979</td> <td style="color:var(--muted);">4,781</td></tr>
+          <tr><td>MQLs-low</td>  <td>525</td>                                       <td>719</td>   <td><b style="color:var(--warning);">73%</b></td> <td style="color:var(--muted);">2,388</td> <td style="color:var(--muted);">2,869</td></tr>
+          <tr><td>MQLs</td>      <td>556</td>                                       <td>575</td>   <td><b style="color:var(--success);">97%</b></td> <td style="color:var(--muted);">1,910</td> <td style="color:var(--muted);">2,295</td></tr>
+          <tr><td>SQLs</td>      <td>374</td>                                       <td>288</td>   <td><b style="color:var(--success);">130%</b></td><td style="color:var(--muted);">955</td>   <td style="color:var(--muted);">1,148</td></tr>
+          <tr><td>Customers</td> <td style="color:var(--muted);">—</td>             <td>115</td>   <td style="color:var(--muted);">—</td>            <td style="color:var(--muted);">382</td>   <td style="color:var(--muted);">459</td></tr>
+        </tbody>
+      </table>
+      <div style="font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 12px; line-height: 1.5;">
+        Color coding on Apr %: green ≥ 90%, orange 70–89%, red &lt; 70%. Customers row not yet populated for April.
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">Conversion Rates</div>
+  <div class="charts-grid-full">
+    <div class="card">
+      <h2>Stage-to-Stage Conversion — April QTD &nbsp;<span class="badge live">Live</span></h2>
+      <div class="chart-sub">Period-aggregate ratios (not cohort) · Q1 2026 averages shown for reference where available</div>
       <table class="q2-targets-table">
         <thead>
           <tr>
             <th>Transition</th>
             <th>Numerator</th>
             <th>Denominator</th>
-            <th>Conversion Rate</th>
+            <th>Apr QTD</th>
+            <th>Q1 2026 avg</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td>Lead → MQL-low</td><td>525</td><td>766</td><td><b>69%</b></td></tr>
-          <tr><td>MQL-low → MQL</td><td>556</td><td>525</td><td><b>106%*</b></td></tr>
-          <tr><td>MQL → SQL</td><td>374</td><td>556</td><td><b>67%</b></td></tr>
+          <tr><td>Lead → MQL-low</td>    <td>525</td> <td>766</td> <td><b>69%</b></td>   <td style="color:var(--muted);">TBD</td></tr>
+          <tr><td>MQL-low → MQL</td>     <td>556</td> <td>525</td> <td><b>106%*</b></td> <td style="color:var(--muted);">TBD</td></tr>
+          <tr><td>MQL → SQL</td>         <td>374</td> <td>556</td> <td><b>67%</b></td>   <td style="color:var(--muted);">TBD</td></tr>
         </tbody>
       </table>
       <div style="font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 12px; line-height: 1.5;">
-        * MQL-low → MQL exceeds 100% because period-aggregate ratios mix in contacts that bypassed MQL-low (entered MQL directly) or carried over from earlier periods. A true cohort conversion analysis would track specific contacts through stages over time and is queued as a follow-up.
+        * MQL-low → MQL exceeds 100% because period-aggregate ratios mix in contacts that bypassed MQL-low (entered MQL directly) or carried over from earlier periods. True cohort conversion analysis (and Q1 averages) queued as a follow-up.
       </div>
     </div>
   </div>
 
-  <div class="section-title">Q2 Monthly Funnel Targets</div>
+  <div class="section-title">Target Discrepancy</div>
   <div class="charts-grid-full">
     <div class="card">
-      <h2>Q2 2026 Monthly Funnel Targets (from Marketing Funnel Plan)</h2>
-      <div class="chart-sub">Stage-by-stage monthly targets · post-tax-season ramp</div>
-      <table class="q2-targets-table">
-        <thead>
-          <tr>
-            <th>Metric</th>
-            <th>April</th>
-            <th>May</th>
-            <th>June</th>
-            <th>Q2 Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>Leads</td><td>1,198</td><td>3,979</td><td>4,781</td><td>9,958</td></tr>
-          <tr><td>MQLs-low</td><td>719</td><td>2,388</td><td>2,869</td><td>5,976</td></tr>
-          <tr><td>MQLs</td><td>575</td><td>1,910</td><td>2,295</td><td>4,780</td></tr>
-          <tr><td>SQLs</td><td>288</td><td>955</td><td>1,148</td><td>2,391</td></tr>
-          <tr><td>Customers</td><td>115</td><td>382</td><td>459</td><td>956</td></tr>
-        </tbody>
-      </table>
-      <div style="font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 12px; line-height: 1.5;">
-        Source: Marketing Funnel Plan (RevOps). Note: Monthly targets for Leads and MQLs sum to ~20% above quarterly targets (Leads: 9,958 vs 8,299; MQLs: 4,780 vs 3,983). SQLs are aligned (2,391 vs 2,390). Discrepancy under review with RevOps.
+      <div style="background: rgba(232,89,12,0.10); border-left: 3px solid var(--warning); padding: 14px 16px; border-radius: 4px; font-size: 13.5px; line-height: 1.55;">
+        <b style="color: var(--warning);">Target Discrepancy Note:</b> Monthly targets for Leads and MQLs sum to <b>~20% above</b> quarterly targets (Leads: <b>9,958 vs 8,299</b>; MQLs: <b>4,780 vs 3,983</b>). SQLs are aligned (<b>2,391 vs 2,390</b>). Discrepancy under review with RevOps.
       </div>
     </div>
   </div>
@@ -1436,6 +1463,49 @@ function renderMQLChannelsChart() {
   Plotly.newPlot('chartMQLChannels', traces, layout, { displayModeBar: false, responsive: true });
 }
 
+/* ---------- LEADS TAB ---------- */
+function renderLeadsKPIs() {
+  // W17 (Apr 21-27): list 9736 entering Lead = 164 total. Classified breakdown
+  // (from Classified chart): 50 ICP / 97 Non-ICP = 147; 17 unclassified.
+  // W16 (Apr 14-20): 216 total; classified 44 ICP / 149 Non-ICP = 193; 23 unclassified.
+  // YoY (Apr 21-27 2025): 200 total. ICP/Non-ICP split for 2025 not pulled.
+  const cards = [
+    {
+      name: 'Total Leads — This Week', value: 164, suffix: '',
+      compare: 'Prior wk: 216 &nbsp;·&nbsp; <b style="color:var(--danger)">−24% WoW ↓</b> &nbsp;·&nbsp; <b style="color:var(--danger)">−18% YoY ↓</b> (vs 200)',
+      foot: 'List 9736 · hs_v2_date_entered_lead in W17 · 50 ICP / 97 Non-ICP / 17 unclassified',
+      cls: 'orange'
+    },
+    {
+      name: 'ICP Share of Leads', value: 34, suffix: '%',
+      compare: 'Prior wk: 23% &nbsp;·&nbsp; <b style="color:var(--success)">+11 pp WoW ↑</b> &nbsp;·&nbsp; <span style="color:var(--muted)">YoY: N/A</span>',
+      foot: '50 ICP / 97 Non-ICP this week · target 35%',
+      cls: 'green'
+    },
+    {
+      name: 'April QTD Leads', value: 766, suffix: '',
+      compare: 'April target: 1,198 &nbsp;·&nbsp; <span class="pct">64%</span> achieved &nbsp;·&nbsp; <span style="color:var(--muted)">YoY: N/A</span>',
+      foot: 'List 9736 · hs_v2_date_entered_lead in Apr 1-28 · 13% of Q2 total target (back-loaded)',
+      cls: 'orange'
+    }
+  ];
+  const row = document.getElementById('leadsKpiRow');
+  if (!row) return;
+  row.innerHTML = '';
+  cards.forEach(c => {
+    const el = document.createElement('div');
+    el.className = `kpi-card ${c.cls}`;
+    el.innerHTML = `
+      <div class="kpi-name">${c.name}</div>
+      <div class="kpi-value">${typeof c.value === 'number' ? c.value.toLocaleString() : c.value}${c.suffix}</div>
+      <div class="kpi-compare ${c.cls}">${c.compare}</div>
+      <div style="font-size:10px; margin-top:4px; color:var(--muted); font-weight:400; font-style:italic;">${c.foot}</div>
+      <div><span class="badge live">Live — HubSpot</span></div>
+    `;
+    row.appendChild(el);
+  });
+}
+
 /* ---------- SQL TAB ---------- */
 function renderSQLKPIs() {
   // Live HubSpot — list 9736 entering SQL stage. Real weekly + April QTD data pulled.
@@ -1641,6 +1711,7 @@ function renderSQLChannelsChart() {
 }
 
 /* ---------- TAB SWITCHING ---------- */
+let leadsTabInitialized = false;
 let mqlsTabInitialized = false;
 let sqlsTabInitialized = false;
 function initTabs() {
@@ -1658,7 +1729,17 @@ function initTabs() {
       // Render charts lazily on first reveal — Plotly needs the container
       // to have measurable width/height, which it doesn't while display:none.
       // The Funnel tab is tables-only, no Plotly setup needed.
-      if (tab === 'mqls' && !mqlsTabInitialized) {
+      if (tab === 'leads' && !leadsTabInitialized) {
+        renderLeadsKPIs();
+        renderLeadsChart();
+        renderChannelsChart();
+        leadsTabInitialized = true;
+      } else if (tab === 'leads') {
+        ['chartLeads','chartChannels'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) Plotly.Plots.resize(el);
+        });
+      } else if (tab === 'mqls' && !mqlsTabInitialized) {
         renderMQLKPIs();
         renderMQLWeeklyChart();
         renderMQLChannelsChart();
@@ -1679,10 +1760,8 @@ function initTabs() {
           if (el) Plotly.Plots.resize(el);
         });
       } else if (tab === 'overview') {
-        ['chartLeads','chartChannels','chartOKR'].forEach(id => {
-          const el = document.getElementById(id);
-          if (el) Plotly.Plots.resize(el);
-        });
+        const okr = document.getElementById('chartOKR');
+        if (okr) Plotly.Plots.resize(okr);
       }
     });
   });
@@ -1710,12 +1789,16 @@ function initTheme() {
 /* ---------- INIT ---------- */
 function renderAll() {
   renderKPIs();
-  renderLeadsChart();
-  renderChannelsChart();
   renderOKRChart();
   renderAttention();
-  // If the Leads tab has been visited, re-render its charts too (so theme
-  // switches pick up the new text color consistently).
+  // The Leads / MQL / SQL tabs are lazy-rendered on first reveal because their
+  // containers start at display:none and Plotly can't measure them. Once a tab
+  // has been visited, re-render its charts on theme toggle so colors stay in sync.
+  if (leadsTabInitialized) {
+    renderLeadsKPIs();
+    renderLeadsChart();
+    renderChannelsChart();
+  }
   if (mqlsTabInitialized) {
     renderMQLKPIs();
     renderMQLWeeklyChart();
@@ -1733,9 +1816,11 @@ document.addEventListener('DOMContentLoaded', () => {
   initTabs();
   renderAll();
   window.addEventListener('resize', () => {
-    ['chartLeads','chartChannels','chartOKR','chartMQLWeekly','chartMQLChannels','chartSQLWeekly','chartSQLChannels'].forEach(id => {
+    ['chartOKR','chartLeads','chartChannels','chartMQLWeekly','chartMQLChannels','chartSQLWeekly','chartSQLChannels'].forEach(id => {
       const el = document.getElementById(id);
-      if (el) Plotly.Plots.resize(el);
+      // Only resize if the element's parent tab is currently visible (else
+      // Plotly will collapse the chart to zero on the hidden tab).
+      if (el && el.offsetParent !== null) Plotly.Plots.resize(el);
     });
   });
 });
