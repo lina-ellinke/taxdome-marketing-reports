@@ -565,16 +565,24 @@
   <div class="section-title">SQL Summary</div>
   <div class="kpi-row" id="sqlKpiRow"></div>
 
+  <div class="section-title">SQL Volume</div>
   <div class="charts-grid-full">
     <div class="card">
-      <h2>SQL Volume by Week</h2>
-      <div class="chart-sub">12-week SQL trend with ICP/Non-ICP split · Apr goal line at 72/wk</div>
-      <p style="color: var(--muted); font-size: 13px; line-height: 1.6; padding: 24px 12px;">
-        Weekly chart and channel breakdown queued for next deploy. Headline April QTD (374, 130% of target) is shown in the summary cards above.
-      </p>
-      <div style="font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 8px;">
-        Target varies by month — Apr: 72/wk · May: 239/wk · Jun: 287/wk
+      <h2>SQL Volume by Week &nbsp;<span class="badge live">Live — HubSpot</span></h2>
+      <div class="chart-sub">US/CA marketing companies entering SQL (Opportunity) stage · list 9736 · split by enriched ICP/Non-ICP</div>
+      <div id="chartSQLWeekly" class="plot"></div>
+      <div style="font-size: 11px; color: var(--muted); font-style: italic; margin-top: 8px; line-height: 1.5;">
+        Target varies by month — Apr: 72/wk · May: 239/wk · Jun: 287/wk. Methodology: companies in HubSpot list 9736 where <code>hs_v2_date_entered_opportunity</code> falls in the week, classified by <code>marketing_icp__nonicp_enriched</code>.
       </div>
+    </div>
+  </div>
+
+  <div class="section-title">SQL by Channel</div>
+  <div class="charts-grid-full">
+    <div class="card">
+      <h2>SQL by Channel — Week of Apr 21 &nbsp;<span class="badge live">Live</span></h2>
+      <div class="chart-sub">Companies entering SQL stage by channel (leadgen_channel_original2) · US/CA list 9736</div>
+      <div id="chartSQLChannels" class="plot"></div>
     </div>
   </div>
 
@@ -1414,27 +1422,25 @@ function renderMQLChannelsChart() {
 
 /* ---------- SQL TAB ---------- */
 function renderSQLKPIs() {
-  // Live HubSpot — list 9736 entering SQL stage. April QTD = 374 (130% of 288 target).
-  // Weekly + WoW + YoY queries deferred to a follow-up commit; April QTD stat is sufficient
-  // to show the headline result on this card.
+  // Live HubSpot — list 9736 entering SQL stage. Real weekly + April QTD data pulled.
   const cards = [
+    {
+      name: 'Weekly SQL — This Week', value: 125, suffix: '',
+      compare: 'Prior wk: 109 &nbsp;·&nbsp; <b style="color:var(--success)">+15% WoW ↑</b> &nbsp;·&nbsp; <span style="color:var(--muted)">YoY: N/A</span>',
+      foot: 'List 9736 · hs_v2_date_entered_opportunity in W17 · 43 ICP / 82 Non-ICP',
+      cls: 'green'
+    },
+    {
+      name: 'ICP Share of SQL', value: 34, suffix: '%',
+      compare: 'Prior wk: 35% &nbsp;·&nbsp; <b style="color:var(--danger)">−1 pp WoW ↓</b> &nbsp;·&nbsp; <span style="color:var(--muted)">YoY: N/A</span>',
+      foot: '43 ICP / 82 Non-ICP this week · 12-wk range 19–35%',
+      cls: 'green'
+    },
     {
       name: 'April QTD SQL', value: 374, suffix: '',
       compare: 'April target: 288 &nbsp;·&nbsp; <span class="pct">130%</span> achieved &nbsp;·&nbsp; <b style="color:var(--success)">exceeding</b> &nbsp;·&nbsp; <span style="color:var(--muted)">YoY: N/A</span>',
       foot: 'List 9736 · hs_v2_date_entered_opportunity in Apr 1-28',
       cls: 'green'
-    },
-    {
-      name: 'Weekly SQL — This Week', value: '—', suffix: '',
-      compare: 'Weekly breakdown queued for next deploy &nbsp;·&nbsp; <span style="color:var(--muted)">WoW: pending data</span> &nbsp;·&nbsp; <span style="color:var(--muted)">YoY: N/A</span>',
-      foot: 'Will include WoW change vs prior week once weekly counts are pulled',
-      cls: 'gray'
-    },
-    {
-      name: 'ICP Share of SQL', value: '—', suffix: '',
-      compare: 'ICP/Non-ICP split queued for next deploy &nbsp;·&nbsp; <span style="color:var(--muted)">WoW: pending data</span> &nbsp;·&nbsp; <span style="color:var(--muted)">YoY: N/A</span>',
-      foot: 'Will derive from marketing_icp__nonicp_enriched on SQL cohort',
-      cls: 'gray'
     }
   ];
   const row = document.getElementById('sqlKpiRow');
@@ -1448,10 +1454,167 @@ function renderSQLKPIs() {
       <div class="kpi-value">${typeof c.value === 'number' ? c.value.toLocaleString() : c.value}${c.suffix}</div>
       <div class="kpi-compare ${c.cls}">${c.compare}</div>
       <div style="font-size:10px; margin-top:4px; color:var(--muted); font-weight:400; font-style:italic;">${c.foot}</div>
-      <div><span class="badge ${c.cls === 'gray' ? 'pending' : 'live'}">${c.cls === 'gray' ? 'Coming next deploy' : 'Live — HubSpot'}</span></div>
+      <div><span class="badge live">Live — HubSpot</span></div>
     `;
     row.appendChild(el);
   });
+}
+
+function renderSQLWeeklyChart() {
+  // Live data — companies in list 9736 with hs_v2_date_entered_opportunity per week.
+  const weeks  = ['W1 Feb','W2 Feb','W3 Feb','W4 Feb','W1 Mar','W2 Mar','W3 Mar','W4 Mar','W1 Apr','W2 Apr','W3 Apr','W4 Apr'];
+  const icp    = [  25,    22,     25,     15,     25,     20,     17,     25,     15,     24,     38,     43    ];
+  const nonIcp = [ 103,    66,     84,     62,     64,     53,     59,     71,     47,     57,     71,     82    ];
+  const total  = icp.map((v, i) => v + nonIcp[i]);
+  const icpPct = total.map((t, i) => t > 0 ? Math.round(icp[i] / t * 100) : 0);
+  const goal   = 72; // April weekly target (288 / 4)
+  const ma4 = total.map((_, i) => {
+    const s = Math.max(0, i - 3);
+    const slice = total.slice(s, i + 1);
+    return Math.round(slice.reduce((a,b) => a+b, 0) / slice.length);
+  });
+  const traces = [
+    {
+      type: 'bar', name: 'ICP', x: weeks, y: icp,
+      marker: { color: COLORS.primary, line: { width: 0 } },
+      text: icpPct.map(p => `${p}%`), textposition: 'inside', insidetextanchor: 'middle',
+      textfont: { size: 11, color: '#FFFFFF', family: 'Inter, sans-serif' },
+      hovertemplate: '<b>%{x}</b><br>ICP: %{y}<extra></extra>'
+    },
+    {
+      type: 'bar', name: 'Non-ICP', x: weeks, y: nonIcp,
+      marker: { color: '#ADB5BD', line: { width: 0 } },
+      text: total.map(t => t.toLocaleString()), textposition: 'outside',
+      textfont: { size: 11, color: getComputedStyle(document.body).getPropertyValue('--text') },
+      hovertemplate: '<b>%{x}</b><br>Non-ICP: %{y}<extra></extra>'
+    },
+    {
+      type: 'scatter', mode: 'lines+markers', name: '4-wk Moving Avg (total)',
+      x: weeks, y: ma4,
+      line: { color: COLORS.warning, width: 3, shape: 'spline' },
+      marker: { size: 6, color: COLORS.warning },
+      hovertemplate: '<b>%{x}</b><br>4wk MA: %{y}<extra></extra>'
+    }
+  ];
+  const layout = {
+    height: 400,
+    margin: { l: 50, r: 20, t: 10, b: 50 },
+    paper_bgcolor: 'rgba(0,0,0,0)',
+    plot_bgcolor: 'rgba(0,0,0,0)',
+    font: { family: 'Inter, sans-serif', color: getComputedStyle(document.body).getPropertyValue('--text') },
+    barmode: 'stack',
+    xaxis: { tickfont: { size: 11 }, showgrid: false },
+    yaxis: { gridcolor: 'rgba(128,128,128,0.15)', title: { text: 'SQL Volume', font: { size: 12 } }, range: [0, 160] },
+    shapes: [{
+      type: 'line', xref: 'paper', x0: 0, x1: 1,
+      y0: goal, y1: goal,
+      line: { color: COLORS.muted, width: 2, dash: 'dash' }
+    }],
+    annotations: [{
+      xref: 'paper', x: 0.99, y: goal, yshift: 10,
+      text: `<b>April Target: ${goal}/wk</b>`,
+      showarrow: false, xanchor: 'right',
+      font: { size: 11, color: COLORS.muted }
+    }],
+    legend: { orientation: 'h', y: -0.18, x: 0.5, xanchor: 'center' },
+    bargap: 0.35
+  };
+  Plotly.newPlot('chartSQLWeekly', traces, layout, { displayModeBar: false, responsive: true });
+}
+
+function renderSQLChannelsChart() {
+  // Live HubSpot — list 9736 entering SQL by leadgen_channel_original2.
+  // this: W17 2026 (Apr 21-27) · prior: W16 2026 (Apr 14-20) · yoy: Apr 21-27 2025.
+  // leadgen_channel_original2 was barely populated in 2025 — individual-channel YoY
+  // is unreliable; only Total YoY shown.
+  const channelData = [
+    { channel: 'Organic Search', this: 79, prior: 63, yoy: 0, yoyNoData: true },
+    { channel: 'Direct Traffic', this: 23, prior: 26, yoy: 0, yoyNoData: true },
+    { channel: 'Import',         this: 9,  prior: 7,  yoy: 0, yoyNoData: true },
+    { channel: 'Other',          this: 8,  prior: 8,  yoy: 0, yoyNoData: true },
+    { channel: 'Paid Search',    this: 4,  prior: 3,  yoy: 0, yoyNoData: true },
+    { channel: 'LLM',            this: 2,  prior: 2,  yoy: 0, yoyNoData: true },
+    { channel: 'Paid Social',    this: 0,  prior: 0,  yoy: 0, yoyNoData: true }
+  ];
+  const totalRow = { channel: 'Total SQL', this: 125, prior: 109, yoy: 90, isTotal: true };
+  channelData.sort((a, b) => a.this - b.this);
+  const data = [...channelData, totalRow];
+
+  const channels = data.map(d => d.isTotal ? '<b>Total SQL</b>' : d.channel);
+  const thisVals = data.map(d => d.this);
+  const priorVals = data.map(d => d.prior);
+  const yoyVals  = data.map(d => d.yoy);
+  const totalIdx = data.length - 1;
+
+  const fmtPct = (a, b) => {
+    if (b === 0 && a === 0) return '—';
+    if (b === 0) return '+new';
+    const pct = Math.round((a - b) / b * 100);
+    return (pct >= 0 ? '+' : '') + pct + '%';
+  };
+  const pctColor = (a, b) => {
+    if (b === 0 && a === 0) return COLORS.muted;
+    if (b === 0) return COLORS.success;
+    return a >= b ? COLORS.success : COLORS.danger;
+  };
+
+  const traces = [
+    { type: 'bar', orientation: 'h', name: 'This week (W17)',
+      x: thisVals, y: channels, marker: { color: '#1864AB', line: { width: 0 } },
+      hovertemplate: '<b>%{y}</b><br>This week: %{x}<extra></extra>' },
+    { type: 'bar', orientation: 'h', name: 'Prior week (W16)',
+      x: priorVals, y: channels, marker: { color: '#74C0FC', line: { width: 0 } },
+      hovertemplate: '<b>%{y}</b><br>Prior week: %{x}<extra></extra>' },
+    { type: 'bar', orientation: 'h', name: 'Same week 2025',
+      x: yoyVals, y: channels, marker: { color: 'rgba(173,181,189,0.55)', line: { color: '#868E96', width: 1 } },
+      hovertemplate: '<b>%{y}</b><br>Same week 2025: %{x}<extra></extra>' }
+  ];
+
+  const maxVal = Math.max(...thisVals, ...priorVals, ...yoyVals);
+  const annotations = [];
+  data.forEach((d, i) => {
+    const wow    = fmtPct(d.this, d.prior);
+    const wowCol = pctColor(d.this, d.prior);
+    const yoyTxt = d.yoyNoData ? 'YoY: no data' : `${fmtPct(d.this, d.yoy)} YoY`;
+    const yoyCol = d.yoyNoData ? COLORS.muted : pctColor(d.this, d.yoy);
+    const yCat = channels[i];
+    annotations.push({
+      x: maxVal * 1.04, y: yCat, xref: 'x', yref: 'y',
+      xanchor: 'left', yanchor: 'middle', yshift: 8,
+      text: `<b>${wow} WoW</b>`, showarrow: false,
+      font: { size: d.isTotal ? 13 : 12, family: 'Inter, sans-serif', color: wowCol }
+    });
+    annotations.push({
+      x: maxVal * 1.04, y: yCat, xref: 'x', yref: 'y',
+      xanchor: 'left', yanchor: 'middle', yshift: -8,
+      text: yoyTxt, showarrow: false,
+      font: { size: d.isTotal ? 11 : 10, family: 'Inter, sans-serif', color: yoyCol }
+    });
+  });
+
+  const shapes = [
+    { type: 'rect', xref: 'paper', x0: 0, x1: 1, yref: 'y',
+      y0: totalIdx - 0.5, y1: totalIdx + 0.5,
+      fillcolor: 'rgba(76,110,245,0.07)', line: { width: 0 }, layer: 'below' },
+    { type: 'line', xref: 'paper', x0: 0, x1: 1, yref: 'y',
+      y0: totalIdx - 0.5, y1: totalIdx - 0.5,
+      line: { color: 'rgba(108,117,125,0.55)', width: 2 } }
+  ];
+
+  const layout = {
+    height: 460,
+    margin: { l: 130, r: 170, t: 10, b: 50 },
+    paper_bgcolor: 'rgba(0,0,0,0)',
+    plot_bgcolor: 'rgba(0,0,0,0)',
+    font: { family: 'Inter, sans-serif', color: getComputedStyle(document.body).getPropertyValue('--text') },
+    barmode: 'group',
+    xaxis: { gridcolor: 'rgba(128,128,128,0.15)', title: { text: 'SQL count', font: { size: 12 } }, range: [0, maxVal * 1.45] },
+    yaxis: { tickfont: { size: 12 } },
+    legend: { orientation: 'h', y: -0.14, x: 0.5, xanchor: 'center', font: { size: 11 } },
+    bargap: 0.28, bargroupgap: 0.05,
+    shapes, annotations
+  };
+  Plotly.newPlot('chartSQLChannels', traces, layout, { displayModeBar: false, responsive: true });
 }
 
 /* ---------- TAB SWITCHING ---------- */
@@ -1484,7 +1647,14 @@ function initTabs() {
         });
       } else if (tab === 'sqls' && !sqlsTabInitialized) {
         renderSQLKPIs();
+        renderSQLWeeklyChart();
+        renderSQLChannelsChart();
         sqlsTabInitialized = true;
+      } else if (tab === 'sqls') {
+        ['chartSQLWeekly','chartSQLChannels'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) Plotly.Plots.resize(el);
+        });
       } else if (tab === 'overview') {
         ['chartLeads','chartChannels','chartOKR'].forEach(id => {
           const el = document.getElementById(id);
@@ -1524,6 +1694,8 @@ function renderAll() {
   }
   if (sqlsTabInitialized) {
     renderSQLKPIs();
+    renderSQLWeeklyChart();
+    renderSQLChannelsChart();
   }
 }
 
@@ -1532,7 +1704,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initTabs();
   renderAll();
   window.addEventListener('resize', () => {
-    ['chartLeads','chartChannels','chartOKR','chartMQLWeekly','chartMQLChannels'].forEach(id => {
+    ['chartLeads','chartChannels','chartOKR','chartMQLWeekly','chartMQLChannels','chartSQLWeekly','chartSQLChannels'].forEach(id => {
       const el = document.getElementById(id);
       if (el) Plotly.Plots.resize(el);
     });
