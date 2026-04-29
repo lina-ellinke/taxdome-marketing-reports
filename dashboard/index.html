@@ -386,7 +386,7 @@
 <header>
   <div>
     <h1>TaxDome Marketing — Weekly Overview</h1>
-    <div class="subtitle">Last updated: April 27, 2026 &nbsp;|&nbsp; Week of April 21-27 &nbsp;|&nbsp; US/CA marketing leads (list 9736)</div>
+    <div class="subtitle">Last updated: April 29, 2026 &nbsp;|&nbsp; Week of April 21-27 &nbsp;|&nbsp; All-market marketing leads (list 6894 · createdate)</div>
   </div>
   <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">Toggle light mode</button>
 </header>
@@ -440,11 +440,11 @@
   <div class="section-title">Leads Volume</div>
   <div class="charts-grid-full">
     <div class="card">
-      <h2>Classified Lead Volume by Week &nbsp;<span class="badge live">Live — HubSpot</span></h2>
-      <div class="chart-sub">US/CA marketing leads (list 9736) entering Lead stage · split by enriched ICP / Non-ICP</div>
+      <h2>Marketing Lead Volume by Week &nbsp;<span class="badge live">Live — HubSpot</span></h2>
+      <div class="chart-sub">All-market marketing leads (list 6894) · createdate · 3-segment: ICP / Non-ICP / No Value (unclassified)</div>
       <div id="chartLeads" class="plot"></div>
       <div style="font-size: 11px; color: var(--muted); font-style: italic; margin-top: 8px; line-height: 1.5;">
-        Target varies by month — April: 300/wk, May: 995/wk, June: 1,195/wk (post-tax season ramp). Methodology: companies in HubSpot list 9736 where <code>hs_v2_date_entered_lead</code> falls in the week, classified by <code>marketing_icp__nonicp_enriched</code>.
+        April target: 288/wk (= 1,150/mo ÷ 4). Methodology: companies in HubSpot list 6894 where <code>createdate</code> falls in the week, classified by <code>marketing_icp__nonicp_enriched</code>. Includes ICP, Non-ICP, and No Value segments. Aligns with RevOps "Total Leads MoM" report. May/June targets TBD.
       </div>
     </div>
   </div>
@@ -453,7 +453,7 @@
   <div class="charts-grid-full">
     <div class="card">
       <h2>Leads by Channel — Week of Apr 21 &nbsp;<span class="badge live">Live</span></h2>
-      <div class="chart-sub">Classified leads entering Lead stage by channel (leadgen_channel_original2) · US/CA list 9736</div>
+      <div class="chart-sub">Marketing leads by channel (leadgen_channel_original2) · list 6894 · createdate · Total row = new methodology</div>
       <div id="chartChannels" class="plot"></div>
     </div>
   </div>
@@ -482,14 +482,14 @@
           </tr>
         </thead>
         <tbody>
-          <tr><td>Leads</td>      <td>766</td>  <td>8,299*</td> <td>9.2%</td>  <td>30%</td> <td><b style="color:var(--danger);">Behind</b></td></tr>
+          <tr><td>Leads</td>      <td>1,068</td> <td>TBD*</td>   <td>—</td>     <td>30%</td> <td><b style="color:var(--muted);">Pending</b></td></tr>
           <tr><td>MQLs-low</td>   <td>525</td>  <td>5,976*</td> <td>8.8%</td>  <td>30%</td> <td><b style="color:var(--danger);">Behind</b></td></tr>
           <tr><td>MQLs</td>       <td>556</td>  <td>4,780*</td> <td>11.6%</td> <td>30%</td> <td><b style="color:var(--danger);">Behind</b></td></tr>
           <tr><td>SQLs</td>       <td>374</td>  <td>2,391</td>  <td>15.6%</td> <td>30%</td> <td><b style="color:var(--danger);">Behind</b></td></tr>
         </tbody>
       </table>
       <div style="font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 12px; line-height: 1.5;">
-        * Monthly sum differs from quarterly target — see footnote in Section D. "Behind" status reflects linear-pace comparison only; back-loaded targets are expected to catch up in May–June.
+        * Leads Q2 target TBD: methodology updated to RevOps "Total Leads MoM" (list 6894, createdate). May/June targets pending. "Pending" status reflects awaiting RevOps-aligned Q2 target.
       </div>
     </div>
   </div>
@@ -511,7 +511,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr><td>Leads</td>     <td>766</td>                                       <td>1,198</td> <td><b style="color:var(--danger);">64%</b></td>  <td style="color:var(--muted);">3,979</td> <td style="color:var(--muted);">4,781</td></tr>
+          <tr><td>Leads</td>     <td>1,068</td>                                      <td>1,150</td> <td><b style="color:var(--success);">93%</b></td> <td style="color:var(--muted);">TBD</td>   <td style="color:var(--muted);">TBD</td></tr>
           <tr><td>MQLs-low</td>  <td>525</td>                                       <td>719</td>   <td><b style="color:var(--warning);">73%</b></td> <td style="color:var(--muted);">2,388</td> <td style="color:var(--muted);">2,869</td></tr>
           <tr><td>MQLs</td>      <td>556</td>                                       <td>575</td>   <td><b style="color:var(--success);">97%</b></td> <td style="color:var(--muted);">1,910</td> <td style="color:var(--muted);">2,295</td></tr>
           <tr><td>SQLs</td>      <td>374</td>                                       <td>288</td>   <td><b style="color:var(--success);">130%</b></td><td style="color:var(--muted);">955</td>   <td style="color:var(--muted);">1,148</td></tr>
@@ -540,7 +540,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr><td>Lead → MQL-low</td>    <td>525</td> <td>766</td> <td><b>69%</b></td>   <td style="color:var(--muted);">TBD</td></tr>
+          <tr><td>Lead → MQL-low</td>    <td>525</td> <td>1,068</td> <td><b>49%</b></td>   <td style="color:var(--muted);">TBD</td></tr>
           <tr><td>MQL-low → MQL</td>     <td>556</td> <td>525</td> <td><b>106%*</b></td> <td style="color:var(--muted);">TBD</td></tr>
           <tr><td>MQL → SQL</td>         <td>374</td> <td>556</td> <td><b>67%</b></td>   <td style="color:var(--muted);">TBD</td></tr>
         </tbody>
@@ -555,7 +555,7 @@
   <div class="charts-grid-full">
     <div class="card">
       <div style="background: rgba(232,89,12,0.10); border-left: 3px solid var(--warning); padding: 14px 16px; border-radius: 4px; font-size: 13.5px; line-height: 1.55;">
-        <b style="color: var(--warning);">Target Discrepancy Note:</b> Monthly targets for Leads and MQLs sum to <b>~20% above</b> quarterly targets (Leads: <b>9,958 vs 8,299</b>; MQLs: <b>4,780 vs 3,983</b>). SQLs are aligned (<b>2,391 vs 2,390</b>). Discrepancy under review with RevOps.
+        <b style="color: var(--warning);">Target Note:</b> Leads methodology updated to RevOps "Total Leads MoM" report (list 6894, createdate, all markets). Q2 Leads target TBD pending RevOps alignment. MQL monthly targets sum to <b>~20% above</b> quarterly target (MQLs: <b>4,780 vs 3,983</b>). SQLs are aligned (<b>2,391 vs 2,390</b>).
       </div>
     </div>
   </div>
@@ -659,25 +659,25 @@ function statusColor(cls) {
 */
 const kpis = [
   {
-    name: 'Classified Leads', value: 766, target: 1198, suffix: '',
-    trend: [256, 226, 199, 242, 173, 245, 193, 147],
+    name: 'MARKETING LEADS', value: 1068, target: 1150, suffix: '',
+    trend: [465, 407, 365, 403, 272, 337, 305, 238],
     format: n => n.toLocaleString(),
     compareOverride:
-      'April target: 1,198 &nbsp;·&nbsp; <span class="pct">64%</span> achieved &nbsp;·&nbsp; US/CA QTD &nbsp;·&nbsp; <span style="color:var(--muted)">YoY: N/A</span>' +
+      'April target: 1,150 &nbsp;·&nbsp; <span class="pct">93%</span> achieved &nbsp;·&nbsp; All-market QTD &nbsp;·&nbsp; <span style="color:var(--muted)">YoY: N/A</span>' +
       '<div style="font-size:10px; margin-top:4px; color:var(--muted); font-weight:400; font-style:italic;">' +
-        'List 9736 · marketing_icp__nonicp_enriched · ICP 21% / Non-ICP 73% / Unclassified 5% · sparkline shows weekly volume' +
+        'List 6894 · createdate · ICP 22% / Non-ICP 72% / No Value 6% · sparkline shows weekly volume (W10–W17)' +
       '</div>',
-    forceStatus: 'orange',
+    forceStatus: 'green',
     badge: { type: 'live', text: 'Live — HubSpot' }
   },
   {
     name: 'ICP Lead Share', value: 22, target: 35, suffix: '',
-    trend: [16, 16, 14, 18, 21, 17, 23, 34],
+    trend: [24, 26, 27, 24, 21, 18, 23, 30],
     format: n => n + '%',
     compareOverride:
-      'Target: 35% &nbsp;·&nbsp; <span class="pct">63%</span> of goal &nbsp;·&nbsp; QTD: 163 ICP / 562 Non-ICP of 725 classified &nbsp;·&nbsp; <span style="color:var(--muted)">YoY: N/A</span>' +
+      'Target: 35% &nbsp;·&nbsp; <span class="pct">63%</span> of goal &nbsp;·&nbsp; QTD: 237 ICP / 1,068 total (22%) &nbsp;·&nbsp; <span style="color:var(--muted)">YoY: N/A</span>' +
       '<div style="font-size:10px; margin-top:4px; color:var(--muted); font-weight:400; font-style:italic;">' +
-        'Enriched ICP field on list 9736 · sparkline shows weekly ICP share (W17 hit 34%)' +
+        'List 6894 · createdate · ICP / total incl. No Value · W17 hit 30% (71 ICP / 238 total)' +
       '</div>',
     badge: { type: 'live', text: 'Live — HubSpot' }
   },
@@ -790,45 +790,48 @@ function hexToRgba(hex, alpha) {
   return `rgba(${r},${g},${b},${alpha})`;
 }
 
-/* ---------- CHART 1: Classified Lead Volume by Week ---------- */
+/* ---------- CHART 1: Marketing Lead Volume by Week ---------- */
 function renderLeadsChart() {
-  // Live HubSpot data — companies in list 9736 (US/CA Marketing source company new)
-  // where hs_v2_date_entered_lead falls in the week, classified by
-  // marketing_icp__nonicp_enriched. 7-day buckets, most recent week = Apr 21-27.
-  const weeks  = ['W1 Feb','W2 Feb','W3 Feb','W4 Feb','W1 Mar','W2 Mar','W3 Mar','W4 Mar','W1 Apr','W2 Apr','W3 Apr','W4 Apr'];
-  const icp    = [  57,    44,     46,     36,     41,     36,     28,     43,     36,     42,     44,     50    ];
-  const nonIcp = [ 242,   209,    225,    205,    215,    190,    171,    199,    137,    203,    149,     97    ];
-  const total  = icp.map((v, i) => v + nonIcp[i]);
-  const icpPct = total.map((t, i) => t > 0 ? Math.round(icp[i] / t * 100) : 0);
-  const goal    = 300;
-  const icpGoal = 90;
+  // Live HubSpot data — companies in list 6894 (Total leads: marketing source company new)
+  // where createdate falls in the week, classified by marketing_icp__nonicp_enriched.
+  // 7-day Tue–Mon buckets, most recent week = Apr 21-27. Aligns with RevOps "Total Leads MoM".
+  const weeks   = ['W6 Feb','W7 Feb','W8 Feb','W9 Feb','W10 Mar','W11 Mar','W12 Mar','W13 Mar','W14 Mar/Apr','W15 Apr','W16 Apr','W17 Apr'];
+  const icp     = [  88,    68,     79,     91,     112,     104,     100,     98,      56,       62,       70,       71    ];
+  const nonIcp  = [ 312,   302,    308,    329,     353,     303,     265,    302,     215,      275,      200,      131    ];
+  const noValue = [   0,     1,      2,      0,       0,       0,       0,      3,       1,        0,       35,       36    ];
+  const total   = icp.map((v, i) => v + nonIcp[i] + noValue[i]);
+  const icpPct  = total.map((t, i) => t > 0 ? Math.round(icp[i] / t * 100) : 0);
+  const goal    = 288; // April weekly target = 1,150 / 4
 
-  // 4-week moving average over total classified
+  // 4-week moving average over total
   const ma = total.map((_, i) => {
     const start = Math.max(0, i - 3);
     const slice = total.slice(start, i + 1);
     return Math.round(slice.reduce((a,b) => a+b, 0) / slice.length);
   });
 
-  const icpLabels = icpPct.map(p => `${p}%`);
-
   const traces = [
     {
       type: 'bar', name: 'ICP', x: weeks, y: icp,
       marker: { color: COLORS.primary, line: { width: 0 } },
-      text: icpLabels, textposition: 'inside', insidetextanchor: 'middle',
-      textfont: { size: 11, color: '#FFFFFF', family: 'Inter, sans-serif' },
-      hovertemplate: '<b>%{x}</b><br>ICP: %{y} leads<extra></extra>'
+      text: icpPct.map(p => `${p}%`), textposition: 'inside', insidetextanchor: 'middle',
+      textfont: { size: 10, color: '#FFFFFF', family: 'Inter, sans-serif' },
+      hovertemplate: '<b>%{x}</b><br>ICP: %{y}<extra></extra>'
     },
     {
       type: 'bar', name: 'Non-ICP', x: weeks, y: nonIcp,
       marker: { color: '#ADB5BD', line: { width: 0 } },
-      text: total.map(t => t.toLocaleString()), textposition: 'outside',
-      textfont: { size: 11, color: getComputedStyle(document.body).getPropertyValue('--text'), family: 'Inter, sans-serif' },
-      hovertemplate: '<b>%{x}</b><br>Non-ICP: %{y} leads<extra></extra>'
+      hovertemplate: '<b>%{x}</b><br>Non-ICP: %{y}<extra></extra>'
     },
     {
-      type: 'scatter', mode: 'lines+markers', name: '4-wk Moving Avg (total)',
+      type: 'bar', name: 'No Value', x: weeks, y: noValue,
+      marker: { color: '#DEE2E6', line: { width: 0 } },
+      text: total.map(t => t.toLocaleString()), textposition: 'outside',
+      textfont: { size: 11, color: getComputedStyle(document.body).getPropertyValue('--text'), family: 'Inter, sans-serif' },
+      hovertemplate: '<b>%{x}</b><br>No Value: %{y}<extra></extra>'
+    },
+    {
+      type: 'scatter', mode: 'lines+markers', name: '4-wk Moving Avg',
       x: weeks, y: ma,
       line: { color: COLORS.primary, width: 3, shape: 'spline' },
       marker: { size: 6, color: COLORS.primary },
@@ -844,17 +847,12 @@ function renderLeadsChart() {
     font: { family: 'Inter, sans-serif', color: getComputedStyle(document.body).getPropertyValue('--text') },
     barmode: 'stack',
     xaxis: { tickfont: { size: 11 }, showgrid: false },
-    yaxis: { gridcolor: 'rgba(128,128,128,0.15)', title: { text: 'Classified Leads', font: { size: 12 } }, range: [0, 350] },
+    yaxis: { gridcolor: 'rgba(128,128,128,0.15)', title: { text: 'Marketing Leads', font: { size: 12 } }, range: [0, 560] },
     shapes: [
       {
         type: 'line', xref: 'paper', x0: 0, x1: 1,
         y0: goal, y1: goal,
         line: { color: COLORS.muted, width: 2, dash: 'dash' }
-      },
-      {
-        type: 'line', xref: 'paper', x0: 0, x1: 1,
-        y0: icpGoal, y1: icpGoal,
-        line: { color: COLORS.primary, width: 1.5, dash: 'dot' }
       }
     ],
     annotations: [
@@ -863,12 +861,6 @@ function renderLeadsChart() {
         text: `<b>April Target: ${goal}/wk</b>`,
         showarrow: false, xanchor: 'right',
         font: { size: 11, color: COLORS.muted }
-      },
-      {
-        xref: 'paper', x: 0.01, y: icpGoal, yshift: 10,
-        text: `<b>April ICP Target: ${icpGoal}/wk</b>`,
-        showarrow: false, xanchor: 'left',
-        font: { size: 11, color: COLORS.primary }
       }
     ],
     legend: { orientation: 'h', y: -0.18, x: 0.5, xanchor: 'center' },
@@ -880,9 +872,9 @@ function renderLeadsChart() {
 
 /* ---------- CHART 2: Leads by Channel — WoW + YoY ---------- */
 function renderChannelsChart() {
-  // RevOps methodology — companies in list 9736 (US/CA Marketing source company new)
-  // entering Lead stage (hs_v2_date_entered_lead) in the week, attributed by
-  // leadgen_channel_original2. this: W17 2026 (Apr 21-27) · prior: W16 2026 (Apr 14-20)
+  // Channel breakdown: companies attributed via leadgen_channel_original2 (W17 Apr 21-27).
+  // Individual channels pulled from list 9736 (US/CA). Total row uses new methodology
+  // (list 6894, createdate). this: W17 2026 (Apr 21-27) · prior: W16 2026 (Apr 14-20)
   // · yoy: Apr 21-27 2025. Note: leadgen_channel_original2 was barely populated in
   // 2025 (190 of 200 YoY records have no channel set), so individual-channel YoY
   // is unreliable and flagged as "no data".
@@ -896,9 +888,9 @@ function renderChannelsChart() {
     { channel: 'Paid Social',    this: 2,  prior: 0,   yoy: 0, yoyNoData: true },
     { channel: 'Referral_other', this: 1,  prior: 2,   yoy: 0, yoyNoData: true }
   ];
-  // Top-line row: list 9736 entering Lead stage in the week (no channel filter).
-  // YoY remains valid for the total since it doesn't depend on channel attribution.
-  const totalRow = { channel: 'Total Leads', this: 164, prior: 216, yoy: 200, isTotal: true };
+  // Top-line row: list 6894 createdate in the week (new methodology, all markets).
+  // YoY not directly comparable due to methodology change.
+  const totalRow = { channel: 'Total Leads', this: 238, prior: 305, yoy: 0, yoyNoData: true, isTotal: true };
 
   // Sort channels by this week's volume ascending, then append Total at the end
   // so it renders at the TOP of the horizontal chart.
@@ -1032,8 +1024,8 @@ function renderOKRChart() {
   // pace = 21/91 of Q2 (today is day 21)
   const paceFrac = 21 / 91;
   const krs = [
-    { name: 'ICP % of classified leads', actual: 22, target: 35,    label: '22% / 35% · 163 / 725 classified',                       status: 'live', forceColor: COLORS.success },
-    { name: 'Classified leads (Q2 total)', actual: 766, target: 8299, label: '766 / 8,299 · Apr target 1,198 · 64% · back-loaded Q2', status: 'live', forceColor: COLORS.success },
+    { name: 'ICP % of marketing leads', actual: 22, target: 35,    label: '22% / 35% · 237 ICP / 1,068 total (Apr QTD)',               status: 'live', forceColor: COLORS.success },
+    { name: 'Marketing leads (Apr QTD)', actual: 1068, target: 1150, label: '1,068 / 1,150 · 93% achieved · Q2 target TBD',             status: 'live', forceColor: COLORS.success },
     { name: 'MQLs (Q2 total)',             actual: 556, target: 3983, label: '556 / 3,983 · Apr target 575 · 97% · back-loaded Q2', status: 'live', forceColor: COLORS.success },
     { name: 'Paid MQLs (Q2 total)', actual: 15, target: 450, label: '15 / 450 · Apr target: 54 · campaigns launched wk of Apr 20',  status: 'live', forceColor: COLORS.danger },
     { name: 'Paid SQLs (Q2 total)', actual: 15, target: 176, label: '15 / 176 · Apr target: 21 · derived from 39% paid MQL→SQL',    status: 'live', forceColor: COLORS.danger },
@@ -1135,7 +1127,7 @@ const attention = [
     status: 'orange',
     title: 'Funnel Target Discrepancy',
     icon: '!',
-    body: 'Monthly targets for Leads and MQLs sum to ~20% above quarterly targets (Leads: 9,958 vs 8,299; MQLs: 4,780 vs 3,983). SQLs are aligned. Under review with RevOps.'
+    body: 'Leads methodology updated to RevOps "Total Leads MoM" (list 6894, createdate). Q2 Leads target TBD. MQL monthly targets sum to ~20% above Q2 total (4,780 vs 3,983). SQLs aligned. Under review with RevOps.'
   },
   {
     status: 'green',
@@ -1159,7 +1151,7 @@ const attention = [
     status: 'green',
     title: 'ICP Share Improving',
     icon: '✓',
-    body: 'ICP share of classified leads at 22% QTD, approaching 35% target. W17 hit 34% — highest in 8-week window. Trend is positive.'
+    body: 'ICP share of marketing leads at 22% QTD (237 / 1,068 total), approaching 35% target. W17 hit 30% (71 ICP / 238 total). Trend is positive.'
   }
 ];
 
@@ -1208,7 +1200,7 @@ function renderOnlineOfflineChart() {
     font: { family: 'Inter, sans-serif', color: getComputedStyle(document.body).getPropertyValue('--text') },
     barmode: 'stack',
     xaxis: { tickfont: { size: 12 }, showgrid: false },
-    yaxis: { gridcolor: 'rgba(128,128,128,0.15)', title: { text: 'Classified Leads', font: { size: 12 } } },
+    yaxis: { gridcolor: 'rgba(128,128,128,0.15)', title: { text: 'Marketing Leads', font: { size: 12 } } },
     legend: { orientation: 'h', y: -0.18, x: 0.5, xanchor: 'center', font: { size: 11 } },
     bargap: 0.35,
     annotations: monthTotal.map((t, i) => ({
@@ -1265,7 +1257,7 @@ function renderLeadsTrendChart() {
     font: { family: 'Inter, sans-serif', color: getComputedStyle(document.body).getPropertyValue('--text') },
     barmode: 'stack',
     xaxis: { tickfont: { size: 11 }, showgrid: false },
-    yaxis: { gridcolor: 'rgba(128,128,128,0.15)', title: { text: 'Online Classified Leads', font: { size: 12 } } },
+    yaxis: { gridcolor: 'rgba(128,128,128,0.15)', title: { text: 'Online Marketing Leads', font: { size: 12 } } },
     legend: { orientation: 'h', y: -0.18, x: 0.5, xanchor: 'center', font: { size: 11 } },
     bargap: 0.25
   };
@@ -1465,28 +1457,28 @@ function renderMQLChannelsChart() {
 
 /* ---------- LEADS TAB ---------- */
 function renderLeadsKPIs() {
-  // W17 (Apr 21-27): list 9736 entering Lead = 164 total. Classified breakdown
-  // (from Classified chart): 50 ICP / 97 Non-ICP = 147; 17 unclassified.
-  // W16 (Apr 14-20): 216 total; classified 44 ICP / 149 Non-ICP = 193; 23 unclassified.
-  // YoY (Apr 21-27 2025): 200 total. ICP/Non-ICP split for 2025 not pulled.
+  // W17 (Apr 21-27): list 6894 + createdate = 238 total.
+  // ICP 71 / Non-ICP 131 / No Value 36. ICP% = 71/238 = 30%.
+  // W16 (Apr 14-20): 305 total (ICP 70 / Non-ICP 200 / No Value 35). ICP% = 23%.
+  // April QTD (Apr 1-27): 1,068 total (ICP 237 / Non-ICP 765 / No Value 66). ICP% = 22%.
   const cards = [
     {
-      name: 'Total Leads — This Week', value: 164, suffix: '',
-      compare: 'Prior wk: 216 &nbsp;·&nbsp; <b style="color:var(--danger)">−24% WoW ↓</b> &nbsp;·&nbsp; <b style="color:var(--danger)">−18% YoY ↓</b> (vs 200)',
-      foot: 'List 9736 · hs_v2_date_entered_lead in W17 · 50 ICP / 97 Non-ICP / 17 unclassified',
+      name: 'MARKETING LEADS — This Week', value: 238, suffix: '',
+      compare: 'Prior wk: 305 &nbsp;·&nbsp; <b style="color:var(--danger)">−22% WoW ↓</b> &nbsp;·&nbsp; <span style="color:var(--muted)">YoY: methodology change</span>',
+      foot: 'List 6894 · createdate in W17 (Apr 21-27) · ICP 71 / Non-ICP 131 / No Value 36',
       cls: 'orange'
     },
     {
-      name: 'ICP Share of Leads', value: 34, suffix: '%',
-      compare: 'Prior wk: 23% &nbsp;·&nbsp; <b style="color:var(--success)">+11 pp WoW ↑</b> &nbsp;·&nbsp; <span style="color:var(--muted)">YoY: N/A</span>',
-      foot: '50 ICP / 97 Non-ICP this week · target 35%',
+      name: 'ICP Share of Leads', value: 30, suffix: '%',
+      compare: 'Prior wk: 23% &nbsp;·&nbsp; <b style="color:var(--success)">+7 pp WoW ↑</b> &nbsp;·&nbsp; <span style="color:var(--muted)">YoY: N/A</span>',
+      foot: '71 ICP / 238 total this week · QTD: 237/1,068 = 22% · target 35%',
+      cls: 'orange'
+    },
+    {
+      name: 'April QTD Marketing Leads', value: 1068, suffix: '',
+      compare: 'April target: 1,150 &nbsp;·&nbsp; <span class="pct">93%</span> achieved &nbsp;·&nbsp; <span style="color:var(--muted)">YoY: N/A</span>',
+      foot: 'List 6894 · createdate in Apr 1-27 · Q2 target TBD (pending RevOps alignment)',
       cls: 'green'
-    },
-    {
-      name: 'April QTD Leads', value: 766, suffix: '',
-      compare: 'April target: 1,198 &nbsp;·&nbsp; <span class="pct">64%</span> achieved &nbsp;·&nbsp; <span style="color:var(--muted)">YoY: N/A</span>',
-      foot: 'List 9736 · hs_v2_date_entered_lead in Apr 1-28 · 13% of Q2 total target (back-loaded)',
-      cls: 'orange'
     }
   ];
   const row = document.getElementById('leadsKpiRow');
