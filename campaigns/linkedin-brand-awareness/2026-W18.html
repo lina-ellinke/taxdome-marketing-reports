@@ -7,66 +7,64 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Inter',sans-serif;background:#1a1a2e;color:#e0e0e0;min-height:100vh;padding:24px}
-.container{max-width:1400px;margin:0 auto}
-h1{font-size:28px;font-weight:800;color:#fff;margin-bottom:4px}
-.subtitle{font-size:13px;color:#8a8fa8;margin-bottom:24px}
-.section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#6c7293;margin:28px 0 14px}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#1a1a2e;color:#e0e0e0;min-height:100vh;padding:24px;-webkit-font-smoothing:antialiased}
+  .container{max-width:1400px;margin:0 auto}
+  h1{font-size:28px;font-weight:800;color:#fff;margin-bottom:4px;letter-spacing:-0.02em}
+  .subtitle{font-size:13px;color:#9aa0b4;margin-bottom:24px}
+  .section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#6c7293;margin:28px 0 14px}
 
-/* KPI Cards */
-.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:8px}
-.kpi-card{background:#16213e;border-radius:10px;padding:18px 20px;border-left:4px solid #4C6EF5;position:relative}
-.[kpi-card.green](http://kpi-card.green){border-left-color:#2F9E44}
-.[kpi-card.orange](http://kpi-card.orange){border-left-color:#E8590C}
-.[kpi-card.red](http://kpi-card.red){border-left-color:#E03131}
-.[kpi-card.blue](http://kpi-card.blue){border-left-color:#4C6EF5}
-.kpi-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#8a8fa8;margin-bottom:6px}
-.kpi-value{font-size:32px;font-weight:800;color:#fff;line-height:1.1}
-.kpi-detail{font-size:12px;color:#8a8fa8;margin-top:6px}
-.kpi-detail .green{color:#2F9E44}
-.kpi-detail .red{color:#E03131}
-.kpi-detail .orange{color:#E8590C}
-.kpi-badge{display:inline-block;font-size:10px;font-weight:600;padding:3px 8px;border-radius:4px;margin-top:8px;background:rgba(47,158,68,0.15);color:#2F9E44;border:1px solid rgba(47,158,68,0.3)}
+  /* KPI Cards */
+  .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:8px}
+  .kpi-card{background:#16213e;border-radius:10px;padding:18px 20px;border-left:4px solid #4C6EF5;position:relative}
+  .kpi-card.green{border-left-color:#2F9E44}
+  .kpi-card.orange{border-left-color:#E8590C}
+  .kpi-card.red{border-left-color:#E03131}
+  .kpi-card.blue{border-left-color:#4C6EF5}
+  .kpi-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#9aa0b4;margin-bottom:6px}
+  .kpi-value{font-size:32px;font-weight:800;color:#fff;line-height:1.1}
+  .kpi-detail{font-size:12px;color:#9aa0b4;margin-top:6px}
+  .kpi-detail .green{color:#2F9E44;font-weight:600}
+  .kpi-detail .red{color:#E03131;font-weight:600}
+  .kpi-detail .orange{color:#E8590C;font-weight:600}
 
-/* Charts */
-.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
-.chart-card{background:#16213e;border-radius:10px;padding:20px}
-.chart-card.full{grid-column:1/-1}
-.chart-title{font-size:16px;font-weight:700;color:#fff;margin-bottom:2px}
-.chart-subtitle{font-size:12px;color:#6c7293;margin-bottom:16px}
+  /* Charts */
+  .chart-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+  .chart-card{background:#16213e;border-radius:10px;padding:20px}
+  .chart-card.full{grid-column:1/-1}
+  .chart-title{font-size:16px;font-weight:700;color:#fff;margin-bottom:2px}
+  .chart-subtitle{font-size:12px;color:#6c7293;margin-bottom:16px}
 
-/* Tables */
-.data-table{width:100%;border-collapse:collapse;font-size:13px}
-.data-table th{text-align:left;padding:10px 14px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#6c7293;border-bottom:1px solid #2a2f4e}
-.data-table td{padding:10px 14px;border-bottom:1px solid rgba(42,47,78,0.5);color:#e0e0e0}
-.data-table tr:hover td{background:rgba(76,110,245,0.05)}
-.data-table .num{text-align:right;font-variant-numeric:tabular-nums}
-.data-table .highlight{color:#fff;font-weight:600}
+  /* Tables */
+  .data-table{width:100%;border-collapse:collapse;font-size:13px}
+  .data-table th{text-align:left;padding:10px 14px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#6c7293;border-bottom:1px solid #2a3358}
+  .data-table td{padding:10px 14px;border-bottom:1px solid rgba(42,51,88,0.5);color:#e0e0e0}
+  .data-table tr:hover td{background:rgba(76,110,245,0.05)}
+  .data-table tr.standout td{background:rgba(47,158,68,0.08)}
+  .data-table tr.standout:hover td{background:rgba(47,158,68,0.14)}
+  .data-table .num{text-align:right;font-variant-numeric:tabular-nums}
+  .data-table .highlight{color:#fff;font-weight:600}
+  .data-table .badge-strong{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;background:rgba(47,158,68,0.18);color:#5cd778;border:1px solid rgba(47,158,68,0.4)}
 
-/* Insight cards */
-.insight-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px}
-.insight-card{background:#16213e;border-radius:10px;padding:18px 20px;border-left:4px solid #4C6EF5}
-.[insight-card.green](http://insight-card.green){border-left-color:#2F9E44}
-.[insight-card.orange](http://insight-card.orange){border-left-color:#E8590C}
-.[insight-card.blue](http://insight-card.blue){border-left-color:#4C6EF5}
-.insight-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
-.[insight-card.green](http://insight-card.green) .insight-title{color:#2F9E44}
-.[insight-card.orange](http://insight-card.orange) .insight-title{color:#E8590C}
-.[insight-card.blue](http://insight-card.blue) .insight-title{color:#4C6EF5}
-.insight-body{font-size:13px;color:#c0c4d8;line-height:1.5}
+  /* Insight cards */
+  .insight-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px}
+  .insight-card{background:#16213e;border-radius:10px;padding:18px 20px;border-left:4px solid #4C6EF5}
+  .insight-card.green{border-left-color:#2F9E44}
+  .insight-card.orange{border-left-color:#E8590C}
+  .insight-card.blue{border-left-color:#4C6EF5}
+  .insight-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+  .insight-card.green .insight-title{color:#2F9E44}
+  .insight-card.orange .insight-title{color:#E8590C}
+  .insight-card.blue .insight-title{color:#4C6EF5}
+  .insight-body{font-size:13px;color:#c0c4d8;line-height:1.5}
 
-/* Bar segments */
-.bar-container{height:24px;background:#2a2f4e;border-radius:4px;display:flex;overflow:hidden;margin:4px 0}
-.bar-segment{height:100%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#fff;min-width:30px}
+  .footnote{font-size:11px;color:#6c7293;font-style:italic;margin-top:12px;line-height:1.5}
 
-.footnote{font-size:11px;color:#6c7293;font-style:italic;margin-top:12px;line-height:1.5}
-
-@media(max-width:1000px){
-  .kpi-grid{grid-template-columns:repeat(2,1fr)}
-  .chart-row{grid-template-columns:1fr}
-  .insight-grid{grid-template-columns:1fr}
-}
+  @media(max-width:1000px){
+    .kpi-grid{grid-template-columns:repeat(2,1fr)}
+    .chart-row{grid-template-columns:1fr}
+    .insight-grid{grid-template-columns:1fr}
+  }
 </style>
 </head>
 <body>
@@ -107,7 +105,7 @@ h1{font-size:28px;font-weight:800;color:#fff;margin-bottom:4px}
 <div class="chart-card full">
   <div class="chart-title">Video Performance WoW</div>
   <div class="chart-subtitle">Week of Apr 21-27 vs Apr 14-20</div>
-  <div id="wowChart" style="height:320px"></div>
+  <div id="wowChart" style="height:340px"></div>
 </div>
 
 <!-- VIDEO FUNNEL -->
@@ -116,12 +114,12 @@ h1{font-size:28px;font-weight:800;color:#fff;margin-bottom:4px}
   <div class="chart-card">
     <div class="chart-title">This Week (Apr 21-27)</div>
     <div class="chart-subtitle">125,355 impressions through funnel</div>
-    <div id="funnelThis" style="height:280px"></div>
+    <div id="funnelThis" style="height:360px"></div>
   </div>
   <div class="chart-card">
     <div class="chart-title">Prior Week (Apr 14-20)</div>
     <div class="chart-subtitle">22,487 impressions through funnel</div>
-    <div id="funnelPrior" style="height:280px"></div>
+    <div id="funnelPrior" style="height:360px"></div>
   </div>
 </div>
 
@@ -130,14 +128,116 @@ h1{font-size:28px;font-weight:800;color:#fff;margin-bottom:4px}
 <div class="chart-row">
   <div class="chart-card">
     <div class="chart-title">By Job Title</div>
-    <div class="chart-subtitle">Top titles by impression share and completion rate</div>
-    <div id="jobTitleChart" style="height:350px"></div>
+    <div class="chart-subtitle">Top titles by impression share</div>
+    <div id="jobTitleChart" style="height:380px"></div>
   </div>
   <div class="chart-card">
     <div class="chart-title">By Company Size</div>
     <div class="chart-subtitle">ICP alignment: 5-25 employees = 11-50 + 2-10 segments</div>
-    <div id="companySizeChart" style="height:350px"></div>
+    <div id="companySizeChart" style="height:380px"></div>
   </div>
+</div>
+
+<!-- TOP COMPANIES TABLE -->
+<div class="section-title">Top Companies Engaging with Content</div>
+<div class="chart-card full">
+  <div class="chart-title">Top Companies Engaging with Content (Apr 21-28)</div>
+  <div class="chart-subtitle">Ranked by impressions; Baldwin CPAs and CrichtonMullings stand out for completion rate</div>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Company</th>
+        <th class="num">Impressions</th>
+        <th class="num">Views</th>
+        <th class="num">View Rate</th>
+        <th class="num">Completions</th>
+        <th class="num">Completion Rate</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="highlight">SDA CPA Group, P.C.</td>
+        <td class="num">991</td>
+        <td class="num">329</td>
+        <td class="num">33.20%</td>
+        <td class="num">16</td>
+        <td class="num">1.61%</td>
+      </tr>
+      <tr class="standout">
+        <td class="highlight">Baldwin CPAs, PLLC <span class="badge-strong">Top completion</span></td>
+        <td class="num">694</td>
+        <td class="num">692</td>
+        <td class="num">99.71%</td>
+        <td class="num">220</td>
+        <td class="num highlight" style="color:#5cd778">31.70%</td>
+      </tr>
+      <tr>
+        <td class="highlight">Hobe &amp; Lucas CPAs</td>
+        <td class="num">554</td>
+        <td class="num">438</td>
+        <td class="num">79.06%</td>
+        <td class="num">7</td>
+        <td class="num">1.26%</td>
+      </tr>
+      <tr>
+        <td class="highlight">Brncic Accounting &amp; Tax Services</td>
+        <td class="num">504</td>
+        <td class="num">469</td>
+        <td class="num">93.06%</td>
+        <td class="num">15</td>
+        <td class="num">2.98%</td>
+      </tr>
+      <tr>
+        <td class="highlight">Keegan Linscott &amp; Associates, PC</td>
+        <td class="num">455</td>
+        <td class="num">453</td>
+        <td class="num">99.56%</td>
+        <td class="num">8</td>
+        <td class="num">1.76%</td>
+      </tr>
+      <tr>
+        <td class="highlight">Zoomba Group</td>
+        <td class="num">435</td>
+        <td class="num">434</td>
+        <td class="num">99.77%</td>
+        <td class="num">17</td>
+        <td class="num">3.91%</td>
+      </tr>
+      <tr>
+        <td class="highlight">HOLMES CPAs</td>
+        <td class="num">410</td>
+        <td class="num">79</td>
+        <td class="num">19.27%</td>
+        <td class="num">8</td>
+        <td class="num">1.95%</td>
+      </tr>
+      <tr>
+        <td class="highlight">Gardiner + Company CPAs</td>
+        <td class="num">386</td>
+        <td class="num">323</td>
+        <td class="num">83.68%</td>
+        <td class="num">&mdash;</td>
+        <td class="num">&mdash;</td>
+      </tr>
+      <tr>
+        <td class="highlight">Misono &amp; Joke CPAs</td>
+        <td class="num">381</td>
+        <td class="num">381</td>
+        <td class="num">100.00%</td>
+        <td class="num">52</td>
+        <td class="num">13.65%</td>
+      </tr>
+      <tr class="standout">
+        <td class="highlight">CrichtonMullings &amp; Associates <span class="badge-strong">Top completion</span></td>
+        <td class="num">336</td>
+        <td class="num">334</td>
+        <td class="num">99.40%</td>
+        <td class="num">67</td>
+        <td class="num highlight" style="color:#5cd778">19.94%</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="footnote">Baldwin CPAs (31.7% completion) and CrichtonMullings &amp; Associates (19.94%) stand out as the most engaged accounts &mdash; both watched the video to completion at rates 2-3x the campaign average.</div>
 </div>
 
 <!-- ICP ALIGNMENT TABLE -->
@@ -160,22 +260,22 @@ h1{font-size:28px;font-weight:800;color:#fff;margin-bottom:4px}
         <td class="highlight">Company Size</td>
         <td>5-25 employees</td>
         <td>2-10 (28.4%) + 11-50 (52.9%) = 81.4%</td>
-        <td class="num highlight" style="color:#2F9E44">81%</td>
-        <td style="color:#2F9E44">Strong match</td>
+        <td class="num highlight" style="color:#5cd778">81%</td>
+        <td style="color:#5cd778">Strong match</td>
       </tr>
       <tr>
         <td class="highlight">Job Titles</td>
         <td>Partners, Controllers, Managers</td>
         <td>Partner (14.9%) + Controller (11.8%) + Manager (5.1%) + Acct Mgr (11.9%) = 43.7%</td>
-        <td class="num highlight" style="color:#2F9E44">44%</td>
-        <td style="color:#2F9E44">Strong match</td>
+        <td class="num highlight" style="color:#5cd778">44%</td>
+        <td style="color:#5cd778">Strong match</td>
       </tr>
       <tr>
         <td class="highlight">Engagement Quality</td>
         <td>High view rate, completions</td>
         <td>74% view rate, 9.2% completion, 25.8s avg dwell</td>
-        <td class="num highlight" style="color:#2F9E44">High</td>
-        <td style="color:#2F9E44">Video resonating</td>
+        <td class="num highlight" style="color:#5cd778">High</td>
+        <td style="color:#5cd778">Video resonating</td>
       </tr>
       <tr>
         <td class="highlight">Click Intent</td>
@@ -186,7 +286,7 @@ h1{font-size:28px;font-weight:800;color:#fff;margin-bottom:4px}
       </tr>
     </tbody>
   </table>
-  <div class="footnote">Low CTR is expected for brand awareness campaigns optimized for video views, not clicks. The audience is engaged (high view rate and completions) but has not been given a reason to click. The retargeting phase will introduce click-optimized creative to this audience.</div>
+  <div class="footnote">Low CTR is expected for brand awareness campaigns optimized for video views, not clicks. The retargeting phase will introduce click-optimized creative.</div>
 </div>
 
 <!-- INSIGHTS -->
@@ -194,11 +294,11 @@ h1{font-size:28px;font-weight:800;color:#fff;margin-bottom:4px}
 <div class="insight-grid">
   <div class="insight-card green">
     <div class="insight-title">Audience Found</div>
-    <div class="insight-body">81% of impressions land in our ICP company size (2-50 employees). 44% reach decision-maker titles (Partners, Controllers, Managers). The audience targeting is working.</div>
+    <div class="insight-body">81% of impressions land in our ICP company size (2-50 employees). 44% reach decision-maker titles (Partners, Controllers, Managers). Targeting is working.</div>
   </div>
   <div class="insight-card green">
     <div class="insight-title">Video Engagement Strong</div>
-    <div class="insight-body">74% view rate with 25.8s average dwell time. 11,580 completions this week (9.2% rate). The creative is holding attention. The message is landing.</div>
+    <div class="insight-body">74% view rate, 25.8s average dwell time, and 11,580 completions this week (9.2% rate). Creative is holding attention and the message is landing.</div>
   </div>
   <div class="insight-card blue">
     <div class="insight-title">Next: Retargeting Phase</div>
@@ -211,9 +311,9 @@ h1{font-size:28px;font-weight:800;color:#fff;margin-bottom:4px}
 <script>
 const darkLayout = {
   paper_bgcolor:'transparent', plot_bgcolor:'transparent',
-  font:{family:'Inter',color:'#8a8fa8',size:12},
-  xaxis:{gridcolor:'rgba(42,47,78,0.6)',zerolinecolor:'rgba(42,47,78,0.6)'},
-  yaxis:{gridcolor:'rgba(42,47,78,0.6)',zerolinecolor:'rgba(42,47,78,0.6)'},
+  font:{family:'Inter',color:'#9aa0b4',size:12},
+  xaxis:{gridcolor:'rgba(42,51,88,0.6)',zerolinecolor:'rgba(42,51,88,0.6)'},
+  yaxis:{gridcolor:'rgba(42,51,88,0.6)',zerolinecolor:'rgba(42,51,88,0.6)'},
   margin:{l:60,r:20,t:10,b:40},
   hoverlabel:{bgcolor:'#16213e',font:{color:'#fff',family:'Inter',size:13},bordercolor:'transparent'}
 };
@@ -221,55 +321,82 @@ const config = {displayModeBar:false,responsive:true};
 
 // WoW Comparison Chart
 const metrics = ['Impressions','Plays','Views','Completions','Clicks'];
-const thisWeek = [125355,125355,92928,11580,31];
-const priorWeek = [22487,22528,19981,3073,8];
+const thisWeek  = [125355,125355,92928,11580,31];
+const priorWeek = [ 22487, 22528,19981, 3073, 8];
 
 Plotly.newPlot('wowChart',[
-  {y:metrics,x:thisWeek,type:'bar',orientation:'h',name:'This Week (Apr 21-27)',marker:{color:'#4C6EF5'},
-   text:[thisWeek.map](http://thisWeek.map)(v=>v.toLocaleString()),textposition:'outside',textfont:{color:'#fff',size:12}},
-  {y:metrics,x:priorWeek,type:'bar',orientation:'h',name:'Prior Week (Apr 14-20)',marker:{color:'#6c7293'},
-   text:[priorWeek.map](http://priorWeek.map)(v=>v.toLocaleString()),textposition:'outside',textfont:{color:'#8a8fa8',size:11}}
-],{...darkLayout,barmode:'group',legend:{x:0.6,y:1.15,font:{color:'#8a8fa8',size:11}},
-   yaxis:{...darkLayout.yaxis,autorange:'reversed'},margin:{l:100,r:80,t:30,b:20}},config);
+  {y:metrics,x:thisWeek,type:'bar',orientation:'h',name:'This Week (Apr 21-27)',
+   marker:{color:'#4C6EF5'},
+   text:thisWeek.map(v=>v.toLocaleString()),textposition:'outside',
+   textfont:{color:'#fff',size:12},
+   hovertemplate:'%{y}<br>This week: %{x:,}<extra></extra>'},
+  {y:metrics,x:priorWeek,type:'bar',orientation:'h',name:'Prior Week (Apr 14-20)',
+   marker:{color:'#6c7293'},
+   text:priorWeek.map(v=>v.toLocaleString()),textposition:'outside',
+   textfont:{color:'#9aa0b4',size:11},
+   hovertemplate:'%{y}<br>Prior week: %{x:,}<extra></extra>'}
+],{...darkLayout,barmode:'group',
+   legend:{x:0.55,y:1.15,font:{color:'#9aa0b4',size:11},orientation:'h'},
+   yaxis:{...darkLayout.yaxis,autorange:'reversed'},
+   xaxis:{...darkLayout.xaxis,type:'log'},
+   margin:{l:110,r:90,t:40,b:30}},config);
 
-// Funnel Charts
-function renderFunnel(divId, data) {
+// Funnel Charts (horizontal bar fallback - more reliable than Plotly funnel)
+function renderFunnel(divId, labels, values) {
+  const max = Math.max(...values);
+  const palette = ['#4C6EF5','#5c7cf5','#7b96f7','#9db3f9','#bdd0fb','#dde6fd','#2F9E44'];
   Plotly.newPlot(divId,[{
-    type:'funnel',y:[data.map](http://data.map)(d=>d[0]),x:[data.map](http://data.map)(d=>d[1]),
-    textinfo:'value+percent initial',
-    marker:{color:['#4C6EF5','#5c7cf5','#7b96f7','#9db3f9','#bdd0fb']},
-    connector:{line:{color:'rgba(76,110,245,0.3)',width:1}},
-    textfont:{color:'#fff',size:12}
-  }],{...darkLayout,margin:{l:10,r:10,t:10,b:10},
-      funnelmode:'stack'},config);
+    y:labels, x:values, type:'bar', orientation:'h',
+    marker:{color:palette.slice(0,labels.length)},
+    text:values.map((v,i)=>v.toLocaleString()+'  ('+((v/values[0])*100).toFixed(1)+'%)'),
+    textposition:'outside',
+    textfont:{color:'#fff',size:11},
+    hovertemplate:'%{y}<br>%{x:,} (%{text})<extra></extra>'
+  }],{...darkLayout,
+      yaxis:{...darkLayout.yaxis,autorange:'reversed'},
+      xaxis:{...darkLayout.xaxis,range:[0,max*1.25]},
+      margin:{l:120,r:80,t:20,b:30},
+      showlegend:false},config);
 }
-renderFunnel('funnelThis',[['Impressions',125355],['Plays',125355],['Views',92928],['Views @ 50%',34102],['Completions',11580]]);
-renderFunnel('funnelPrior',[['Impressions',22487],['Plays',22528],['Views',19981],['Views @ 50%',8755],['Completions',3073]]);
+renderFunnel('funnelThis',
+  ['Impressions','Plays','Views','Views @ 25%','Views @ 50%','Views @ 75%','Completions'],
+  [125355,125355,92928,52426,34102,15726,11580]);
+renderFunnel('funnelPrior',
+  ['Impressions','Plays','Views','Views @ 25%','Views @ 50%','Views @ 75%','Completions'],
+  [22487,22528,19981,13442,8755,3842,3073]);
 
 // Job Title Chart
-const titles = ['Partner','Acct Manager','Controller','Manager','VP','Fin Controller','Director','Shareholder'];
-const titleImpressions = [18696,14868,14802,6411,3917,3496,3287,3216];
-const titleCompletionRate = [9.21,8.57,9.49,10.78,6.28,9.41,10.22,6.97];
+const titles = ['Partner','Accounting Manager','Controller','Manager','VP','Financial Controller','Director','Shareholder','Senior Tax Manager'];
+const titleImpressions = [18696,14868,14802,6411,3917,3496,3287,3216,2304];
+const titleCompletionRate = [9.21,8.57,9.49,10.78,6.28,9.41,10.22,6.97,8.20];
+const titleShare = [14.91,11.86,11.81,5.11,3.12,2.79,2.62,2.57,1.84];
 
 Plotly.newPlot('jobTitleChart',[
   {y:titles,x:titleImpressions,type:'bar',orientation:'h',name:'Impressions',
-   marker:{color:'#4C6EF5'},text:[titleImpressions.map](http://titleImpressions.map)(v=>v.toLocaleString()),textposition:'outside',
-   textfont:{color:'#8a8fa8',size:11}},
-  {y:titles,x:[titleCompletionRate.map](http://titleCompletionRate.map)(r=>r*titleImpressions[titleCompletionRate.indexOf(r)]/100),
-   type:'bar',orientation:'h',name:'Completions',marker:{color:'#2F9E44'},visible:'legendonly'}
-],{...darkLayout,barmode:'group',yaxis:{...darkLayout.yaxis,autorange:'reversed'},
-   legend:{x:0.6,y:1.15,font:{color:'#8a8fa8',size:11}},margin:{l:110,r:70,t:30,b:20}},config);
+   marker:{color:'#4C6EF5'},
+   text:titleImpressions.map((v,i)=>v.toLocaleString()+'  ('+titleShare[i].toFixed(1)+'%)'),
+   textposition:'outside',
+   textfont:{color:'#9aa0b4',size:11},
+   customdata:titleCompletionRate,
+   hovertemplate:'%{y}<br>%{x:,} impressions<br>Completion rate: %{customdata}%<extra></extra>'}
+],{...darkLayout,
+   yaxis:{...darkLayout.yaxis,autorange:'reversed'},
+   margin:{l:140,r:90,t:20,b:30},
+   showlegend:false},config);
 
 // Company Size Chart
+const otherImpressions = 125355 - 66429 - 35677;
 Plotly.newPlot('companySizeChart',[
   {labels:['11-50 employees','2-10 employees','Other'],
-   values:[66429,35677,125355-66429-35677],
-   type:'pie',hole:0.55,
-   marker:{colors:['#4C6EF5','#7b96f7','#2a2f4e']},
+   values:[66429,35677,otherImpressions],
+   type:'pie',hole:0.55,sort:false,
+   marker:{colors:['#4C6EF5','#7b96f7','#2a3358'],line:{color:'#16213e',width:2}},
    textinfo:'label+percent',textfont:{color:'#fff',size:12},
    hovertemplate:'%{label}<br>%{value:,} impressions<br>%{percent}<extra></extra>'}
-],{...darkLayout,margin:{l:20,r:20,t:20,b:20},
-   annotations:[{text:'81%<br>ICP Size',font:{size:20,color:'#fff',family:'Inter'},showarrow:false}],
+],{...darkLayout,
+   margin:{l:20,r:20,t:20,b:20},
+   annotations:[{text:'81%<br><span style="font-size:11px;color:#9aa0b4">ICP Size</span>',
+                 font:{size:24,color:'#fff',family:'Inter'},showarrow:false}],
    showlegend:false},config);
 </script>
 </body>
