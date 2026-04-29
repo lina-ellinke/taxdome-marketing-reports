@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>TaxDome Marketing — Weekly Snapshots</title>
+<title>TaxDome Marketing &mdash; Campaign Reports</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -30,7 +30,11 @@
   .wrap { max-width: 800px; margin: 0 auto; padding: 48px 32px; }
   h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 6px; }
   .subtitle { color: var(--muted); font-size: 14px; font-weight: 500; margin-bottom: 32px; }
-  .snapshot-list {
+  .section-heading {
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px;
+    color: var(--muted); margin: 32px 0 12px;
+  }
+  .report-list {
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 12px;
@@ -39,9 +43,9 @@
     padding: 0;
     margin: 0;
   }
-  .snapshot-list li { border-bottom: 1px solid var(--border); }
-  .snapshot-list li:last-child { border-bottom: none; }
-  .snapshot-list a {
+  .report-list li { border-bottom: 1px solid var(--border); }
+  .report-list li:last-child { border-bottom: none; }
+  .report-list a {
     display: block;
     padding: 18px 24px;
     color: var(--text);
@@ -49,54 +53,32 @@
     font-weight: 500;
     transition: background 0.15s;
   }
-  .snapshot-list a:hover { background: rgba(76,110,245,0.06); color: var(--primary); }
-  .snapshot-list .week-label { font-weight: 600; font-size: 15px; }
-  .snapshot-list .week-range { color: var(--muted); font-size: 13px; margin-left: 8px; }
-  .snapshot-list .item-desc { color: var(--muted); font-size: 13px; margin-top: 4px; }
-  .section-heading {
-    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px;
-    color: var(--muted); margin: 32px 0 12px;
-  }
+  .report-list a:hover { background: rgba(76,110,245,0.06); color: var(--primary); }
+  .report-list .report-title { font-weight: 600; font-size: 15px; }
+  .report-list .report-meta { color: var(--muted); font-size: 13px; margin-left: 8px; }
+  .report-list .report-desc { color: var(--muted); font-size: 13px; margin-top: 4px; }
   .back-link { display: inline-block; margin-top: 32px; font-size: 13px; color: var(--muted); text-decoration: none; }
   .back-link:hover { color: var(--primary); }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h1>TaxDome Marketing — Weekly Snapshots</h1>
-  <div class="subtitle">Frozen weekly dashboards for Confluence embedding and historical reference</div>
+  <h1>TaxDome Marketing &mdash; Campaign Reports</h1>
+  <div class="subtitle">Per-campaign performance reports for paid and organic initiatives</div>
 
-  <ul class="snapshot-list">
+  <div class="section-heading">LinkedIn Brand Awareness</div>
+  <ul class="report-list">
     <li>
-      <a href="./2026-W18/">
-        <span class="week-label">Week 18</span><span class="week-range">Apr 21-27, 2026</span>
-      </a>
-    </li>
-    <li>
-      <a href="./2026-W17/">
-        <span class="week-label">Week 17</span><span class="week-range">Apr 14-20, 2026</span>
-      </a>
-    </li>
-  </ul>
-
-  <div class="section-heading">Campaign Reports</div>
-  <ul class="snapshot-list">
-    <li>
-      <a href="../../campaigns/linkedin-brand-awareness/2026-W18.html">
+      <a href="./linkedin-brand-awareness/2026-W18.html">
         <div>
-          <span class="week-label">LinkedIn Brand Awareness &mdash; Week 18</span><span class="week-range">Apr 21-27, 2026</span>
+          <span class="report-title">Week 18</span><span class="report-meta">Apr 21-27, 2026</span>
         </div>
-        <div class="item-desc">125K impressions, 92.9K views, 81% ICP match</div>
-      </a>
-    </li>
-    <li>
-      <a href="../../campaigns/">
-        <span class="week-label">All campaign reports &rarr;</span>
+        <div class="report-desc">LD_US_NU_BrandAwareness_vid_Accounting_JS:Manager+ &mdash; 125K impressions, 92.9K views, 81% ICP match</div>
       </a>
     </li>
   </ul>
 
-  <a class="back-link" href="../">&larr; Back to live dashboard</a>
+  <a class="back-link" href="../dashboard/">&larr; Back to live dashboard</a>
 </div>
 </body>
 </html>
