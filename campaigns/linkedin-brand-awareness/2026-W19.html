@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinkedIn Brand Awareness Campaign Report — W19</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#1a1a2e;color:#e0e0e0;min-height:100vh;padding:24px;line-height:1.5}
+.container{max-width:1400px;margin:0 auto}
+h1{font-size:28px;font-weight:800;color:#fff;margin-bottom:4px}
+.subtitle{font-size:13px;color:#8a8fa8;margin-bottom:8px}
+.phase-banner{display:inline-block;background:rgba(232,89,12,0.15);color:#E8590C;border:1px solid rgba(232,89,12,0.3);border-radius:20px;padding:6px 14px;font-size:11px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:24px}
+.section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#6c7293;margin:32px 0 14px}
+
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:8px}
+.kpi-card{background:#16213e;border-radius:10px;padding:18px 20px;border-left:4px solid #4C6EF5;position:relative}
+.kpi-card.green{border-left-color:#2F9E44}
+.kpi-card.orange{border-left-color:#E8590C}
+.kpi-card.red{border-left-color:#E03131}
+.kpi-card.blue{border-left-color:#4C6EF5}
+.kpi-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#8a8fa8;margin-bottom:6px}
+.kpi-value{font-size:32px;font-weight:800;color:#fff;line-height:1.1}
+.kpi-detail{font-size:12px;color:#8a8fa8;margin-top:6px}
+.kpi-detail .up{color:#2F9E44;font-weight:600}
+.kpi-detail .down{color:#E03131;font-weight:600}
+.kpi-detail .flat{color:#8a8fa8;font-weight:600}
+
+.panel{background:#16213e;border-radius:10px;padding:24px;margin-bottom:16px}
+.panel h2{font-size:16px;font-weight:700;color:#fff;margin-bottom:4px}
+.panel .panel-sub{font-size:12px;color:#8a8fa8;margin-bottom:18px}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;padding:10px 8px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#6c7293;border-bottom:1px solid #2a2f4a}
+td{padding:10px 8px;border-bottom:1px solid #1f2540;color:#cfd3e0}
+tr:last-child td{border-bottom:none}
+.tag{display:inline-block;font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;background:rgba(47,158,68,0.15);color:#2F9E44;margin-left:6px}
+.tag.standout{background:rgba(76,110,245,0.15);color:#7B95F5}
+
+.takeaway-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px}
+.takeaway{background:#16213e;border-radius:10px;padding:20px;border-top:3px solid #2F9E44}
+.takeaway.transition{border-top-color:#E8590C}
+.takeaway.refined{border-top-color:#4C6EF5}
+.takeaway-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#2F9E44;margin-bottom:8px}
+.takeaway.transition .takeaway-label{color:#E8590C}
+.takeaway.refined .takeaway-label{color:#7B95F5}
+.takeaway h3{font-size:15px;font-weight:700;color:#fff;margin-bottom:8px}
+.takeaway p{font-size:13px;color:#cfd3e0;line-height:1.55}
+
+.chart-container{height:320px}
+.funnel-container{height:380px}
+.donut-container{height:280px}
+
+.note{font-size:12px;color:#8a8fa8;font-style:italic;margin-top:12px;padding-top:12px;border-top:1px solid #1f2540}
+
+.icp-cell{font-weight:600;color:#fff}
+.match-strong{color:#2F9E44;font-weight:600}
+.match-medium{color:#E8590C;font-weight:600}
+.match-low{color:#E03131;font-weight:600}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>LinkedIn Brand Awareness Campaign</h1>
+  <p class="subtitle">Campaign: LD_US_NU_BrandAwareness_vid_Accounting_JS:Manager+ &nbsp;|&nbsp; Week of April 28 – May 5, 2026 vs Prior Week (Apr 21-27)</p>
+  <div class="phase-banner">⚡ Final week of pure brand awareness — retargeting phase begins W20</div>
+
+  <!-- KPI CARDS -->
+  <div class="section-title">Campaign Performance</div>
+  <div class="kpi-grid">
+    <div class="kpi-card green">
+      <div class="kpi-label">Video Views</div>
+      <div class="kpi-value">128,899</div>
+      <div class="kpi-detail"><span class="up">+38.7% WoW ↑</span> (prior: 92,928)</div>
+    </div>
+    <div class="kpi-card green">
+      <div class="kpi-label">Impressions</div>
+      <div class="kpi-value">161,270</div>
+      <div class="kpi-detail"><span class="up">+28.7% WoW ↑</span> (prior: 125,355)</div>
+    </div>
+    <div class="kpi-card green">
+      <div class="kpi-label">Completions</div>
+      <div class="kpi-value">16,037</div>
+      <div class="kpi-detail">Completion Rate: 9.94% &middot; <span class="up">+38.5% WoW ↑</span></div>
+    </div>
+    <div class="kpi-card orange">
+      <div class="kpi-label">Clicks</div>
+      <div class="kpi-value">48</div>
+      <div class="kpi-detail">CTR: 0.03% &middot; <span class="up">+54.8% WoW ↑</span><br>Prior: 31 clicks, 0.02% CTR</div>
+    </div>
+  </div>
+
+  <!-- WoW COMPARISON CHART -->
+  <div class="section-title">Week-over-Week Comparison</div>
+  <div class="panel">
+    <h2>Video Performance WoW</h2>
+    <p class="panel-sub">Week of Apr 28 – May 5 vs Apr 21-27</p>
+    <div id="wowChart" class="chart-container"></div>
+  </div>
+
+  <!-- VIDEO ENGAGEMENT FUNNEL -->
+  <div class="section-title">Video Engagement Funnel</div>
+  <div class="two-col">
+    <div class="panel">
+      <h2>This Week (Apr 28 – May 5)</h2>
+      <p class="panel-sub">161,270 impressions through funnel</p>
+      <div id="funnelThis" class="funnel-container"></div>
+    </div>
+    <div class="panel">
+      <h2>Prior Week (Apr 21-27)</h2>
+      <p class="panel-sub">125,355 impressions through funnel</p>
+      <div id="funnelPrior" class="funnel-container"></div>
+    </div>
+  </div>
+
+  <!-- AUDIENCE DEMOGRAPHICS -->
+  <div class="section-title">Audience Demographics (Apr 28 – May 5)</div>
+  <div class="two-col">
+    <div class="panel">
+      <h2>By Job Title</h2>
+      <p class="panel-sub">Top decision-maker titles by impression share</p>
+      <div id="titleChart" class="chart-container"></div>
+    </div>
+    <div class="panel">
+      <h2>By Company Size</h2>
+      <p class="panel-sub">ICP target zone: 5-25 employees (11-50 + 2-10 segments)</p>
+      <div id="sizeChart" class="donut-container"></div>
+    </div>
+  </div>
+
+  <!-- TOP COMPANIES TABLE -->
+  <div class="section-title">Top Companies Engaging with Content</div>
+  <div class="panel">
+    <h2>Ranked by impressions; highest-completion firms flagged for sales handoff</h2>
+    <p class="panel-sub">Apr 28 – May 5 &middot; All in firm-size ICP range</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Company</th>
+          <th>Impressions</th>
+          <th>Views</th>
+          <th>View Rate</th>
+          <th>Completions</th>
+          <th>Completion Rate</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Gulla CPA</td><td>1,068</td><td>1,057</td><td>98.97%</td><td>154</td><td>14.42%</td></tr>
+        <tr><td>Trachtenberg &amp; Pauker, LLP</td><td>1,053</td><td>1,041</td><td>98.86%</td><td>155</td><td>14.72%</td></tr>
+        <tr><td>Peck Associates, PC</td><td>940</td><td>936</td><td>99.57%</td><td>126</td><td>13.40%</td></tr>
+        <tr><td>Hughes Noff Tax Law, LLC <span class="tag standout">Top completion</span></td><td>750</td><td>315</td><td>42.00%</td><td>310</td><td>41.33%</td></tr>
+        <tr><td>Baratz &amp; Associates, P.A.</td><td>711</td><td>688</td><td>96.77%</td><td>101</td><td>14.21%</td></tr>
+        <tr><td>Baldwin CPAs, PLLC</td><td>692</td><td>637</td><td>92.05%</td><td>103</td><td>14.88%</td></tr>
+        <tr><td>Sauvigne &amp; Company LLP <span class="tag">High engagement</span></td><td>607</td><td>604</td><td>99.51%</td><td>124</td><td>20.43%</td></tr>
+        <tr><td>SPG Services, an Archer Lewis firm <span class="tag">High engagement</span></td><td>583</td><td>579</td><td>99.31%</td><td>108</td><td>18.52%</td></tr>
+        <tr><td>Killman Murrell &amp; Company PC <span class="tag">High engagement</span></td><td>561</td><td>559</td><td>99.64%</td><td>109</td><td>19.43%</td></tr>
+        <tr><td>Lighthouse Management Services, Inc.</td><td>616</td><td>553</td><td>89.77%</td><td>99</td><td>16.07%</td></tr>
+      </tbody>
+    </table>
+    <p class="note">Hughes Noff Tax Law stands out at 41.33% completion rate — 4x the campaign average. Sauvigne, SPG Services, and Killman Murrell each clearing 18%+ completion. These firms are prime retargeting candidates and a strong sales handoff list for Ivy's team.</p>
+  </div>
+
+  <!-- ICP ALIGNMENT -->
+  <div class="section-title">ICP Alignment Analysis</div>
+  <div class="panel">
+    <h2>Audience vs TaxDome ICP</h2>
+    <p class="panel-sub">Target: 5-25 employee accounting firms with Partners, Controllers, Managers as decision-makers</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Dimension</th>
+          <th>Target ICP</th>
+          <th>Campaign Audience (W19)</th>
+          <th>vs W18</th>
+          <th>Assessment</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="icp-cell">Company Size</td>
+          <td>5-25 employees</td>
+          <td>2-10 (26.9%) + 11-50 (48.0%) = 74.9%</td>
+          <td>W18: 81.4% &middot; <span class="match-medium">-6.5pp</span></td>
+          <td><span class="match-strong">Strong match</span></td>
+        </tr>
+        <tr>
+          <td class="icp-cell">Job Titles</td>
+          <td>Partners, Controllers, Managers</td>
+          <td>Partner (24.2%) + Acct Mgr (7.0%) + Mgr (6.7%) + Controller (4.3%) + Sr Tax Mgr (3.3%) + Shareholder (2.6%) + CPA (2.5%) + VP (2.1%) + Director (2.1%) = 54.9%</td>
+          <td>W18: 43.7% &middot; <span class="match-strong">+11.2pp ↑</span></td>
+          <td><span class="match-strong">Refining</span></td>
+        </tr>
+        <tr>
+          <td class="icp-cell">Engagement Quality</td>
+          <td>High view rate, completions</td>
+          <td>79.93% view rate &middot; 9.94% completion &middot; 25.19s avg dwell</td>
+          <td>W18: 74% / 9.2% / 25.8s &middot; <span class="match-strong">+5.9pp view rate ↑</span></td>
+          <td><span class="match-strong">Improving</span></td>
+        </tr>
+        <tr>
+          <td class="icp-cell">Click Intent</td>
+          <td>Website traffic</td>
+          <td>0.03% CTR (48 clicks from 161K impressions)</td>
+          <td>W18: 0.02% &middot; flat</td>
+          <td><span class="match-medium">Expected for awareness</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="note">Decision-maker title share jumped 11pp WoW as the audience refined. Company size mix shifted slightly toward larger firms (11-50 grew, 2-10 shrunk), still well within ICP fit. Click intent remains low by design — that's the retargeting phase's job.</p>
+  </div>
+
+  <!-- KEY TAKEAWAYS -->
+  <div class="section-title">Key Takeaways</div>
+  <div class="takeaway-grid">
+    <div class="takeaway refined">
+      <div class="takeaway-label">Audience Locked In</div>
+      <h3>Targeting refined, not just found</h3>
+      <p>Decision-maker title share grew from 44% to 55% WoW — the algorithm has dialed in on Partners, Controllers, and Managers. 75% of impressions land in ICP company size range. Demographics shared with Sales.</p>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-label">Engagement Strengthening</div>
+      <h3>Higher quality at higher volume</h3>
+      <p>View rate up to 79.93% (+5.9pp WoW), completions up 38.5%, dwell time stable at 25.19s. Volume scaled +28-39% across the funnel without sacrificing engagement quality.</p>
+    </div>
+    <div class="takeaway transition">
+      <div class="takeaway-label">Phase Transition</div>
+      <h3>Retargeting starts now</h3>
+      <p>This is the last full week of pure brand awareness. Lead gen retargeting campaign now live against this engaged audience. First click-optimized results expected mid-to-late May. Top 10 engaged firms ready for sales handoff.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+const PLOTLY_THEME = {
+  paper_bgcolor: '#16213e',
+  plot_bgcolor: '#16213e',
+  font: { family: 'Inter, sans-serif', color: '#cfd3e0', size: 12 }
+};
+
+// WoW Comparison Chart
+const wowData = [
+  {
+    y: ['Clicks', 'Completions', 'Views', 'Impressions'],
+    x: [31, 11580, 92928, 125355],
+    name: 'W18 (Apr 21-27)',
+    type: 'bar',
+    orientation: 'h',
+    marker: { color: '#4C6EF5' },
+    text: ['31', '11,580', '92,928', '125,355'],
+    textposition: 'outside',
+    textfont: { color: '#cfd3e0' }
+  },
+  {
+    y: ['Clicks', 'Completions', 'Views', 'Impressions'],
+    x: [48, 16037, 128899, 161270],
+    name: 'W19 (Apr 28 – May 5)',
+    type: 'bar',
+    orientation: 'h',
+    marker: { color: '#2F9E44' },
+    text: ['48', '16,037', '128,899', '161,270'],
+    textposition: 'outside',
+    textfont: { color: '#cfd3e0' }
+  }
+];
+Plotly.newPlot('wowChart', wowData, {
+  ...PLOTLY_THEME,
+  barmode: 'group',
+  margin: { l: 110, r: 80, t: 20, b: 40 },
+  xaxis: { gridcolor: '#2a2f4a', zerolinecolor: '#2a2f4a', type: 'log' },
+  yaxis: { gridcolor: '#2a2f4a' },
+  legend: { orientation: 'h', y: -0.15 },
+  height: 320
+}, { displayModeBar: false, responsive: true });
+
+// W19 Funnel
+Plotly.newPlot('funnelThis', [{
+  type: 'funnel',
+  y: ['Impressions', 'Plays', 'Views', 'Views @ 25%', 'Views @ 50%', 'Views @ 75%', 'Completions'],
+  x: [161270, 160912, 128899, 82321, 57726, 22153, 16037],
+  textposition: 'inside',
+  textinfo: 'value+percent initial',
+  marker: { color: ['#4C6EF5', '#5478F0', '#6B8AF8', '#7B95F5', '#9BAEF8', '#2F9E44', '#36B54E'] }
+}], {
+  ...PLOTLY_THEME,
+  margin: { l: 110, r: 20, t: 20, b: 20 },
+  height: 380
+}, { displayModeBar: false, responsive: true });
+
+// W18 Funnel (prior week reference)
+Plotly.newPlot('funnelPrior', [{
+  type: 'funnel',
+  y: ['Impressions', 'Views', 'Completions'],
+  x: [125355, 92928, 11580],
+  textposition: 'inside',
+  textinfo: 'value+percent initial',
+  marker: { color: ['#3a52c4', '#5070d4', '#1f7a35'] }
+}], {
+  ...PLOTLY_THEME,
+  margin: { l: 110, r: 20, t: 20, b: 20 },
+  height: 380
+}, { displayModeBar: false, responsive: true });
+
+// Job Title Chart
+Plotly.newPlot('titleChart', [{
+  type: 'bar',
+  y: ['Director', 'Vice President', 'CPA', 'Shareholder', 'Senior Tax Mgr', 'Controller', 'Manager', 'Accounting Mgr', 'Partner'],
+  x: [2.09, 2.12, 2.54, 2.64, 3.31, 4.32, 6.74, 6.97, 24.15],
+  orientation: 'h',
+  marker: { color: '#4C6EF5' },
+  text: ['2.09%', '2.12%', '2.54%', '2.64%', '3.31%', '4.32%', '6.74%', '6.97%', '24.15%'],
+  textposition: 'outside',
+  textfont: { color: '#cfd3e0' }
+}], {
+  ...PLOTLY_THEME,
+  margin: { l: 130, r: 50, t: 20, b: 30 },
+  xaxis: { gridcolor: '#2a2f4a', zerolinecolor: '#2a2f4a', ticksuffix: '%' },
+  yaxis: { gridcolor: '#2a2f4a' },
+  height: 320
+}, { displayModeBar: false, responsive: true });
+
+// Company Size Donut
+Plotly.newPlot('sizeChart', [{
+  type: 'pie',
+  hole: 0.55,
+  labels: ['11-50 employees (ICP core)', '2-10 employees (ICP edge)', 'Other / Unspecified'],
+  values: [48.04, 26.89, 25.07],
+  marker: { colors: ['#2F9E44', '#7BC68F', '#3a4569'] },
+  textfont: { color: '#fff', size: 13 },
+  textinfo: 'label+percent'
+}], {
+  ...PLOTLY_THEME,
+  margin: { l: 20, r: 20, t: 20, b: 20 },
+  showlegend: false,
+  height: 280,
+  annotations: [{
+    text: '74.9%<br><span style="font-size:11px;color:#8a8fa8">in ICP range</span>',
+    showarrow: false,
+    font: { size: 22, color: '#fff', family: 'Inter', weight: 700 }
+  }]
+}, { displayModeBar: false, responsive: true });
+</script>
+</body>
+</html>
