@@ -57,6 +57,13 @@ tr:last-child td{border-bottom:none}
 
 .note{font-size:12px;color:#8a8fa8;font-style:italic;margin-top:12px;padding-top:12px;border-top:1px solid #1f2540}
 
+.caveat{margin-top:18px;padding:18px 20px;background:rgba(232,89,12,0.08);border:1px solid rgba(232,89,12,0.3);border-radius:8px}
+.caveat-title{font-size:12px;font-weight:700;color:#E8590C;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.caveat-body{font-size:13px;color:#cfd3e0;line-height:1.55;margin-bottom:10px}
+.caveat-list{margin:0 0 12px 20px;padding:0}
+.caveat-list li{font-size:13px;color:#cfd3e0;line-height:1.6;margin-bottom:4px}
+.caveat-footer{font-size:12px;color:#8a8fa8;font-style:italic;line-height:1.5;padding-top:10px;border-top:1px solid rgba(232,89,12,0.2)}
+
 .icp-cell{font-weight:600;color:#fff}
 .match-strong{color:#2F9E44;font-weight:600}
 .match-medium{color:#E8590C;font-weight:600}
@@ -133,35 +140,43 @@ tr:last-child td{border-bottom:none}
   </div>
 
   <!-- TOP COMPANIES TABLE -->
-  <div class="section-title">Top Companies Engaging with Content</div>
+  <div class="section-title">Firm-Level Engagement Signal</div>
   <div class="panel">
-    <h2>Ranked by impressions; highest-completion firms flagged for sales handoff</h2>
-    <p class="panel-sub">Apr 28 – May 5 &middot; All in firm-size ICP range</p>
+    <h2>Top firms by impression share</h2>
+    <p class="panel-sub">Apr 28 – May 5 &middot; Directional signal only — see note below</p>
     <table>
       <thead>
         <tr>
           <th>Company</th>
           <th>Impressions</th>
-          <th>Views</th>
-          <th>View Rate</th>
           <th>Completions</th>
           <th>Completion Rate</th>
         </tr>
       </thead>
       <tbody>
-        <tr><td>Gulla CPA</td><td>1,068</td><td>1,057</td><td>98.97%</td><td>154</td><td>14.42%</td></tr>
-        <tr><td>Trachtenberg &amp; Pauker, LLP</td><td>1,053</td><td>1,041</td><td>98.86%</td><td>155</td><td>14.72%</td></tr>
-        <tr><td>Peck Associates, PC</td><td>940</td><td>936</td><td>99.57%</td><td>126</td><td>13.40%</td></tr>
-        <tr><td>Hughes Noff Tax Law, LLC <span class="tag standout">Top completion</span></td><td>750</td><td>315</td><td>42.00%</td><td>310</td><td>41.33%</td></tr>
-        <tr><td>Baratz &amp; Associates, P.A.</td><td>711</td><td>688</td><td>96.77%</td><td>101</td><td>14.21%</td></tr>
-        <tr><td>Baldwin CPAs, PLLC</td><td>692</td><td>637</td><td>92.05%</td><td>103</td><td>14.88%</td></tr>
-        <tr><td>Sauvigne &amp; Company LLP <span class="tag">High engagement</span></td><td>607</td><td>604</td><td>99.51%</td><td>124</td><td>20.43%</td></tr>
-        <tr><td>SPG Services, an Archer Lewis firm <span class="tag">High engagement</span></td><td>583</td><td>579</td><td>99.31%</td><td>108</td><td>18.52%</td></tr>
-        <tr><td>Killman Murrell &amp; Company PC <span class="tag">High engagement</span></td><td>561</td><td>559</td><td>99.64%</td><td>109</td><td>19.43%</td></tr>
-        <tr><td>Lighthouse Management Services, Inc.</td><td>616</td><td>553</td><td>89.77%</td><td>99</td><td>16.07%</td></tr>
+        <tr><td>Gulla CPA</td><td>1,068</td><td>154</td><td>14.42%</td></tr>
+        <tr><td>Trachtenberg &amp; Pauker, LLP</td><td>1,053</td><td>155</td><td>14.72%</td></tr>
+        <tr><td>Peck Associates, PC</td><td>940</td><td>126</td><td>13.40%</td></tr>
+        <tr><td>Hughes Noff Tax Law, LLC</td><td>750</td><td>310</td><td>41.33%</td></tr>
+        <tr><td>Baratz &amp; Associates, P.A.</td><td>711</td><td>101</td><td>14.21%</td></tr>
+        <tr><td>Baldwin CPAs, PLLC</td><td>692</td><td>103</td><td>14.88%</td></tr>
+        <tr><td>Lighthouse Management Services, Inc.</td><td>616</td><td>99</td><td>16.07%</td></tr>
+        <tr><td>Sauvigne &amp; Company LLP</td><td>607</td><td>124</td><td>20.43%</td></tr>
+        <tr><td>SPG Services, an Archer Lewis firm</td><td>583</td><td>108</td><td>18.52%</td></tr>
+        <tr><td>Killman Murrell &amp; Company PC</td><td>561</td><td>109</td><td>19.43%</td></tr>
       </tbody>
     </table>
-    <p class="note">Hughes Noff Tax Law stands out at 41.33% completion rate — 4x the campaign average. Sauvigne, SPG Services, and Killman Murrell each clearing 18%+ completion. These firms are prime retargeting candidates and a strong sales handoff list for Ivy's team.</p>
+    <div class="caveat">
+      <div class="caveat-title">⚠ Directional signal, not actual counts</div>
+      <p class="caveat-body">Firm-level completion numbers from LinkedIn appear inflated. Several firms show completion-of-viewers rates above 50%, which is implausible for a 45-second video. We're treating this table as relative engagement signal — useful for ranking firms by interest level — not as exact counts. Likely causes:</p>
+      <ul class="caveat-list">
+        <li>LinkedIn double-counts completions on autoplay refreshes when the same user is served the video multiple times</li>
+        <li>Attribution drift — completions can be aggregated against firm of record at impression time, stacking the same firm across multiple user sessions</li>
+        <li>Possible non-human or auto-replay traffic in specific firm clusters</li>
+        <li>One or more of the four active ad sets may have a delivery quirk producing inflated counts</li>
+      </ul>
+      <p class="caveat-footer">Flagged with Danila for validation before W20. Until then, use this table to identify firms showing relative engagement, not as a literal headcount of who watched what.</p>
+    </div>
   </div>
 
   <!-- ICP ALIGNMENT -->
@@ -196,10 +211,10 @@ tr:last-child td{border-bottom:none}
         </tr>
         <tr>
           <td class="icp-cell">Engagement Quality</td>
-          <td>High view rate, completions</td>
-          <td>79.93% view rate &middot; 9.94% completion &middot; 25.19s avg dwell</td>
-          <td>W18: 74% / 9.2% / 25.8s &middot; <span class="match-strong">+5.9pp view rate ↑</span></td>
-          <td><span class="match-strong">Improving</span></td>
+          <td>High completion rate, dwell time</td>
+          <td>9.94% completion rate &middot; 25.19s avg dwell</td>
+          <td>W18: 9.23% / 25.8s &middot; <span class="match-strong">+0.71pp completion ↑</span></td>
+          <td><span class="match-strong">Holding at scale</span></td>
         </tr>
         <tr>
           <td class="icp-cell">Click Intent</td>
@@ -224,12 +239,12 @@ tr:last-child td{border-bottom:none}
     <div class="takeaway">
       <div class="takeaway-label">Engagement Strengthening</div>
       <h3>Higher quality at higher volume</h3>
-      <p>View rate up to 79.93% (+5.9pp WoW), completions up 38.5%, dwell time stable at 25.19s. Volume scaled +28-39% across the funnel without sacrificing engagement quality.</p>
+      <p>Completion rate climbed to 9.94% (vs 9.23% W18), dwell time held at 25.19s. Volume scaled +28-39% across the funnel while engagement quality strengthened — not slipped — at the larger scale.</p>
     </div>
     <div class="takeaway transition">
       <div class="takeaway-label">Phase Transition</div>
       <h3>Retargeting starts now</h3>
-      <p>This is the last full week of pure brand awareness. Lead gen retargeting campaign now live against this engaged audience. First click-optimized results expected mid-to-late May. Top 10 engaged firms ready for sales handoff.</p>
+      <p>This is the last full week of pure brand awareness. Lead gen retargeting campaign now live against this engaged audience. First click-optimized results expected mid-to-late May. Firm-level engagement data being validated with Danila before sales handoff.</p>
     </div>
   </div>
 </div>
