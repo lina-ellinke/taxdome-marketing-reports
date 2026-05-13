@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinkedIn Brand Awareness Campaign Report — W20</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#1a1a2e;color:#e0e0e0;min-height:100vh;padding:24px;line-height:1.5}
+.container{max-width:1400px;margin:0 auto}
+h1{font-size:28px;font-weight:800;color:#fff;margin-bottom:4px}
+.subtitle{font-size:13px;color:#8a8fa8;margin-bottom:8px}
+.phase-banner{display:inline-block;background:rgba(232,89,12,0.15);color:#E8590C;border:1px solid rgba(232,89,12,0.3);border-radius:20px;padding:6px 14px;font-size:11px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:24px}
+.section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#6c7293;margin:32px 0 14px}
+
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:8px}
+.kpi-card{background:#16213e;border-radius:10px;padding:18px 20px;border-left:4px solid #4C6EF5;position:relative}
+.kpi-card.green{border-left-color:#2F9E44}
+.kpi-card.orange{border-left-color:#E8590C}
+.kpi-card.red{border-left-color:#E03131}
+.kpi-card.blue{border-left-color:#4C6EF5}
+.kpi-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#8a8fa8;margin-bottom:6px}
+.kpi-value{font-size:32px;font-weight:800;color:#fff;line-height:1.1}
+.kpi-detail{font-size:12px;color:#8a8fa8;margin-top:6px}
+.kpi-detail .up{color:#2F9E44;font-weight:600}
+.kpi-detail .down{color:#E03131;font-weight:600}
+.kpi-detail .flat{color:#8a8fa8;font-weight:600}
+
+.panel{background:#16213e;border-radius:10px;padding:24px;margin-bottom:16px}
+.panel h2{font-size:16px;font-weight:700;color:#fff;margin-bottom:4px}
+.panel .panel-sub{font-size:12px;color:#8a8fa8;margin-bottom:18px}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;padding:10px 8px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#6c7293;border-bottom:1px solid #2a2f4a}
+td{padding:10px 8px;border-bottom:1px solid #1f2540;color:#cfd3e0}
+tr:last-child td{border-bottom:none}
+
+.takeaway-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px}
+.takeaway{background:#16213e;border-radius:10px;padding:20px;border-top:3px solid #2F9E44}
+.takeaway.warning{border-top-color:#E8590C}
+.takeaway.decision{border-top-color:#4C6EF5}
+.takeaway-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#2F9E44;margin-bottom:8px}
+.takeaway.warning .takeaway-label{color:#E8590C}
+.takeaway.decision .takeaway-label{color:#7B95F5}
+.takeaway h3{font-size:15px;font-weight:700;color:#fff;margin-bottom:8px}
+.takeaway p{font-size:13px;color:#cfd3e0;line-height:1.55}
+
+.chart-container{height:320px}
+.funnel-container{height:380px}
+.donut-container{height:280px}
+
+.note{font-size:12px;color:#8a8fa8;font-style:italic;margin-top:12px;padding-top:12px;border-top:1px solid #1f2540}
+
+.caveat{margin-top:18px;padding:18px 20px;background:rgba(232,89,12,0.08);border:1px solid rgba(232,89,12,0.3);border-radius:8px}
+.caveat-title{font-size:12px;font-weight:700;color:#E8590C;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.caveat-body{font-size:13px;color:#cfd3e0;line-height:1.55;margin-bottom:10px}
+.caveat-list{margin:0 0 12px 20px;padding:0}
+.caveat-list li{font-size:13px;color:#cfd3e0;line-height:1.6;margin-bottom:4px}
+.caveat-footer{font-size:12px;color:#8a8fa8;font-style:italic;line-height:1.5;padding-top:10px;border-top:1px solid rgba(232,89,12,0.2)}
+
+.icp-cell{font-weight:600;color:#fff}
+.match-strong{color:#2F9E44;font-weight:600}
+.match-medium{color:#E8590C;font-weight:600}
+.match-low{color:#E03131;font-weight:600}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>LinkedIn Brand Awareness Campaign</h1>
+  <p class="subtitle">Campaign: LD_US_NU_BrandAwareness_vid_Accounting_JS:Manager+ &nbsp;|&nbsp; Week of May 7 – 13, 2026 vs Prior Week (Apr 28 – May 5)</p>
+  <div class="phase-banner">⚠ Scale week 1: volume doubled, audience broadened beyond W19 ICP lock-in</div>
+
+  <!-- KPI CARDS -->
+  <div class="section-title">Campaign Performance</div>
+  <div class="kpi-grid">
+    <div class="kpi-card green">
+      <div class="kpi-label">Video Views</div>
+      <div class="kpi-value">292,848</div>
+      <div class="kpi-detail"><span class="up">+127.2% WoW ↑</span> (prior: 128,899)</div>
+    </div>
+    <div class="kpi-card green">
+      <div class="kpi-label">Impressions</div>
+      <div class="kpi-value">353,483</div>
+      <div class="kpi-detail"><span class="up">+119.2% WoW ↑</span> (prior: 161,270)</div>
+    </div>
+    <div class="kpi-card orange">
+      <div class="kpi-label">Completions</div>
+      <div class="kpi-value">29,122</div>
+      <div class="kpi-detail">Completion Rate: 8.24% &middot; <span class="up">+81.6% volume ↑</span><br>Rate vs W19: <span class="down">-1.7pp ↓</span> (W19: 9.94%)</div>
+    </div>
+    <div class="kpi-card orange">
+      <div class="kpi-label">Clicks</div>
+      <div class="kpi-value">110</div>
+      <div class="kpi-detail">CTR: 0.03% &middot; <span class="up">+129.2% WoW ↑</span><br>Prior: 48 clicks, 0.03% CTR</div>
+    </div>
+  </div>
+
+  <!-- WoW COMPARISON CHART -->
+  <div class="section-title">Week-over-Week Comparison</div>
+  <div class="panel">
+    <h2>Video Performance WoW</h2>
+    <p class="panel-sub">Week of May 7 – 13 vs Apr 28 – May 5 &middot; Log scale for readability</p>
+    <div id="wowChart" class="chart-container"></div>
+  </div>
+
+  <!-- VIDEO ENGAGEMENT FUNNEL -->
+  <div class="section-title">Video Engagement Funnel</div>
+  <div class="two-col">
+    <div class="panel">
+      <h2>This Week (May 7 – 13)</h2>
+      <p class="panel-sub">353,483 impressions through funnel</p>
+      <div id="funnelThis" class="funnel-container"></div>
+    </div>
+    <div class="panel">
+      <h2>Prior Week (Apr 28 – May 5)</h2>
+      <p class="panel-sub">161,270 impressions through funnel</p>
+      <div id="funnelPrior" class="funnel-container"></div>
+    </div>
+  </div>
+
+  <!-- AUDIENCE DEMOGRAPHICS -->
+  <div class="section-title">Audience Demographics (May 7 – 13)</div>
+  <div class="two-col">
+    <div class="panel">
+      <h2>By Job Title</h2>
+      <p class="panel-sub">Top decision-maker titles by impression share &middot; <span style="color:#E03131">Share dropped 10.5pp vs W19</span></p>
+      <div id="titleChart" class="chart-container"></div>
+    </div>
+    <div class="panel">
+      <h2>By Company Size</h2>
+      <p class="panel-sub">ICP target zone: 5-25 employees &middot; <span style="color:#E03131">In-ICP share dropped 16.5pp vs W19</span></p>
+      <div id="sizeChart" class="donut-container"></div>
+    </div>
+  </div>
+
+  <!-- TOP COMPANIES TABLE -->
+  <div class="section-title">Firm-Level Engagement Signal</div>
+  <div class="panel">
+    <h2>Top firms by impression share</h2>
+    <p class="panel-sub">May 7 – 13 &middot; Directional signal only — see note below</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Company</th>
+          <th>Impressions</th>
+          <th>Completions</th>
+          <th>Completion Rate</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Hughes Noff Tax Law, LLC</td><td>1,054</td><td>257</td><td>24.38%</td></tr>
+        <tr><td>Reitman &amp; Belkin LLP</td><td>876</td><td>118</td><td>13.47%</td></tr>
+        <tr><td>Cooch and Taylor P.A.</td><td>838</td><td>171</td><td>20.41%</td></tr>
+        <tr><td>PUGLISI, MOORE &amp; CO., LTD</td><td>786</td><td>109</td><td>13.87%</td></tr>
+        <tr><td>BLATT &amp; DAUMAN LLP</td><td>777</td><td>32</td><td>4.12%</td></tr>
+        <tr><td>NextGen</td><td>735</td><td>140</td><td>19.05%</td></tr>
+        <tr><td>Lenhart, Mason &amp; Associates, LLC</td><td>731</td><td>6</td><td>0.82%</td></tr>
+        <tr><td>Gorman &amp; Associates, PC</td><td>728</td><td>31</td><td>4.26%</td></tr>
+        <tr><td>Baratz &amp; Associates, P.A.</td><td>720</td><td>19</td><td>2.64%</td></tr>
+        <tr><td>Carolina Bookkeeping Tax &amp; Business Services</td><td>681</td><td>134</td><td>19.68%</td></tr>
+        <tr><td>Larry Wolfe Inc</td><td>636</td><td>128</td><td>20.13%</td></tr>
+        <tr><td>SingletonAuman PC</td><td>559</td><td>71</td><td>12.70%</td></tr>
+      </tbody>
+    </table>
+    <div class="caveat">
+      <div class="caveat-title">⚠ Directional signal, not actual counts (carry-over from W19)</div>
+      <p class="caveat-body">Firm-level completion data continues to show implausible patterns. Several firms show high view rates with near-zero completion (Lenhart at 100% view rate / 0.82% completion), suggesting LinkedIn's attribution methodology has not changed. Same likely causes as W19:</p>
+      <ul class="caveat-list">
+        <li>LinkedIn double-counts completions on autoplay refreshes when the same user is served the video multiple times</li>
+        <li>Attribution drift — completions can be aggregated against firm of record at impression time, stacking the same firm across multiple user sessions</li>
+        <li>"Below reporting minimum" privacy redactions now obscuring multiple firms (~10 in this dataset)</li>
+        <li>One or more of the four active ad sets may have a delivery quirk producing inflated counts</li>
+      </ul>
+      <p class="caveat-footer">Still flagged with Danila pending validation. Use this table to identify firms showing relative engagement, not as a literal headcount.</p>
+    </div>
+  </div>
+
+  <!-- ICP ALIGNMENT -->
+  <div class="section-title">ICP Alignment Analysis</div>
+  <div class="panel">
+    <h2>Audience vs TaxDome ICP</h2>
+    <p class="panel-sub">Target: 5-25 employee accounting firms with Partners, Controllers, Managers as decision-makers</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Dimension</th>
+          <th>Target ICP</th>
+          <th>Campaign Audience (W20)</th>
+          <th>vs W19</th>
+          <th>Assessment</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="icp-cell">Company Size</td>
+          <td>5-25 employees</td>
+          <td>2-10 (21.4%) + 11-50 (37.0%) = 58.4%</td>
+          <td>W19: 74.9% &middot; <span class="match-low">-16.5pp ↓</span></td>
+          <td><span class="match-medium">Broadened</span></td>
+        </tr>
+        <tr>
+          <td class="icp-cell">Job Titles</td>
+          <td>Partners, Controllers, Managers</td>
+          <td>Partner (18.1%) + Acct Mgr (6.5%) + Mgr (4.6%) + Controller (4.0%) + Shareholder (3.0%) + CPA (1.9%) + Sr Tax Mgr (1.7%) + Director (1.3%) + VP (1.3%) = 42.4%</td>
+          <td>W19: 54.9% &middot; <span class="match-low">-10.5pp ↓</span></td>
+          <td><span class="match-medium">Broadened</span></td>
+        </tr>
+        <tr>
+          <td class="icp-cell">Engagement Quality</td>
+          <td>High completion rate, dwell time</td>
+          <td>8.24% completion rate &middot; 25.48s avg dwell</td>
+          <td>W19: 9.94% / 25.19s &middot; <span class="match-medium">-1.70pp completion ↓</span></td>
+          <td><span class="match-medium">Mild erosion</span></td>
+        </tr>
+        <tr>
+          <td class="icp-cell">Volume</td>
+          <td>Reach Partners and Managers in accounting</td>
+          <td>353,483 impressions &middot; 292,848 views</td>
+          <td>W19: 161,270 / 128,899 &middot; <span class="match-strong">+119% / +127% ↑</span></td>
+          <td><span class="match-strong">Scaling on plan</span></td>
+        </tr>
+        <tr>
+          <td class="icp-cell">Click Intent</td>
+          <td>Website traffic</td>
+          <td>0.03% CTR (110 clicks from 353K impressions)</td>
+          <td>W19: 0.03% &middot; flat</td>
+          <td><span class="match-medium">Expected for awareness</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="note">Volume doubled as planned with the budget step-up. The cost shows in audience composition: as reach expanded, the algorithm pulled in a broader, less-targeted audience. Decision-maker title share and ICP company size match both declined materially. Engagement quality eroded slightly (completion rate -1.7pp) while view rate and dwell held steady. This is the volume vs ICP-precision tradeoff playing out in real time.</p>
+  </div>
+
+  <!-- KEY TAKEAWAYS -->
+  <div class="section-title">Key Takeaways</div>
+  <div class="takeaway-grid">
+    <div class="takeaway">
+      <div class="takeaway-label">Volume Achieved</div>
+      <h3>4x budget ramp delivered scale</h3>
+      <p>Impressions +119%, views +127%, completions +82% WoW. The budget step-up performed as expected on the volume dimension. Engagement at the surface level (view rate, dwell time) held steady, so the broader audience is still watching.</p>
+    </div>
+    <div class="takeaway warning">
+      <div class="takeaway-label">Targeting Broadened</div>
+      <h3>W19 ICP lock-in did not hold at scale</h3>
+      <p>Decision-maker title share dropped from 54.9% to 42.4% (-10.5pp). ICP company size match dropped from 74.9% to 58.4% (-16.5pp). Completion rate down 1.7pp. The algorithm reached further out to fill the larger budget, sacrificing precision for reach.</p>
+    </div>
+    <div class="takeaway decision">
+      <div class="takeaway-label">Decision Ahead</div>
+      <h3>Refine, hold, or split?</h3>
+      <p>Three options for next week: (1) refine targeting to recover ICP precision at lower volume, (2) hold current targeting and lean on retargeting to filter, (3) split spend — tighter audiences for brand awareness, broader for retargeting funnel. First retargeting performance read expected mid-to-late May before this decision lands.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+const PLOTLY_THEME = {
+  paper_bgcolor: '#16213e',
+  plot_bgcolor: '#16213e',
+  font: { family: 'Inter, sans-serif', color: '#cfd3e0', size: 12 }
+};
+
+// WoW Comparison Chart
+const wowData = [
+  {
+    y: ['Clicks', 'Completions', 'Views', 'Impressions'],
+    x: [48, 16037, 128899, 161270],
+    name: 'W19 (Apr 28 – May 5)',
+    type: 'bar',
+    orientation: 'h',
+    marker: { color: '#4C6EF5' },
+    text: ['48', '16,037', '128,899', '161,270'],
+    textposition: 'outside',
+    textfont: { color: '#cfd3e0' }
+  },
+  {
+    y: ['Clicks', 'Completions', 'Views', 'Impressions'],
+    x: [110, 29122, 292848, 353483],
+    name: 'W20 (May 7 – 13)',
+    type: 'bar',
+    orientation: 'h',
+    marker: { color: '#2F9E44' },
+    text: ['110', '29,122', '292,848', '353,483'],
+    textposition: 'outside',
+    textfont: { color: '#cfd3e0' }
+  }
+];
+Plotly.newPlot('wowChart', wowData, {
+  ...PLOTLY_THEME,
+  barmode: 'group',
+  margin: { l: 110, r: 80, t: 20, b: 40 },
+  xaxis: { gridcolor: '#2a2f4a', zerolinecolor: '#2a2f4a', type: 'log' },
+  yaxis: { gridcolor: '#2a2f4a' },
+  legend: { orientation: 'h', y: -0.15 },
+  height: 320
+}, { displayModeBar: false, responsive: true });
+
+// W20 Funnel
+Plotly.newPlot('funnelThis', [{
+  type: 'funnel',
+  y: ['Impressions', 'Plays', 'Views', 'Views @ 25%', 'Views @ 50%', 'Views @ 75%', 'Completions'],
+  x: [353483, 353031, 292848, 161406, 103000, 41165, 29122],
+  textposition: 'inside',
+  textinfo: 'value+percent initial',
+  marker: { color: ['#4C6EF5', '#5478F0', '#6B8AF8', '#7B95F5', '#9BAEF8', '#2F9E44', '#36B54E'] }
+}], {
+  ...PLOTLY_THEME,
+  margin: { l: 110, r: 20, t: 20, b: 20 },
+  height: 380
+}, { displayModeBar: false, responsive: true });
+
+// W19 Funnel (prior week reference)
+Plotly.newPlot('funnelPrior', [{
+  type: 'funnel',
+  y: ['Impressions', 'Plays', 'Views', 'Views @ 25%', 'Views @ 50%', 'Views @ 75%', 'Completions'],
+  x: [161270, 160912, 128899, 82321, 57726, 22153, 16037],
+  textposition: 'inside',
+  textinfo: 'value+percent initial',
+  marker: { color: ['#3a52c4', '#4565d0', '#5478da', '#6388e2', '#7B95F5', '#1f7a35', '#2F9E44'] }
+}], {
+  ...PLOTLY_THEME,
+  margin: { l: 110, r: 20, t: 20, b: 20 },
+  height: 380
+}, { displayModeBar: false, responsive: true });
+
+// Job Title Chart
+Plotly.newPlot('titleChart', [{
+  type: 'bar',
+  y: ['Senior Manager', 'Vice President', 'Director', 'Senior Tax Mgr', 'CPA', 'Shareholder', 'Controller', 'Manager', 'Accounting Mgr', 'Partner'],
+  x: [1.21, 1.31, 1.34, 1.71, 1.89, 2.99, 3.99, 4.56, 6.48, 18.11],
+  orientation: 'h',
+  marker: { color: '#4C6EF5' },
+  text: ['1.21%', '1.31%', '1.34%', '1.71%', '1.89%', '2.99%', '3.99%', '4.56%', '6.48%', '18.11%'],
+  textposition: 'outside',
+  textfont: { color: '#cfd3e0' }
+}], {
+  ...PLOTLY_THEME,
+  margin: { l: 130, r: 50, t: 20, b: 30 },
+  xaxis: { gridcolor: '#2a2f4a', zerolinecolor: '#2a2f4a', ticksuffix: '%' },
+  yaxis: { gridcolor: '#2a2f4a' },
+  height: 320
+}, { displayModeBar: false, responsive: true });
+
+// Company Size Donut
+Plotly.newPlot('sizeChart', [{
+  type: 'pie',
+  hole: 0.55,
+  labels: ['11-50 employees (ICP core)', '2-10 employees (ICP edge)', 'Other / Larger / Unspecified'],
+  values: [37.03, 21.36, 41.61],
+  marker: { colors: ['#2F9E44', '#7BC68F', '#3a4569'] },
+  textfont: { color: '#fff', size: 13 },
+  textinfo: 'label+percent'
+}], {
+  ...PLOTLY_THEME,
+  margin: { l: 20, r: 20, t: 20, b: 20 },
+  showlegend: false,
+  height: 280,
+  annotations: [{
+    text: '58.4%<br><span style="font-size:11px;color:#8a8fa8">in ICP range</span>',
+    showarrow: false,
+    font: { size: 22, color: '#fff', family: 'Inter', weight: 700 }
+  }]
+}, { displayModeBar: false, responsive: true });
+</script>
+</body>
+</html>
