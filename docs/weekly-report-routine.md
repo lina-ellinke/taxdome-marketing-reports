@@ -16,6 +16,14 @@
 > to Lina is the primary (and only) automated delivery. Confluence pages are
 > created manually by Lina from the Slack message. Routine no longer requires
 > Confluence MCP at runtime.
+>
+> **TD Payments correction (May 17, 2026):** Denominator changed from CSAM-based
+> proxy (~10,810) to US paid accounts excluding legacy Stripe (~6,729). Numerator
+> definition unchanged; same `td_payments_enabled = true` filter. OKR target 30%
+> retained; 50% stretch target added. Legacy Stripe (4,168 accounts) cannot
+> activate until processing-volume milestones; CPACharge restriction lifted
+> May 11, 2026 and those accounts are now eligible. Prior reports structurally
+> understated activation rate by including ineligible legacy Stripe accounts.
 
 **Schedule:** Every Tuesday at 1:00 PM America/Panama (UTC-5, no DST)
 
@@ -88,7 +96,7 @@ From the quarterly plan, extract the current quarter's column for Q2 OKR cumulat
 
 **ACV override**: The blended ACV in the CSV is $2,620. The operational target is $3,000. Use $3,000 for the ACV KPI card and OKR card. Do not use $2,620.
 
-**TD Payments target**: 30% activation rate. This is not in the CSV.
+**TD Payments target**: 30% OKR target, 50% stretch target. Neither is in the CSV. Display both on the dashboard (30% as goal line, 50% as stretch line).
 
 ---
 
@@ -180,12 +188,20 @@ Point-in-time metric, not time-windowed. Pull once for current state.
 
 Search the `companies` object:
 
-- Numerator: `td_payments_enabled` = `"true"` AND `csam` HAS_PROPERTY AND `license_type` = `"paid"`
-- Denominator: `csam` HAS_PROPERTY AND `license_type` = `"paid"`
-- Activation rate: numerator / denominator
-- Target: 30%
+- **Denominator**: `license_type` = `"paid"` AND `country` = `"USA"` AND `legacy_stripe_id` NOT_HAS_PROPERTY
+  - Eligible US paid accounts that can activate TD Payments.
+  - Legacy Stripe accounts (4,168 as of May 2026) are **excluded** because they cannot activate TD Payments until processing-volume milestones are met.
+  - International accounts are **not eligible** (US-only product).
+- **Numerator**: same denominator filters PLUS `td_payments_enabled` = `"true"`
+- **Activation rate**: numerator / denominator
+- **OKR target**: 30%
+- **Stretch target**: 50%
 
-US-only scope is enforced by the CSAM filter (denominator is paid accounts with CSAM, not all paid accounts).
+**Display:** show both targets on the dashboard — 30% as the OKR goal line, 50% as the stretch line. Color logic for the activation card uses the 30% target (≥100% pace = green, 80–99% = orange, <80% = red); the 50% stretch line is informational only.
+
+**Important — CPACharge eligibility (May 11, 2026 update):** the CPACharge restriction was lifted on May 11, 2026. Those accounts are now eligible to activate TD Payments and are included in the denominator from W21 onward. Prior weekly reports excluded them as a separate cohort; do not subtract them from the current denominator.
+
+**Do NOT** use the prior CSAM-based denominator. CSAM was a proxy for "US paid" that included legacy Stripe accounts (which cannot activate) and structurally understated performance. The corrected denominator is roughly 6,729 eligible US accounts vs the prior 10,810 — same numerator, materially higher activation rate.
 
 ### 3G: Marketing-Sourced Pipeline ARR
 
@@ -281,7 +297,7 @@ QUICK NUMBERS
 • SQLs:    [value] ([WoW] WoW, [YoY] YoY) — vs [monthly target] monthly target
 • ICP Lead Share:    [value]% ([WoW Δ] pp WoW)
 • ACV:    $[value] ([WoW] WoW, [MoM] MoM)
-• TD Payments Activation:    [value]% ([WoW Δ] pp WoW) — vs 30% target
+• TD Payments Activation:    [value]% ([WoW Δ] pp WoW) — vs 30% OKR target, 50% stretch
 • Pipeline ARR:    $[value] ([WoW] WoW)
 
 PACE SUMMARY (Q2 cumulative + May MTD combined)
@@ -336,7 +352,7 @@ Do NOT fall back to local `git push` — it 403s through the proxy.
 - **SALs are retired.** Do NOT query for or display SAL data. The funnel is Leads > MQLs > SQLs > Customers.
 - **Classified leads = ICP + Non-ICP only.** Exclude unclassified (no value in `marketing_icp__nonicp_enriched`) from the "classified" count, but show the No Value segment separately in stacked charts for transparency.
 - **ACV target is $3,000**, not the $2,620 from the CSV. This was an explicit operational override; do not "fix" it back to the CSV value.
-- **TD Payments is US-only.** Denominator is paid accounts with CSAM, not all paid accounts.
+- **TD Payments is US-only.** Denominator is US paid accounts excluding legacy Stripe (`license_type = "paid"` AND `country = "USA"` AND `legacy_stripe_id` NOT_HAS_PROPERTY). Do not use the older CSAM-based proxy. OKR target 30%, stretch target 50% — show both.
 - **All timestamps in America/Panama** timezone (UTC-5, no DST).
 - **Monthly KPI cards** pace against monthly targets from `targets/monthly-plan.csv`.
 - **Q2 OKR cumulative cards** pace against quarterly targets from `targets/quarterly-plan.csv`.
@@ -358,3 +374,4 @@ Do NOT fall back to local `git push` — it 403s through the proxy.
 | May 17, 2026 | Routine spec reconciled to match W17-W20 published reports | Original routine draft used outdated field names that would produce divergent numbers |
 | May 17, 2026 | Week definition changed from ISO Mon-Sun to Tue-Mon | Routine fires Tuesday; Tue-Mon gives a clean 7-day window ending yesterday and matches published W17-W19 date convention |
 | May 17, 2026 | Removed Confluence auto-creation; Slack DM is primary delivery | Reduces runtime dependencies (no Confluence MCP needed) and gives Lina control over Confluence page formatting/timing |
+| May 17, 2026 | TD Payments denominator corrected to US paid accounts excluding legacy Stripe (~6,729); 50% stretch target added alongside 30% OKR target | Prior denominator (CSAM-based ~10,810) included 4,168 ineligible legacy Stripe accounts that cannot activate TD Payments. International accounts are not eligible. Metric was structurally understating performance. CPACharge restriction lifted May 11, 2026 — those accounts now eligible and included in denominator. |
