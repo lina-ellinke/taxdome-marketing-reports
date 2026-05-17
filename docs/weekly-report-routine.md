@@ -11,6 +11,11 @@
 > Routine fires Tuesday at 1pm; "current week" = Tuesday of last week through Monday
 > of this week (yesterday). Matches the date convention used in published W17-W19
 > reports. Prior week and YoY windows shift accordingly.
+>
+> **Delivery surface (May 17, 2026):** Confluence auto-creation removed. Slack DM
+> to Lina is the primary (and only) automated delivery. Confluence pages are
+> created manually by Lina from the Slack message. Routine no longer requires
+> Confluence MCP at runtime.
 
 **Schedule:** Every Tuesday at 1:00 PM America/Panama (UTC-5, no DST)
 
@@ -24,8 +29,9 @@ You are generating TaxDome's weekly marketing report. This runs automatically ev
 2. Pull live data from HubSpot for three time windows
 3. Compute WoW and YoY deltas for every metric
 4. Update the live dashboard and create a frozen weekly snapshot
-5. Create a Confluence page with the dashboard embedded
-6. Notify Lina on Slack that the draft is ready
+5. Notify Lina on Slack with the snapshot link and key numbers — Slack is the primary delivery surface
+
+Lina creates the Confluence page manually from the Slack notification; the routine does not auto-create a Confluence page.
 
 Do NOT ask questions. Execute all steps autonomously. If a HubSpot query fails, note the failure in the dashboard card as "data unavailable" and continue with the remaining metrics.
 
@@ -258,53 +264,48 @@ Commit message: `Weekly report: [YYYY-WNN] | MQLs: [value] ([WoW delta]) | SQLs:
 
 ---
 
-## STEP 6: CREATE CONFLUENCE PAGE
+## STEP 6: NOTIFY ON SLACK (PRIMARY DELIVERY)
 
-Create a new child page under the Marketing Weekly Summary parent page.
+Send a Slack DM to Lina with the snapshot link, live dashboard link, full quick-numbers summary, pace counts, and any red-flagged metrics. This is the canonical handoff — Lina creates the Confluence page manually from this message.
 
-**Confluence details:**
-- Cloud ID: `39336249-9666-44dc-aa6f-abfd48a357ce`
-- Space: Operations (key: `1298661388`)
-- Parent page ID: `2697592850`
-- Page title: `[YYYY-MM-DD] Marketing Weekly Report`
-
-**Page content structure:**
+**Message template:**
 
 ```
-## Executive Summary
-[LEAVE BLANK, Lina fills this in]
+Weekly marketing report ready — Week [NN] ([week start] – [week end], [year])
 
-## Dashboard
-[Embed iframe: https://lina-horner.github.io/taxdome-marketing-reports/dashboard/weekly/YYYY-WNN/index.html]
+📊 Snapshot:    https://lina-horner.github.io/taxdome-marketing-reports/dashboard/weekly/YYYY-WNN/index.html
+📈 Live:        https://lina-horner.github.io/taxdome-marketing-reports/dashboard/
 
-## Key Changes This Week
-- MQLs: [value] ([WoW] WoW, [YoY] YoY) vs [monthly target] monthly target
-- SQLs: [value] ([WoW] WoW, [YoY] YoY) vs [monthly target] monthly target
-- ICP Lead Share: [value]% ([WoW delta] pp WoW)
-- ACV: $[value] ([WoW] WoW)
-- TD Payments Activation: [value]% vs 30% target
-- Pipeline ARR: $[value] ([WoW] WoW)
+QUICK NUMBERS
+• MQLs:    [value] ([WoW] WoW, [YoY] YoY) — vs [monthly target] monthly target
+• SQLs:    [value] ([WoW] WoW, [YoY] YoY) — vs [monthly target] monthly target
+• ICP Lead Share:    [value]% ([WoW Δ] pp WoW)
+• ACV:    $[value] ([WoW] WoW, [MoM] MoM)
+• TD Payments Activation:    [value]% ([WoW Δ] pp WoW) — vs 30% target
+• Pipeline ARR:    $[value] ([WoW] WoW)
 
-## Attention Required
-[List any metrics that are red or orange on pace, with context]
+PACE SUMMARY (Q2 cumulative + May MTD combined)
+✅ On pace:        [count] metrics
+🟠 At risk:        [count] metrics
+🔴 Off pace:    [count] metrics
 
-## Focus Next Week
-[LEAVE BLANK, Lina fills this in]
+🔴 RED — needs attention:
+- [Metric 1]: [actual] vs [target] ([% of pace]% of pace)
+- [Metric 2]: [actual] vs [target] ([% of pace]% of pace)
+(omit this section entirely if no red metrics)
+
+Confluence page: create manually under Marketing Weekly Summary
+(Cloud: 39336249-9666-44dc-aa6f-abfd48a357ce, Space: 1298661388, Parent: 2697592850)
 ```
 
----
+**Formatting rules:**
+- WoW/YoY for volume metrics: `+X%` or `−X%` (no "pp")
+- WoW/YoY for share/rate metrics: `+X pp` or `−X pp`
+- ACV always with dollar sign and comma separator
+- Pace counts must sum to the number of pace-tracked KPI cards (Leads, MQLs, SQLs, MQL ICP, ACV, TD Payments, Pipeline ARR)
+- Red section omitted entirely if no metrics are red; do not include an empty header
 
-## STEP 7: NOTIFY ON SLACK
-
-Send a Slack DM to Lina with:
-
-```
-Weekly report draft ready for review: [Confluence page URL]
-
-Quick numbers: MQLs [value] ([WoW delta] WoW), SQLs [value] ([WoW delta] WoW), ACV $[value], ICP share [value]%
-
-[Count] metrics on pace, [count] at risk, [count] off pace.
-```
+**Slack target:** DM to Lina (handle determined from Slack MCP context at runtime).
 
 ---
 
@@ -313,20 +314,18 @@ Quick numbers: MQLs [value] ([WoW delta] WoW), SQLs [value] ([WoW delta] WoW), A
 The routine requires these MCP connections at runtime:
 
 - **HubSpot MCP** — for all data pulls (steps 3A-3G)
-- **Confluence MCP** — cloud ID `39336249-9666-44dc-aa6f-abfd48a357ce`, space `1298661388`, parent page `2697592850` (step 6)
-- **Slack MCP** — for notification to Lina (step 7)
 - **GitHub MCP** — for commits via `mcp__github__push_files` (step 5C)
+- **Slack MCP** — for notification to Lina (step 6, primary delivery surface)
 
-If Confluence or Slack MCP is unavailable at runtime, continue with all other steps and note the failure in the commit message. The dashboard and snapshot are the source of truth; Confluence and Slack are notification surfaces.
+If Slack MCP is unavailable at runtime, continue with all other steps and note the failure in the commit message. The dashboard and snapshot are the source of truth; Slack is the notification surface. Confluence is created manually by Lina from the Slack message and is not a runtime dependency.
 
 ---
 
 ## ERROR HANDLING
 
 - **HubSpot query fails**: mark the KPI card as "Data unavailable" in gray, continue with all other metrics, note the failure in the Slack message.
-- **GitHub commit fails**: retry once with `mcp__github__push_files`. If it still fails, notify on Slack that the dashboard update failed and include the error.
-- **Confluence page creation fails**: include the dashboard URL directly in the Slack message instead.
-- **Slack notification fails**: the dashboard and Confluence page are still updated. Lina will see them on review.
+- **GitHub commit fails**: retry once with `mcp__github__push_files`. If it still fails, send the Slack notification anyway with a "⚠ dashboard commit failed" prefix and the error message — the snapshot URL won't reflect this week's data but Lina is alerted.
+- **Slack notification fails**: the dashboard and snapshot are still updated on GitHub Pages. Log the failure to the commit message of the next successful run. Lina will see the updated snapshot when she checks the dashboard URL on her own; no fallback channel is required.
 
 Do NOT fall back to local `git push` — it 403s through the proxy.
 
@@ -358,3 +357,4 @@ Do NOT fall back to local `git push` — it 403s through the proxy.
 | Apr 2026 | MQL date field updated to `hs_v2_date_entered_marketingqualifiedlead` | v2 lifecycle property standardization |
 | May 17, 2026 | Routine spec reconciled to match W17-W20 published reports | Original routine draft used outdated field names that would produce divergent numbers |
 | May 17, 2026 | Week definition changed from ISO Mon-Sun to Tue-Mon | Routine fires Tuesday; Tue-Mon gives a clean 7-day window ending yesterday and matches published W17-W19 date convention |
+| May 17, 2026 | Removed Confluence auto-creation; Slack DM is primary delivery | Reduces runtime dependencies (no Confluence MCP needed) and gives Lina control over Confluence page formatting/timing |
