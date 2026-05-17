@@ -6,6 +6,11 @@
 > updated to hs_v2 properties, SQL definition requires demo registration, all queries
 > filtered to list 6894, closed-won scoped to Sales pipelines only. Any future
 > methodology changes should be documented here with the date and reason.
+>
+> **Week definition (May 17, 2026):** Week boundary is **Tue-Mon**, not ISO Mon-Sun.
+> Routine fires Tuesday at 1pm; "current week" = Tuesday of last week through Monday
+> of this week (yesterday). Matches the date convention used in published W17-W19
+> reports. Prior week and YoY windows shift accordingly.
 
 **Schedule:** Every Tuesday at 1:00 PM America/Panama (UTC-5, no DST)
 
@@ -30,15 +35,20 @@ Do NOT ask questions. Execute all steps autonomously. If a HubSpot query fails, 
 
 Calculate the following using today's date (Tuesday):
 
-- **Current week**: Monday through Sunday of the week just ended (the 7 days ending yesterday, Monday)
-- **Prior week**: the 7 days before current week (for WoW comparison)
-- **Same week last year**: the equivalent 7-day window from the prior year (for YoY comparison)
-- **Month-to-date**: first day of current month through yesterday
-- **Q2 dates**: April 1 through June 30, 2026 (91 days)
-- **Q2 day count**: number of days elapsed in Q2 as of yesterday
-- **Current month day count**: number of days elapsed in the current month as of yesterday
-- **Days in current month**: total days in the current month
-- **ISO week number**: for the snapshot folder name (format: YYYY-WNN)
+- **Current week (Tue-Mon)**: Tuesday of last week through Monday of this week (yesterday). The 7-day window ends yesterday (Monday).
+  - Example: routine runs Tue May 19, 2026 → current week = Tue May 12 – Mon May 18.
+- **Prior week (Tue-Mon)**: the 7 days immediately before current week (for WoW comparison).
+  - Example: prior week = Tue May 5 – Mon May 11.
+- **Same week last year (Tue-Mon)**: the equivalent 7-day Tue-Mon window from the prior year, anchored to the same ISO week number (for YoY comparison).
+  - Example: ISO W21 2025 = Tue May 20 – Mon May 26, 2025.
+- **Month-to-date**: first day of current month through yesterday (Monday).
+- **Q2 dates**: April 1 through June 30, 2026 (91 days).
+- **Q2 day count**: number of days elapsed in Q2 as of yesterday.
+- **Current month day count**: number of days elapsed in the current month as of yesterday.
+- **Days in current month**: total days in the current month.
+- **ISO week number for snapshot folder**: use the ISO week containing the ending Monday (yesterday). Folder format: `YYYY-WNN` (e.g. `2026-W21` for a Tue May 12 – Mon May 18 window, because Mon May 18 falls in ISO W21).
+
+**Why Tue-Mon, not ISO Mon-Sun**: the routine fires Tuesday at 1pm Panama. A Mon-Sun definition would either require the routine to wait until the next Tuesday (8-day delay) or report on the prior calendar week (Mon-Sun ending two days before the run). Tue-Mon gives a clean 7-day window ending yesterday, matches the published W17-W19 reports, and aligns reporting cadence with the run cadence.
 
 ---
 
@@ -347,3 +357,4 @@ Do NOT fall back to local `git push` — it 403s through the proxy.
 | Apr 2026 | ACV scoped to Sales Inbound + Sales International pipelines, amount ≥ $10 | Excludes CS pipelines (Retention, Expansion) and test deals that distort new-logo ACV |
 | Apr 2026 | MQL date field updated to `hs_v2_date_entered_marketingqualifiedlead` | v2 lifecycle property standardization |
 | May 17, 2026 | Routine spec reconciled to match W17-W20 published reports | Original routine draft used outdated field names that would produce divergent numbers |
+| May 17, 2026 | Week definition changed from ISO Mon-Sun to Tue-Mon | Routine fires Tuesday; Tue-Mon gives a clean 7-day window ending yesterday and matches published W17-W19 date convention |
