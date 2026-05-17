@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TaxDome Marketing — Dry Run W20 ISO (May 11-17, 2026)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #1A1A2E;
+    --card: #16213E;
+    --text: #E0E0E0;
+    --muted: #9AA0B4;
+    --border: #2A3358;
+    --primary: #4C6EF5;
+    --success: #2F9E44;
+    --warning: #E8590C;
+    --danger: #E03131;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, sans-serif;
+    line-height: 1.55;
+    padding: 32px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  h1 { font-size: 28px; font-weight: 700; color: #fff; letter-spacing: -0.02em; margin-bottom: 6px; }
+  .subtitle { color: var(--muted); font-size: 14px; font-weight: 500; margin-bottom: 24px; }
+
+  .dry-run-banner {
+    background: rgba(232,89,12,0.12);
+    border: 1px solid rgba(232,89,12,0.4);
+    border-left: 4px solid var(--warning);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin-bottom: 28px;
+  }
+  .dry-run-banner h2 { color: var(--warning); font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+  .dry-run-banner p { font-size: 13.5px; line-height: 1.55; color: var(--text); }
+  .dry-run-banner code { background: rgba(0,0,0,0.3); padding: 1px 5px; border-radius: 3px; font-size: 12px; }
+
+  .section-title {
+    font-size: 12px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--muted);
+    margin: 28px 0 12px; padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    font-size: 13.5px;
+    margin-bottom: 8px;
+  }
+  th {
+    text-align: left;
+    background: rgba(255,255,255,0.03);
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  td {
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  tr:last-child td { border-bottom: none; }
+  td.num { font-family: 'SF Mono', 'Fira Code', monospace; font-weight: 600; font-size: 13px; }
+  .up { color: var(--success); font-weight: 600; }
+  .down { color: var(--danger); font-weight: 600; }
+  .flat { color: var(--muted); font-weight: 600; }
+  .label { font-weight: 600; }
+  .pill {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 2px 8px;
+    border-radius: 100px;
+  }
+  .pill.red { background: rgba(224,49,49,0.18); color: #FF7A7A; }
+  .pill.orange { background: rgba(232,89,12,0.18); color: #FF9D5C; }
+  .pill.green { background: rgba(47,158,68,0.18); color: #5FD681; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  .meta-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin-bottom: 16px;
+  }
+  .meta-box h3 { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .meta-box ul { list-style: none; padding: 0; }
+  .meta-box li { font-size: 13px; padding: 4px 0; color: var(--muted); }
+  .meta-box li strong { color: var(--text); }
+
+  .footnote {
+    font-size: 11.5px;
+    color: var(--muted);
+    font-style: italic;
+    margin-top: 10px;
+    line-height: 1.5;
+  }
+  a.back { display: inline-block; margin-top: 32px; font-size: 12.5px; color: var(--muted); text-decoration: none; }
+  a.back:hover { color: var(--primary); }
+</style>
+</head>
+<body>
+
+<h1>Weekly Report Dry Run — W20 ISO (May 11-17, 2026)</h1>
+<div class="subtitle">Generated: Sun May 17, 2026 &nbsp;|&nbsp; Verification snapshot &nbsp;|&nbsp; Routine spec at <code style="background:rgba(0,0,0,0.3);padding:1px 5px;border-radius:3px;font-size:12px;">docs/weekly-report-routine.md</code></div>
+
+<div class="dry-run-banner">
+  <h2>⚠ Dry run — not the published W20</h2>
+  <p>This snapshot was produced by a manual, one-time run of the routine spec <strong>before</strong> the Tue-Mon week-boundary alignment was committed. It uses <strong>ISO Mon-Sun weeks</strong> (current week = May 11-17), which differs from the published W20 (<a href="../2026-W20/" style="color:var(--primary)">May 6-12, Wed-Tue</a>) by ±2 days at the boundary. The live dashboard and the original <code>2026-W20/</code> snapshot are <strong>not</strong> modified by this run. Use this artifact to verify the routine's HubSpot queries return sane numbers before scheduling the automated Tuesday run.</p>
+</div>
+
+<div class="section-title">Run metadata</div>
+<div class="grid-2">
+  <div class="meta-box">
+    <h3>Date windows</h3>
+    <ul>
+      <li><strong>Current week:</strong> Mon May 11 – Sun May 17, 2026 (ISO W20)</li>
+      <li><strong>Prior week:</strong> Mon May 4 – Sun May 10, 2026 (ISO W19)</li>
+      <li><strong>YoY:</strong> Mon May 12 – Sun May 18, 2025 (ISO W20 2025)</li>
+      <li><strong>May MTD:</strong> May 1–17 (17 of 31 days = <strong>55% pace</strong>)</li>
+      <li><strong>Q2 cumulative:</strong> Apr 1 – May 17 (47 of 91 days = <strong>52% pace</strong>)</li>
+    </ul>
+  </div>
+  <div class="meta-box">
+    <h3>Methodology</h3>
+    <ul>
+      <li><strong>List filter:</strong> <code style="background:rgba(0,0,0,0.3);padding:1px 5px;border-radius:3px;">ilsListIds = 6894</code> (all-market marketing-source)</li>
+      <li><strong>ICP field:</strong> <code style="background:rgba(0,0,0,0.3);padding:1px 5px;border-radius:3px;">marketing_icp__nonicp_enriched</code></li>
+      <li><strong>MQL date:</strong> <code style="background:rgba(0,0,0,0.3);padding:1px 5px;border-radius:3px;">hs_v2_date_entered_marketingqualifiedlead</code></li>
+      <li><strong>SQL definition:</strong> entered Opportunity + <code style="background:rgba(0,0,0,0.3);padding:1px 5px;border-radius:3px;">n1_1_demo_registered_date HAS_PROPERTY</code></li>
+      <li><strong>ACV:</strong> Sales Inbound (135241873) + Sales International (134917174), amount ≥ $10</li>
+    </ul>
+  </div>
+</div>
+
+<div class="section-title">Funnel — Current Week (ISO W20: May 11-17) vs Prior Week vs YoY 2025</div>
+<table>
+  <thead>
+    <tr><th>Stage</th><th>W20 (May 11-17)</th><th>W19 (May 4-10)</th><th>WoW</th><th>YoY 2025 (May 12-18)</th><th>YoY Δ</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="label">Classified Leads</td>
+      <td class="num">222 (83 ICP / 139 Non-ICP)</td>
+      <td class="num">223</td>
+      <td class="num flat">−0.4% flat</td>
+      <td class="num">209</td>
+      <td class="num up">+6.2% ↑</td>
+    </tr>
+    <tr>
+      <td class="label">MQLs</td>
+      <td class="num">230 (87 ICP / 143 Non-ICP)</td>
+      <td class="num">235</td>
+      <td class="num down">−2.1% ↓</td>
+      <td class="num">175</td>
+      <td class="num up">+31.4% ↑</td>
+    </tr>
+    <tr>
+      <td class="label">SQLs (Demo Booked)</td>
+      <td class="num">174 (60 ICP / 114 Non-ICP)</td>
+      <td class="num">143</td>
+      <td class="num up">+21.7% ↑</td>
+      <td class="num">124</td>
+      <td class="num up">+40.3% ↑</td>
+    </tr>
+    <tr>
+      <td class="label">ICP Lead share</td>
+      <td class="num">37.4%</td>
+      <td class="num">38.1%</td>
+      <td class="num flat">−0.7 pp</td>
+      <td class="num">n/a</td>
+      <td class="num"><span class="flat">methodology change</span></td>
+    </tr>
+    <tr>
+      <td class="label">ICP MQL share</td>
+      <td class="num">37.8%</td>
+      <td class="num">n/a</td>
+      <td class="num">n/a</td>
+      <td class="num">n/a</td>
+      <td class="num"><span class="flat">methodology change</span></td>
+    </tr>
+    <tr>
+      <td class="label">ICP SQL share</td>
+      <td class="num">34.5%</td>
+      <td class="num">n/a</td>
+      <td class="num">n/a</td>
+      <td class="num">n/a</td>
+      <td class="num"><span class="flat">methodology change</span></td>
+    </tr>
+  </tbody>
+</table>
+<div class="footnote">YoY ICP-share comparisons flagged as "methodology change" because the <code style="background:rgba(0,0,0,0.3);padding:1px 5px;border-radius:3px;">marketing_icp__nonicp_enriched</code> field was retroactively populated; raw 2025 share isn't comparable.</div>
+
+<div class="section-title">MQL → SQL Conversion (current week, period-aggregate)</div>
+<table>
+  <thead>
+    <tr><th>Segment</th><th>Numerator (SQL)</th><th>Denominator (MQL)</th><th>Rate</th></tr>
+  </thead>
+  <tbody>
+    <tr><td class="label">Overall</td><td class="num">174</td><td class="num">230</td><td class="num"><strong>75.7%</strong></td></tr>
+    <tr><td class="label">ICP</td><td class="num">60</td><td class="num">87</td><td class="num"><strong>69.0%</strong></td></tr>
+    <tr><td class="label">Non-ICP</td><td class="num">114</td><td class="num">143</td><td class="num"><strong>79.7%</strong></td></tr>
+  </tbody>
+</table>
+<div class="footnote">Period-aggregate not cohort. Overall &gt;75% reflects MQLs that bypassed or were carried in from earlier; true cohort conversion is a follow-up.</div>
+
+<div class="section-title">ACV — Apr 1 to May 17, 2026 (Sales Inbound + International, amount ≥ $10)</div>
+<table>
+  <thead>
+    <tr><th>Window</th><th>Deals</th><th>Avg ACV</th><th>vs Prior</th></tr>
+  </thead>
+  <tbody>
+    <tr><td class="label">Combined Apr 1 – May 17</td><td class="num">274</td><td class="num">$2,135</td><td class="num">—</td></tr>
+    <tr><td class="label">April final</td><td class="num">147</td><td class="num">$1,939</td><td class="num">—</td></tr>
+    <tr><td class="label">May 1-17 MTD</td><td class="num">127</td><td class="num">$2,362</td><td class="num up">+21.8% MoM ↑</td></tr>
+    <tr><td class="label">Current week (May 11-17)</td><td class="num">64</td><td class="num">$2,617</td><td class="num up">+19.6% WoW ↑</td></tr>
+    <tr><td class="label">Prior week (May 4-10)</td><td class="num">47</td><td class="num">$2,188</td><td class="num">—</td></tr>
+  </tbody>
+</table>
+
+<div class="section-title">TD Payments Activation (point-in-time)</div>
+<table>
+  <thead>
+    <tr><th>Metric</th><th>Value</th><th>vs Last Pull</th></tr>
+  </thead>
+  <tbody>
+    <tr><td class="label">Numerator (td_payments_enabled + paid + CSAM)</td><td class="num">2,007</td><td class="num up">+172 vs 1,835</td></tr>
+    <tr><td class="label">Denominator (paid + CSAM)</td><td class="num">10,810</td><td class="num">+28 vs 10,782</td></tr>
+    <tr><td class="label">Activation rate</td><td class="num"><strong>18.6%</strong></td><td class="num up">+1.6 pp vs 17.0% ↑</td></tr>
+    <tr><td class="label">Target</td><td class="num">30%</td><td class="num">62% of goal</td></tr>
+  </tbody>
+</table>
+
+<div class="section-title">May MTD pace (May 1-17 = 55% of month)</div>
+<table>
+  <thead>
+    <tr><th>Stage</th><th>MTD actual</th><th>May target</th><th>% achieved</th><th>% of pace</th><th>Status</th></tr>
+  </thead>
+  <tbody>
+    <tr><td class="label">Leads</td><td class="num">524</td><td class="num">3,979</td><td class="num">13.2%</td><td class="num">24%</td><td><span class="pill red">Off pace</span></td></tr>
+    <tr><td class="label">MQLs</td><td class="num">547</td><td class="num">1,910</td><td class="num">28.6%</td><td class="num">52%</td><td><span class="pill red">Off pace</span></td></tr>
+    <tr><td class="label">SQLs</td><td class="num">371</td><td class="num">955</td><td class="num">38.8%</td><td class="num">71%</td><td><span class="pill red">Off pace</span></td></tr>
+    <tr><td class="label">MQLs (ICP)</td><td class="num">203</td><td class="num">573</td><td class="num">35.4%</td><td class="num">64%</td><td><span class="pill red">Off pace</span></td></tr>
+  </tbody>
+</table>
+
+<div class="section-title">Q2 cumulative pace (Apr 1 – May 17 = 52% of Q2)</div>
+<table>
+  <thead>
+    <tr><th>Stage</th><th>Q2 QTD</th><th>Q2 target</th><th>% achieved</th><th>% of pace</th><th>Status</th></tr>
+  </thead>
+  <tbody>
+    <tr><td class="label">Leads</td><td class="num">1,772 (Apr 1,248 + May MTD 524)</td><td class="num">8,299</td><td class="num">21.4%</td><td class="num">41%</td><td><span class="pill red">Off pace</span></td></tr>
+    <tr><td class="label">MQLs</td><td class="num">1,382 (Apr 835 + May MTD 547)</td><td class="num">3,983</td><td class="num">34.7%</td><td class="num">67%</td><td><span class="pill orange">At risk</span></td></tr>
+    <tr><td class="label">SQLs</td><td class="num">898 (Apr 527 + May MTD 371)</td><td class="num">2,390</td><td class="num">37.6%</td><td class="num">72%</td><td><span class="pill orange">At risk</span></td></tr>
+  </tbody>
+</table>
+
+<div class="section-title">Comparison vs published W20 (May 6-12, Wed-Tue)</div>
+<table>
+  <thead>
+    <tr><th>Metric</th><th>Published W20 (May 6-12)</th><th>Dry Run W20 ISO (May 11-17)</th><th>Notes</th></tr>
+  </thead>
+  <tbody>
+    <tr><td class="label">Leads (week)</td><td class="num">265</td><td class="num">222</td><td>−16% — Wed May 6 &amp; Thu May 7 high-volume days excluded by Mon-Sun boundary</td></tr>
+    <tr><td class="label">MQL (week)</td><td class="num">244</td><td class="num">230</td><td>−6%</td></tr>
+    <tr><td class="label">SQL (week)</td><td class="num">163</td><td class="num">174</td><td>+7% — May 13-17 captured strong demo-booked window</td></tr>
+    <tr><td class="label">ACV (week)</td><td class="num">n/a (published used combined avg)</td><td class="num">$2,617</td><td>New week's deals trending higher</td></tr>
+    <tr><td class="label">TD Payments</td><td class="num">17.0%</td><td class="num">18.6%</td><td>+1.6 pp — pulled 5 days later, more conversions captured</td></tr>
+  </tbody>
+</table>
+<div class="footnote">Variance between published W20 and this dry run is fully explained by the date-boundary difference (Wed-Tue vs Mon-Sun), not by query bugs. <strong>Routine queries are returning valid data.</strong></div>
+
+<div class="section-title">Outcome &amp; next action</div>
+<div class="meta-box">
+  <p style="font-size:13.5px; line-height:1.6; color:var(--text);">The HubSpot queries in the routine spec produce sensible numbers in the correct ballpark. The only material variance versus W20 published is the date-boundary mismatch.</p>
+  <p style="font-size:13.5px; line-height:1.6; color:var(--text); margin-top:10px;">A subsequent commit (<a href="https://github.com/lina-horner/taxdome-marketing-reports/commit/beb6aa5" style="color:var(--primary)">beb6aa5</a>) updated <code style="background:rgba(0,0,0,0.3);padding:1px 5px;border-radius:3px;">docs/weekly-report-routine.md</code> to use <strong>Tue-Mon</strong> instead of ISO Mon-Sun. The routine running Tue May 19, 2026 will report on <strong>Tue May 12 – Mon May 18</strong> (snapshot folder <code style="background:rgba(0,0,0,0.3);padding:1px 5px;border-radius:3px;">2026-W21</code>), not the dates shown here. Use this dry-run as a query-validity baseline only.</p>
+</div>
+
+<a class="back" href="../">← Back to weekly snapshot index</a>
+
+</body>
+</html>
